@@ -217,8 +217,8 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
 <section class="band samples" id="work">
   <div class="in">
     <h2>Sample work</h2>
-    <p class="lede">How I would run AI adoption for a customer, shown through three working documents.</p>
-    <span class="flag">These are sample pieces I created for this portfolio. The customer is fictional.</span>
+    <p class="lede">How I would help customers adopt a new tool, from the first demo to everyday use, shown through four working documents.</p>
+    <span class="flag">These are sample pieces I created for this portfolio. The customers are fictional.</span>
 
     <details class="sample" open>
       <summary>
@@ -283,6 +283,40 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
         </div>
       </div>
     </details>
+
+    <details class="sample" id="demo-brief">
+      <summary>
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4 5 8v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V8z"/><path d="m10 14 3 3 5-6"/><circle cx="21" cy="7" r="2" fill="#e4572e" stroke="none"/></svg></span>
+        <div><h3>Benefits platform demo brief</h3><p>How I would run discovery and a 30-minute demo of a benefits decision-support tool for an employer and its broker.</p></div>
+        <span class="tog"><span class="o">Open</span><span class="c">Close</span></span>
+      </summary>
+      <div class="sbody">
+        <p class="ctx"><b>Prospect:</b> a fictional 300-person regional manufacturer heading into open enrollment with its insurance broker. <b>Product:</b> a virtual benefits counselor such as Jellyvision’s ALEX, which guides employees through choosing their benefits. <b>Goal of the demo:</b> show HR and the broker how it cuts confusion and support questions this enrollment. <i>Unofficial sample; not affiliated with Jellyvision.</i></p>
+        <div class="phases">
+          <div class="phase"><span class="d">Pain point 1</span><h4>HR is buried in questions</h4><ul><li>Two HR staff answer the same plan questions for 300 employees every enrollment.</li><li>Questions spike in the final week.</li></ul><p class="m"><b>Show:</b> employees getting answers on their own, any time.</p></div>
+          <div class="phase"><span class="d">Pain point 2</span><h4>People pick the wrong plan</h4><ul><li>Most employees re-enroll in the same plan without comparing costs.</li><li>Some overpay; others are underinsured.</li></ul><p class="m"><b>Show:</b> a personalized, plain-language plan comparison.</p></div>
+          <div class="phase"><span class="d">Pain point 3</span><h4>The broker needs proof</h4><ul><li>The broker wants better engagement to show at renewal.</li><li>Leadership wants to know the spend is worth it.</li></ul><p class="m"><b>Show:</b> engagement reporting HR can share.</p></div>
+        </div>
+        <div class="two">
+          <div><h4>Discovery questions I’d ask first</h4><ul><li>What questions does HR hear most during enrollment?</li><li>How do employees choose a plan today, and how confident are they?</li><li>How many employees use the HSA, and how much do they contribute?</li><li>What tools and systems do you already use for benefits?</li><li>What would make this enrollment a win for you and for the broker?</li></ul></div>
+          <div><h4>How I’d measure success</h4><ul><li>Share of employees who used the tool</li><li>Drop in enrollment questions to HR</li><li>Employees who changed plans after comparing</li><li>HSA enrollment and contributions</li><li>Employee confidence in their choice</li></ul></div>
+        </div>
+        <div>
+          <h4>30-minute demo flow</h4>
+          <div class="agenda">
+            <div class="slot"><span class="t">0–5 min</span><div><b>Recap their world</b><span>Restate the three pain points in their words and confirm what matters most.</span></div></div>
+            <div class="slot"><span class="t">5–15 min</span><div><b>Walk in an employee’s shoes</b><span>Enroll as “Maria,” a 34-year-old parent of two, from first question to a plan she understands.</span></div></div>
+            <div class="slot"><span class="t">15–20 min</span><div><b>The HSA moment</b><span>Show how the tool explains an HSA in plain language and helps Maria decide what to contribute.</span></div></div>
+            <div class="slot"><span class="t">20–25 min</span><div><b>The HR and broker view</b><span>Engagement reporting and how it fits the systems they already use.</span></div></div>
+            <div class="slot"><span class="t">25–30 min</span><div><b>Questions and next steps</b><span>Answer concerns, agree on a decision timeline and schedule a technical follow-up.</span></div></div>
+          </div>
+        </div>
+        <div class="two">
+          <div><h4>Objection: “Employees won’t use another tool.”</h4><ul><li>Acknowledge it: adoption is the real risk.</li><li>Show how short and friendly the experience is.</li><li>Offer a launch plan: manager talking points, reminders and a short how-to video.</li></ul></div>
+          <div><h4>Objection: “What about our data and security?”</h4><ul><li>Take it seriously and never guess.</li><li>Explain the basics in plain language.</li><li>Bring in the security team with documentation for a follow-up.</li></ul></div>
+        </div>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -338,5 +372,6 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
   new ResizeObserver(draw).observe(s);
 }
 </script>
+<script>(function(){function o(){var e=location.hash&&document.querySelector(location.hash);if(e&&e.tagName==="DETAILS"){e.open=true;e.scrollIntoView();}}addEventListener("hashchange",o);o();})();</script>
 </body>
 </html>
