@@ -105,6 +105,13 @@ h3{font-size:22px;margin-bottom:.4rem}
 .step{border-radius:16px;padding:18px;background:var(--soft)}
 .step b{display:block;font-size:18px;margin-bottom:.3rem}
 .step p{margin:0;color:var(--muted)}
+.tbl{width:100%;overflow-x:auto}
+.tbl table{width:100%;min-width:640px;border-collapse:collapse;font-size:15px}
+.tbl th,.tbl td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl th{font-size:13.5px;color:var(--muted);font-weight:700}
+.tbl td b{display:block}
+.pill{display:inline-block;padding:.15rem .65rem;border-radius:999px;font-size:13px;font-weight:700;white-space:nowrap}
+.pill.g{background:#dff3e8;color:#1d6b43}.pill.y{background:#fff1d6;color:#8a5a00}.pill.r{background:#fde2da;color:#a3361a}
 
 /* approach */
 .ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
@@ -217,7 +224,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
 <section class="band samples" id="work">
   <div class="in">
     <h2>Sample work</h2>
-    <p class="lede">How I would help customers adopt a new tool, from the first demo to everyday use, shown through four working documents.</p>
+    <p class="lede">How I would help customers adopt a new tool and grow with it, from the first demo to renewal, shown through six working documents.</p>
     <span class="flag">These are sample pieces I created for this portfolio. The customers are fictional.</span>
 
     <details class="sample" open>
@@ -314,6 +321,82 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
         <div class="two">
           <div><h4>Objection: “Employees won’t use another tool.”</h4><ul><li>Acknowledge it: adoption is the real risk.</li><li>Show how short and friendly the experience is.</li><li>Offer a launch plan: manager talking points, reminders and a short how-to video.</li></ul></div>
           <div><h4>Objection: “What about our data and security?”</h4><ul><li>Take it seriously and never guess.</li><li>Explain the basics in plain language.</li><li>Bring in the security team with documentation for a follow-up.</li></ul></div>
+        </div>
+      </div>
+    </details>
+
+    <details class="sample" id="broker-plan">
+      <summary>
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 23V12M10 23V8M16 23V14M22 23V5"/><circle cx="22" cy="5" r="2" fill="#e4572e" stroke="none"/></svg></span>
+        <div><h3>Broker-partner account plan</h3><p>How I would manage a book of employer clients through a strategic benefits broker, from health checks to renewal and growth.</p></div>
+        <span class="tog"><span class="o">Open</span><span class="c">Close</span></span>
+      </summary>
+      <div class="sbody">
+        <p class="ctx"><b>Account:</b> a fictional regional benefits broker, “Lone Star Benefits Group,” with three employer clients using a benefits navigation platform such as HealthJoy. <b>My goal for the year:</b> renew all three, raise member utilization and grow the partnership through the broker. <i>Unofficial sample; not affiliated with HealthJoy.</i></p>
+        <div>
+          <h4>Book health at a glance</h4>
+          <div class="tbl"><table>
+            <thead><tr><th>Employer</th><th>Employees</th><th>Utilization</th><th>Renewal</th><th>Health</th><th>My next move</th></tr></thead>
+            <tbody>
+              <tr><td><b>Midland energy services firm</b>Champion: HR director</td><td>850</td><td>38%, rising</td><td>9 months</td><td><span class="pill g">Healthy</span></td><td>Share wins with the broker and explore an added service before renewal.</td></tr>
+              <tr><td><b>Lubbock school district</b>Champion: benefits coordinator</td><td>1,400</td><td>14%, flat</td><td>4 months</td><td><span class="pill y">Watch</span></td><td>Run a utilization push: payroll stuffers, a 10-minute staff-meeting demo and texts before open enrollment.</td></tr>
+              <tr><td><b>Amarillo manufacturing plant</b>Champion: left the company</td><td>600</td><td>9%, falling</td><td>2 months</td><td><span class="pill r">At risk</span></td><td>Find a new champion this week, and book an exec call with the broker and plant leadership.</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="phases">
+          <div class="phase"><span class="d">Days 1–30</span><h4>Listen and map</h4><ul><li>Meet the broker lead to learn their goals for each client.</li><li>Map stakeholders at each employer, from day-to-day champion to executive.</li><li>Use AI tools like Claude to summarize usage data and call notes into a one-page view per account.</li></ul><p class="m"><b>Success:</b> a stakeholder map and health score for every account.</p></div>
+          <div class="phase"><span class="d">Days 31–60</span><h4>Fix and grow usage</h4><ul><li>Save plan for the at-risk plant: new champion, shift-friendly outreach, onsite visit.</li><li>Utilization campaign for the school district before open enrollment.</li><li>Share member stories and savings with each champion.</li></ul><p class="m"><b>Success:</b> at-risk account back to “Watch”; district utilization up 5 points.</p></div>
+          <div class="phase"><span class="d">Days 61–90</span><h4>Prove value and renew</h4><ul><li>Business reviews with each employer and the broker: usage, savings, member stories.</li><li>Start renewal conversations early, with a clear value story.</li><li>Bring in a solutions consultant for an expansion opportunity at the healthy account.</li></ul><p class="m"><b>Success:</b> renewal commitments in hand; one expansion conversation open.</p></div>
+        </div>
+        <div>
+          <h4>Business review agenda (45 minutes)</h4>
+          <div class="agenda">
+            <div class="slot"><span class="t">0–5 min</span><div><b>Their goals first</b><span>Recap what the employer and broker said mattered most.</span></div></div>
+            <div class="slot"><span class="t">5–20 min</span><div><b>Results</b><span>Utilization, member savings and satisfaction, with two real (anonymized) member stories.</span></div></div>
+            <div class="slot"><span class="t">20–30 min</span><div><b>What’s not working</b><span>Name the gaps honestly and share the plan to close them.</span></div></div>
+            <div class="slot"><span class="t">30–40 min</span><div><b>What’s next</b><span>Upcoming enrollment plans and services that fit their workforce.</span></div></div>
+            <div class="slot"><span class="t">40–45 min</span><div><b>Agree on next steps</b><span>Owners, dates and the next check-in.</span></div></div>
+          </div>
+        </div>
+        <div class="two">
+          <div><h4>Early warning signs I watch</h4><ul><li>Our champion leaves or goes quiet</li><li>Utilization flat for two months</li><li>Broker stops inviting us to client meetings</li><li>Escalations repeating on the same issue</li></ul></div>
+          <div><h4>What I’d measure</h4><ul><li>Net dollar retention across the book</li><li>Member utilization by employer</li><li>Health scores, reviewed monthly</li><li>Renewals closed on time</li></ul></div>
+        </div>
+      </div>
+    </details>
+
+    <details class="sample" id="ai-success-plan">
+      <summary>
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="20" height="18" rx="3"/><path d="M9 11h10M9 15h6M9 19h8"/><circle cx="21" cy="8" r="2" fill="#e4572e" stroke="none"/></svg></span>
+        <div><h3>Enterprise AI workflow success plan</h3><p>How I would help an enterprise customer adopt AI inside a work management platform and show real business results.</p></div>
+        <span class="tog"><span class="o">Open</span><span class="c">Close</span></span>
+      </summary>
+      <div class="sbody">
+        <p class="ctx"><b>Account:</b> a fictional 1,200-person retail company whose marketing and operations teams just bought AI features in a work management platform such as Asana. <b>Shared goal:</b> cut campaign launch time by 20% in 90 days using AI workflows. <i>Unofficial sample; not affiliated with Asana.</i></p>
+        <div>
+          <h4>Workflow map: where AI helps first</h4>
+          <div class="tbl"><table>
+            <thead><tr><th>Workflow</th><th>Today</th><th>With AI</th><th>How we’ll measure it</th></tr></thead>
+            <tbody>
+              <tr><td><b>Campaign intake</b>Marketing</td><td>Requests arrive by email and chat; details get lost.</td><td>An AI agent turns each request into a complete task with owner, due date and missing details flagged.</td><td>Time from request to kickoff</td></tr>
+              <tr><td><b>Weekly status updates</b>Marketing and ops</td><td>Managers spend about 2 hours a week writing updates.</td><td>AI drafts status summaries from project activity; managers review and send.</td><td>Hours saved per manager</td></tr>
+              <tr><td><b>Launch risk check</b>Operations</td><td>Late tasks surface in the final week.</td><td>AI flags at-risk tasks and blocked dependencies every morning.</td><td>Launches delivered on time</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="phases">
+          <div class="phase"><span class="d">Day 30</span><h4>First workflow live</h4><ul><li>Joint success plan signed off by the executive sponsor.</li><li>Campaign intake agent running for one pilot team.</li><li>Baseline measured: current launch time and hours on status updates.</li></ul><p class="m"><b>Benchmark:</b> 60% of pilot requests through the agent.</p></div>
+          <div class="phase"><span class="d">Day 60</span><h4>Expand and coach</h4><ul><li>Status summaries and risk checks rolled out to all marketing teams.</li><li>Office hours and a champion in each team.</li><li>Fix what users say isn’t working.</li></ul><p class="m"><b>Benchmark:</b> 70% of managers using AI status drafts weekly.</p></div>
+          <div class="phase"><span class="d">Day 90</span><h4>Prove the outcome</h4><ul><li>Executive business review with before-and-after results.</li><li>Agree on the next teams and workflows.</li><li>Flag expansion if usage is beyond plan.</li></ul><p class="m"><b>Benchmark:</b> launch time down 20%; next phase agreed.</p></div>
+        </div>
+        <div class="two">
+          <div><h4>Executive review: what I’d show</h4><ul><li>The goal we agreed on and where we landed</li><li>Hours saved and launches on time, before vs. after</li><li>One team’s story in their own words</li><li>The next three workflows, ranked by impact</li></ul></div>
+          <div><h4>Account health signals</h4><ul><li>AI feature usage week over week</li><li>Number of teams with a live AI workflow</li><li>Executive sponsor engagement</li><li>Support tickets about trust or accuracy</li></ul></div>
+        </div>
+        <div class="two">
+          <div><h4>Change management, built in</h4><ul><li>Start with the team that feels the pain most</li><li>Show people how to check AI output, so trust is earned</li><li>Celebrate early wins company-wide</li></ul></div>
+          <div><h4>When to bring in others</h4><ul><li>Technical setup or integrations: solutions team</li><li>Expansion or pricing: account executive</li><li>Repeated product gaps: product team, with examples</li></ul></div>
         </div>
       </div>
     </details>
