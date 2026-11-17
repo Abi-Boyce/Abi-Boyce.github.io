@@ -224,7 +224,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
 <section class="band samples" id="work">
   <div class="in">
     <h2>Sample work</h2>
-    <p class="lede">How I would help customers adopt a new tool and grow with it, from the first demo to renewal, shown through seven working documents.</p>
+    <p class="lede">How I would help customers adopt a new tool and grow with it, from the first demo to renewal, shown through seven working documents and one live automation.</p>
     <span class="flag">These are sample pieces I created for this portfolio. The customers are fictional.</span>
 
     <details class="sample" open>
@@ -440,6 +440,47 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
             <div class="slot"><span class="t">22–30 min</span><div><b>Next year</b><span>New goals, new use cases and the renewal timeline.</span></div></div>
           </div>
         </div>
+      </div>
+    </details>
+
+    <details class="sample" id="outreach-pipeline">
+      <summary>
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="8" height="6" rx="1.5"/><rect x="17" y="18" width="8" height="6" rx="1.5"/><path d="M7 10v5a3 3 0 0 0 3 3h7"/><circle cx="21" cy="8" r="2.2" fill="#e4572e" stroke="none"/></svg></span>
+        <div><h3>AI-powered outreach pipeline (built in Zapier)</h3><p>A live automation that turns a saved contact into a personal LinkedIn note that points to the right portfolio project, with a person reviewing every message before it’s sent.</p></div>
+        <span class="tog"><span class="o">Open</span><span class="c">Close</span></span>
+      </summary>
+      <div class="sbody">
+        <p class="ctx"><b>The problem:</b> personal outreach works, but writing a thoughtful note for every person takes time, and generic templates get ignored. <b>What I built:</b> a four-step Zap that drafts a short, specific message for each new contact and matches it to the most relevant project on this site. <b>The rule:</b> the AI drafts and I decide. Nothing sends automatically.</p>
+        <div>
+          <h4>The live Zap</h4>
+          <img src="zap-flow.png" alt="Zapier editor showing the published four-step Zap: New Contact in Apollo, Formatter lookup of portfolio project, AI by Zapier writes a LinkedIn connection message, Zapier Tables creates a record in Outreach Drafts." style="width:100%;max-width:440px;border-radius:10px;border:1px solid rgba(0,0,0,.12);display:block;margin:.5rem 0 1rem">
+        </div>
+        <div>
+          <h4>How it works</h4>
+          <div class="tbl"><table>
+            <thead><tr><th>Step</th><th>Tool</th><th>What it does</th><th>Why it matters</th></tr></thead>
+            <tbody>
+              <tr><td><b>1. Trigger</b></td><td>Apollo</td><td>Starts when I save a new contact: name, title, company, LinkedIn.</td><td>One click is the only manual step before review.</td></tr>
+              <tr><td><b>2. Match</b></td><td>Formatter (lookup table)</td><td>Maps the company to the portfolio project built for that kind of customer, with this homepage as the fallback.</td><td>Every message links to proof that is relevant to the reader.</td></tr>
+              <tr><td><b>3. Draft</b></td><td>AI by Zapier</td><td>Writes a warm connection note under 300 characters, using the contact’s first name, title and company, plus the matched link. Output is a structured text field so later steps can use it reliably.</td><td>Personal at scale, within LinkedIn’s character limit.</td></tr>
+              <tr><td><b>4. Queue</b></td><td>Zapier Tables</td><td>Saves the contact, matched project and draft to an “Outreach Drafts” table with status <b>Draft</b>.</td><td>A human review queue, so nothing goes out unchecked.</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div>
+          <h4>Example output (fictional contact)</h4>
+          <div class="tbl"><table>
+            <thead><tr><th>Name</th><th>Title</th><th>Company</th><th>Matched project</th><th>AI draft</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Jordan R.</td><td>Talent Acquisition Partner</td><td>Atlassian</td><td><a href="#dx-lifecycle">Lifecycle plan</a></td><td>“Hi Jordan, I recently applied for the Associate CSM role at Atlassian and built a customer lifecycle plan for an engineering insights customer to show how I’d approach it. Would you be open to connecting?”</td><td><span class="pill y">Draft</span></td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="two">
+          <div><h4>What I had to solve</h4><ul><li>Apollo’s free plan doesn’t include a CRM connection, so I connected it through an API key instead.</li><li>The AI step failed until its output field was set as a structured Text type, which I fixed and retested.</li><li>Google Sheets wasn’t a reliable target, so I switched to Zapier Tables.</li></ul></div>
+          <div><h4>Guardrails</h4><ul><li>Drafts only. I review, edit and send every message myself.</li><li>Each step was tested with sample data before going live.</li><li>Real contacts’ details stay private and are never published here.</li></ul></div>
+        </div>
+        <p class="ctx"><b>Where this came from:</b> when I started appointment setting, I wasn’t happy with the scripts I was given, so I used AI to help me rewrite them. My bookings went from 3–5 a week to 10–15. This pipeline uses the same approach for outreach: AI handles the first draft, and my judgment decides what gets sent.</p>
       </div>
     </details>
   </div>
