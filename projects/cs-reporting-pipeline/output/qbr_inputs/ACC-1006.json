@@ -1,0 +1,14 @@
+{
+  "account_id": "ACC-1006",
+  "account_name": "Cedar Media",
+  "segment": "Enterprise",
+  "health_score": 33.0,
+  "health_band": "At risk",
+  "days_to_renewal": 337,
+  "active_rate_recent_pct": 9.8,
+  "active_rate_prior_pct": 20.6,
+  "integrations_now": 7,
+  "target_integrations": 10,
+  "open_p1_p2_tickets": 1,
+  "tickets_last_30_days": 2
+}

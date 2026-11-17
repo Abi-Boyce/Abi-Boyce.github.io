@@ -1,0 +1,96 @@
+ticket_id,account_id,priority,subject,queue
+ZD-50276,ACC-1031,P1,API token expired for integration,Integrations
+ZD-50240,ACC-1036,P1,SSO login failing for admin users,Identity & SSO
+ZD-50096,ACC-1010,P2,API token expired for integration,Integrations
+ZD-50007,ACC-1028,P2,Report export timing out,Performance
+ZD-50008,ACC-1003,P2,How do we add a new workspace?,Needs review (LLM suggestion + human check)
+ZD-50309,ACC-1013,P2,Need help understanding a posture finding,Needs review (LLM suggestion + human check)
+ZD-50308,ACC-1011,P2,Need help understanding a posture finding,Needs review (LLM suggestion + human check)
+ZD-50306,ACC-1037,P2,How do we add a new workspace?,Needs review (LLM suggestion + human check)
+ZD-50305,ACC-1039,P2,Connector to Salesforce shows auth error,Integrations
+ZD-50267,ACC-1018,P2,Too many alerts from new detection rule,Detections & alerts
+ZD-50251,ACC-1028,P2,Too many alerts from new detection rule,Detections & alerts
+ZD-50218,ACC-1003,P2,Need help understanding a posture finding,Needs review (LLM suggestion + human check)
+ZD-50215,ACC-1006,P2,Dashboard loads slowly,Performance
+ZD-50209,ACC-1023,P2,Need help understanding a posture finding,Needs review (LLM suggestion + human check)
+ZD-50154,ACC-1037,P2,Okta integration not syncing users,Identity & SSO
+ZD-50152,ACC-1030,P2,Request for training session for new admins,Needs review (LLM suggestion + human check)
+ZD-50057,ACC-1014,P2,Report export timing out,Performance
+ZD-50147,ACC-1026,P2,API token expired for integration,Integrations
+ZD-50093,ACC-1007,P2,Too many alerts from new detection rule,Detections & alerts
+ZD-50054,ACC-1015,P2,SSO login failing for admin users,Identity & SSO
+ZD-50002,ACC-1011,P3,Connector to Salesforce shows auth error,Integrations
+ZD-50032,ACC-1029,P3,Report export timing out,Performance
+ZD-50051,ACC-1031,P3,SSO login failing for admin users,Identity & SSO
+ZD-50053,ACC-1027,P3,Report export timing out,Performance
+ZD-50056,ACC-1028,P3,Okta integration not syncing users,Identity & SSO
+ZD-50065,ACC-1027,P3,Report export timing out,Performance
+ZD-50318,ACC-1016,P3,SSO login failing for admin users,Identity & SSO
+ZD-50072,ACC-1032,P3,API token expired for integration,Integrations
+ZD-50310,ACC-1003,P3,Need help understanding a posture finding,Needs review (LLM suggestion + human check)
+ZD-50083,ACC-1025,P3,Okta integration not syncing users,Identity & SSO
+ZD-50088,ACC-1014,P3,Request for training session for new admins,Needs review (LLM suggestion + human check)
+ZD-50089,ACC-1021,P3,Billing contact change,Needs review (LLM suggestion + human check)
+ZD-50098,ACC-1026,P3,API token expired for integration,Integrations
+ZD-50114,ACC-1028,P3,API token expired for integration,Integrations
+ZD-50116,ACC-1035,P3,Too many alerts from new detection rule,Detections & alerts
+ZD-50117,ACC-1037,P3,Connector to Salesforce shows auth error,Integrations
+ZD-50119,ACC-1016,P3,Connector to Salesforce shows auth error,Integrations
+ZD-50120,ACC-1002,P3,Request for training session for new admins,Needs review (LLM suggestion + human check)
+ZD-50013,ACC-1033,P3,Connector to Salesforce shows auth error,Integrations
+ZD-50128,ACC-1026,P3,Dashboard loads slowly,Performance
+ZD-50017,ACC-1026,P3,Report export timing out,Performance
+ZD-50135,ACC-1028,P3,How do we add a new workspace?,Needs review (LLM suggestion + human check)
+ZD-50136,ACC-1013,P3,Request for training session for new admins,Needs review (LLM suggestion + human check)
+ZD-50138,ACC-1017,P3,Dashboard loads slowly,Performance
+ZD-50018,ACC-1004,P3,Billing contact change,Needs review (LLM suggestion + human check)
+ZD-50144,ACC-1007,P3,Connector to Salesforce shows auth error,Integrations
+ZD-50151,ACC-1005,P3,Need help understanding a posture finding,Needs review (LLM suggestion + human check)
+ZD-50016,ACC-1007,P3,How do we add a new workspace?,Needs review (LLM suggestion + human check)
+ZD-50039,ACC-1011,P3,Too many alerts from new detection rule,Detections & alerts
+ZD-50156,ACC-1025,P3,Billing contact change,Needs review (LLM suggestion + human check)
+ZD-50161,ACC-1007,P3,Billing contact change,Needs review (LLM suggestion + human check)
+ZD-50022,ACC-1021,P3,API token expired for integration,Integrations
+ZD-50167,ACC-1022,P3,Connector to Salesforce shows auth error,Integrations
+ZD-50169,ACC-1008,P3,Okta integration not syncing users,Identity & SSO
+ZD-50171,ACC-1004,P3,Report export timing out,Performance
+ZD-50172,ACC-1003,P3,Need help understanding a posture finding,Needs review (LLM suggestion + human check)
+ZD-50180,ACC-1026,P3,API token expired for integration,Integrations
+ZD-50304,ACC-1016,P3,Need help understanding a posture finding,Needs review (LLM suggestion + human check)
+ZD-50187,ACC-1020,P3,Too many alerts from new detection rule,Detections & alerts
+ZD-50283,ACC-1023,P3,SSO login failing for admin users,Identity & SSO
+ZD-50194,ACC-1035,P3,Billing contact change,Needs review (LLM suggestion + human check)
+ZD-50201,ACC-1040,P3,Billing contact change,Needs review (LLM suggestion + human check)
+ZD-50280,ACC-1015,P3,Need help understanding a posture finding,Needs review (LLM suggestion + human check)
+ZD-50023,ACC-1023,P3,Too many alerts from new detection rule,Detections & alerts
+ZD-50273,ACC-1021,P3,Need help understanding a posture finding,Needs review (LLM suggestion + human check)
+ZD-50212,ACC-1027,P3,Question about a risky OAuth app alert,Detections & alerts
+ZD-50031,ACC-1021,P3,Report export timing out,Performance
+ZD-50246,ACC-1030,P3,Billing contact change,Needs review (LLM suggestion + human check)
+ZD-50219,ACC-1024,P3,Okta integration not syncing users,Identity & SSO
+ZD-50245,ACC-1030,P3,SSO login failing for admin users,Identity & SSO
+ZD-59999,ACC-9999,P3,Dashboard loads slowly,Performance
+ZD-50239,ACC-1039,P4,How do we add a new workspace?,Needs review (LLM suggestion + human check)
+ZD-50236,ACC-1013,P4,API token expired for integration,Integrations
+ZD-50033,ACC-1005,P4,Okta integration not syncing users,Identity & SSO
+ZD-50034,ACC-1027,P4,Too many alerts from new detection rule,Detections & alerts
+ZD-50028,ACC-1023,P4,Too many alerts from new detection rule,Detections & alerts
+ZD-50271,ACC-1005,P4,Question about a risky OAuth app alert,Detections & alerts
+ZD-50272,ACC-1021,P4,API token expired for integration,Integrations
+ZD-50037,ACC-1003,P4,How do we add a new workspace?,Needs review (LLM suggestion + human check)
+ZD-50205,ACC-1018,P4,Okta integration not syncing users,Identity & SSO
+ZD-50277,ACC-1014,P4,Question about a risky OAuth app alert,Detections & alerts
+ZD-50203,ACC-1022,P4,Connector to Salesforce shows auth error,Integrations
+ZD-50190,ACC-1021,P4,Billing contact change,Needs review (LLM suggestion + human check)
+ZD-50284,ACC-1018,P4,SSO login failing for admin users,Identity & SSO
+ZD-50290,ACC-1002,P4,Dashboard loads slowly,Performance
+ZD-50295,ACC-1019,P4,Report export timing out,Performance
+ZD-50184,ACC-1013,P4,Question about a risky OAuth app alert,Detections & alerts
+ZD-50162,ACC-1007,P4,Billing contact change,Needs review (LLM suggestion + human check)
+ZD-50139,ACC-1024,P4,Too many alerts from new detection rule,Detections & alerts
+ZD-50307,ACC-1031,P4,How do we add a new workspace?,Needs review (LLM suggestion + human check)
+ZD-50129,ACC-1040,P4,How do we add a new workspace?,Needs review (LLM suggestion + human check)
+ZD-50123,ACC-1032,P4,Request for training session for new admins,Needs review (LLM suggestion + human check)
+ZD-50078,ACC-1002,P4,Connector to Salesforce shows auth error,Integrations
+ZD-50069,ACC-1016,P4,How do we add a new workspace?,Needs review (LLM suggestion + human check)
+ZD-50049,ACC-1011,P4,Too many alerts from new detection rule,Detections & alerts

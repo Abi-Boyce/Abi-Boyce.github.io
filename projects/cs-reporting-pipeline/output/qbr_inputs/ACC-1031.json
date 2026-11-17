@@ -1,0 +1,14 @@
+{
+  "account_id": "ACC-1031",
+  "account_name": "Silver Health",
+  "segment": "Enterprise",
+  "health_score": 29.0,
+  "health_band": "At risk",
+  "days_to_renewal": 279,
+  "active_rate_recent_pct": 4.0,
+  "active_rate_prior_pct": 12.0,
+  "integrations_now": 5,
+  "target_integrations": 12,
+  "open_p1_p2_tickets": 1,
+  "tickets_last_30_days": 3
+}

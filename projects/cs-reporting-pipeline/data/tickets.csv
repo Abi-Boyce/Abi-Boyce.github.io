@@ -1,0 +1,322 @@
+ticket_id,account_id,created_date,priority,subject,status,first_response_hours
+ZD-50000,ACC-1007,2026-08-23,P2,Dashboard loads slowly,solved,5.4
+ZD-50001,ACC-1040,2026-08-22,P3,Billing contact change,solved,2.0
+ZD-50002,ACC-1011,2026-09-12,P3,Connector to Salesforce shows auth error,open,25.7
+ZD-50003,ACC-1011,2026-10-01,P2,Dashboard loads slowly,solved,18.9
+ZD-50004,ACC-1017,2026-11-13,P3,Report export timing out,solved,9.2
+ZD-50005,ACC-1012,2026-09-12,P2,Okta integration not syncing users,solved,24.3
+ZD-50006,ACC-1038,2026-09-05,P4,Question about a risky OAuth app alert,solved,19.7
+ZD-50007,ACC-1028,2026-09-26,P2,Report export timing out,open,26.3
+ZD-50008,ACC-1003,2026-09-17,P2,How do we add a new workspace?,pending,16.5
+ZD-50009,ACC-1012,2026-08-26,P2,How do we add a new workspace?,solved,14.0
+ZD-50010,ACC-1014,2026-11-06,P3,Too many alerts from new detection rule,solved,9.7
+ZD-50011,ACC-1024,2026-10-03,P3,Request for training session for new admins,solved,0.4
+ZD-50012,ACC-1020,2026-09-24,P4,Okta integration not syncing users,solved,5.0
+ZD-50013,ACC-1033,2026-10-20,P3,Connector to Salesforce shows auth error,pending,4.7
+ZD-50014,ACC-1006,2026-11-07,P3,Question about a risky OAuth app alert,solved,15.9
+ZD-50015,ACC-1028,2026-09-02,P2,API token expired for integration,solved,11.7
+ZD-50016,ACC-1007,2026-09-28,P3,How do we add a new workspace?,open,27.7
+ZD-50017,ACC-1026,2026-09-15,P3,Report export timing out,open,9.8
+ZD-50018,ACC-1004,2026-10-10,P3,Billing contact change,pending,16.2
+ZD-50019,ACC-1004,2026-11-06,P4,Too many alerts from new detection rule,solved,16.1
+ZD-50020,ACC-1013,2026-10-13,P2,API token expired for integration,solved,16.3
+ZD-50021,ACC-1015,2026-08-31,P3,Connector to Salesforce shows auth error,solved,19.3
+ZD-50022,ACC-1021,2026-10-23,P3,API token expired for integration,open,2.0
+ZD-50023,ACC-1023,2026-08-24,P3,Too many alerts from new detection rule,open,26.4
+ZD-50024,ACC-1022,2026-10-21,P4,SSO login failing for admin users,solved,5.4
+ZD-50025,ACC-1025,2026-09-21,P4,Connector to Salesforce shows auth error,solved,6.9
+ZD-50026,ACC-1021,2026-09-15,P4,API token expired for integration,solved,0.8
+ZD-50027,ACC-1025,2026-10-10,P3,Connector to Salesforce shows auth error,solved,8.8
+ZD-50028,ACC-1023,2026-10-24,P4,Too many alerts from new detection rule,open,17.4
+ZD-50029,ACC-1030,2026-10-11,P4,Billing contact change,solved,29.6
+ZD-50030,ACC-1013,2026-09-13,P4,Billing contact change,solved,8.9
+ZD-50031,ACC-1021,2026-11-05,P3,Report export timing out,open,2.5
+ZD-50032,ACC-1029,2026-10-02,P3,Report export timing out,pending,3.7
+ZD-50033,ACC-1005,2026-10-28,P4,Okta integration not syncing users,open,24.0
+ZD-50034,ACC-1027,2026-09-19,P4,Too many alerts from new detection rule,open,14.2
+ZD-50035,ACC-1040,2026-09-02,P3,Report export timing out,solved,28.3
+ZD-50036,ACC-1023,2026-10-09,P3,Question about a risky OAuth app alert,solved,28.4
+ZD-50037,ACC-1003,2026-08-29,P4,How do we add a new workspace?,pending,24.9
+ZD-50038,ACC-1009,2026-09-19,P1,Report export timing out,solved,0.5
+ZD-50039,ACC-1011,2026-09-12,P3,Too many alerts from new detection rule,pending,19.9
+ZD-50040,ACC-1023,2026-09-03,P4,Report export timing out,solved,13.1
+ZD-50041,ACC-1021,2026-10-07,P3,Request for training session for new admins,solved,16.4
+ZD-50042,ACC-1027,2026-09-16,P3,Too many alerts from new detection rule,solved,28.9
+ZD-50043,ACC-1018,2026-09-21,P4,Dashboard loads slowly,solved,7.9
+ZD-50044,ACC-1021,2026-11-09,P4,Question about a risky OAuth app alert,solved,16.2
+ZD-50045,ACC-1013,2026-10-15,P3,Need help understanding a posture finding,solved,9.4
+ZD-50046,ACC-1007,2026-09-12,P3,SSO login failing for admin users,solved,14.9
+ZD-50047,ACC-1002,2026-09-12,P3,Okta integration not syncing users,solved,12.2
+ZD-50048,ACC-1001,2026-10-01,P4,Billing contact change,solved,13.4
+ZD-50049,ACC-1011,2026-11-14,P4,Too many alerts from new detection rule,pending,0.9
+ZD-50050,ACC-1032,2026-09-24,P3,Report export timing out,solved,17.0
+ZD-50051,ACC-1031,2026-11-09,P3,SSO login failing for admin users,pending,13.2
+ZD-50052,ACC-1034,2026-10-02,P3,Need help understanding a posture finding,solved,28.8
+ZD-50053,ACC-1027,2026-10-11,P3,Report export timing out,open,0.8
+ZD-50054,ACC-1015,2026-10-20,P2,SSO login failing for admin users,open,3.5
+ZD-50055,ACC-1036,2026-09-17,P1,Dashboard loads slowly,solved,24.2
+ZD-50056,ACC-1028,2026-10-28,P3,Okta integration not syncing users,pending,16.5
+ZD-50057,ACC-1014,2026-11-09,P2,Report export timing out,open,5.5
+ZD-50058,ACC-1027,2026-09-30,P4,SSO login failing for admin users,solved,24.8
+ZD-50059,ACC-1027,2026-08-31,P3,Billing contact change,solved,25.0
+ZD-50060,ACC-1036,2026-09-03,P3,API token expired for integration,solved,19.1
+ZD-50061,ACC-1014,2026-08-19,P3,Okta integration not syncing users,solved,14.8
+ZD-50062,ACC-1034,2026-08-19,P2,Okta integration not syncing users,solved,14.6
+ZD-50063,ACC-1009,2026-10-31,P2,Billing contact change,solved,18.8
+ZD-50064,ACC-1019,2026-08-25,P1,SSO login failing for admin users,solved,15.1
+ZD-50065,ACC-1027,2026-11-08,P3,Report export timing out,open,12.3
+ZD-50066,ACC-1012,2026-11-03,P4,Need help understanding a posture finding,solved,19.3
+ZD-50067,ACC-1016,2026-09-05,P2,Connector to Salesforce shows auth error,solved,14.0
+ZD-50068,ACC-1016,2026-10-13,P3,Need help understanding a posture finding,solved,2.7
+ZD-50069,ACC-1016,2026-09-19,P4,How do we add a new workspace?,pending,9.4
+ZD-50070,ACC-1027,2026-08-24,P3,API token expired for integration,solved,22.2
+ZD-50071,ACC-1014,2026-10-03,P2,Dashboard loads slowly,solved,21.5
+ZD-50072,ACC-1032,2026-10-14,P3,API token expired for integration,open,3.5
+ZD-50073,ACC-1036,2026-09-08,P3,Dashboard loads slowly,solved,6.1
+ZD-50074,ACC-1016,2026-10-27,P3,Dashboard loads slowly,solved,22.8
+ZD-50075,ACC-1028,2026-10-04,P3,Okta integration not syncing users,solved,17.6
+ZD-50076,ACC-1011,2026-10-16,P2,Connector to Salesforce shows auth error,solved,15.0
+ZD-50077,ACC-1018,2026-09-25,P4,API token expired for integration,solved,27.2
+ZD-50078,ACC-1002,2026-09-14,P4,Connector to Salesforce shows auth error,open,22.9
+ZD-50079,ACC-1040,2026-10-31,P3,Report export timing out,solved,0.8
+ZD-50080,ACC-1024,2026-08-24,P3,Dashboard loads slowly,solved,9.4
+ZD-50081,ACC-1039,2026-09-28,P3,Connector to Salesforce shows auth error,solved,0.6
+ZD-50082,ACC-1019,2026-09-20,P3,Request for training session for new admins,solved,10.8
+ZD-50083,ACC-1025,2026-11-07,P3,Okta integration not syncing users,open,26.8
+ZD-50084,ACC-1018,2026-09-11,P2,Report export timing out,solved,23.4
+ZD-50085,ACC-1006,2026-09-29,P2,Report export timing out,solved,9.1
+ZD-50086,ACC-1004,2026-10-02,P3,Okta integration not syncing users,solved,11.1
+ZD-50087,ACC-1009,2026-10-01,P4,Question about a risky OAuth app alert,solved,28.8
+ZD-50088,ACC-1014,2026-10-21,P3,Request for training session for new admins,open,5.0
+ZD-50089,ACC-1021,2026-10-24,P3,Billing contact change,pending,10.7
+ZD-50090,ACC-1022,2026-10-21,P3,SSO login failing for admin users,solved,29.3
+ZD-50091,ACC-1024,2026-10-20,P3,Report export timing out,solved,11.6
+ZD-50092,ACC-1040,2026-10-04,P3,Too many alerts from new detection rule,solved,14.9
+ZD-50093,ACC-1007,2026-08-31,P2,Too many alerts from new detection rule,open,22.8
+ZD-50094,ACC-1005,2026-10-06,P4,Dashboard loads slowly,solved,6.4
+ZD-50095,ACC-1004,2026-09-10,P3,SSO login failing for admin users,solved,8.6
+ZD-50096,ACC-1010,2026-10-30,P2,API token expired for integration,open,14.8
+ZD-50097,ACC-1002,2026-11-17,P3,How do we add a new workspace?,solved,25.8
+ZD-50098,ACC-1026,2026-11-15,P3,API token expired for integration,open,20.9
+ZD-50099,ACC-1039,2026-08-27,P3,Okta integration not syncing users,solved,19.4
+ZD-50100,ACC-1031,2026-10-24,P3,Okta integration not syncing users,solved,16.3
+ZD-50101,ACC-1007,2026-08-26,P3,Too many alerts from new detection rule,solved,14.7
+ZD-50102,ACC-1039,2026-09-12,P3,Okta integration not syncing users,solved,20.0
+ZD-50103,ACC-1040,2026-11-07,P3,API token expired for integration,solved,16.7
+ZD-50104,ACC-1001,2026-10-25,P3,Question about a risky OAuth app alert,solved,25.6
+ZD-50105,ACC-1028,2026-09-02,P2,How do we add a new workspace?,solved,22.0
+ZD-50106,ACC-1005,2026-09-05,P4,SSO login failing for admin users,solved,5.5
+ZD-50107,ACC-1006,2026-10-28,P4,Request for training session for new admins,solved,3.7
+ZD-50108,ACC-1029,2026-08-29,P4,Too many alerts from new detection rule,solved,24.7
+ZD-50109,ACC-1007,2026-10-02,P3,Billing contact change,solved,12.2
+ZD-50110,ACC-1009,2026-09-11,P3,Report export timing out,solved,6.5
+ZD-50111,ACC-1003,2026-11-07,P4,Dashboard loads slowly,solved,6.2
+ZD-50112,ACC-1018,2026-11-12,P3,Dashboard loads slowly,solved,17.8
+ZD-50113,ACC-1008,2026-09-07,P3,Request for training session for new admins,solved,24.2
+ZD-50114,ACC-1028,2026-10-29,P3,API token expired for integration,open,26.2
+ZD-50115,ACC-1027,2026-10-22,P4,SSO login failing for admin users,solved,20.4
+ZD-50116,ACC-1035,2026-10-10,P3,Too many alerts from new detection rule,open,13.7
+ZD-50117,ACC-1037,2026-10-28,P3,Connector to Salesforce shows auth error,open,4.0
+ZD-50118,ACC-1035,2026-08-24,P2,API token expired for integration,solved,24.6
+ZD-50119,ACC-1016,2026-11-09,P3,Connector to Salesforce shows auth error,open,4.0
+ZD-50120,ACC-1002,2026-10-02,P3,Request for training session for new admins,pending,23.0
+ZD-50121,ACC-1011,2026-10-24,P3,Too many alerts from new detection rule,solved,23.9
+ZD-50122,ACC-1011,2026-08-22,P3,Okta integration not syncing users,solved,9.5
+ZD-50123,ACC-1032,2026-10-19,P4,Request for training session for new admins,open,13.6
+ZD-50124,ACC-1031,2026-11-16,P3,Dashboard loads slowly,solved,24.4
+ZD-50125,ACC-1001,2026-10-12,P3,Request for training session for new admins,solved,23.5
+ZD-50126,ACC-1032,2026-10-07,P3,Report export timing out,solved,17.7
+ZD-50127,ACC-1037,2026-11-02,P4,Report export timing out,solved,13.2
+ZD-50128,ACC-1026,2026-10-25,P3,Dashboard loads slowly,open,4.7
+ZD-50129,ACC-1040,2026-10-31,P4,How do we add a new workspace?,open,27.0
+ZD-50130,ACC-1023,2026-09-30,P4,Dashboard loads slowly,solved,16.3
+ZD-50131,ACC-1038,2026-11-04,P4,Connector to Salesforce shows auth error,solved,14.2
+ZD-50132,ACC-1008,2026-09-11,P3,Billing contact change,solved,12.4
+ZD-50133,ACC-1020,2026-10-26,P4,Dashboard loads slowly,solved,5.2
+ZD-50134,ACC-1017,2026-10-29,P3,Report export timing out,solved,28.3
+ZD-50135,ACC-1028,2026-10-26,P3,How do we add a new workspace?,pending,24.2
+ZD-50136,ACC-1013,2026-11-13,P3,Request for training session for new admins,pending,25.7
+ZD-50137,ACC-1022,2026-10-28,P2,API token expired for integration,solved,28.3
+ZD-50138,ACC-1017,2026-10-20,P3,Dashboard loads slowly,open,8.8
+ZD-50139,ACC-1024,2026-10-11,P4,Too many alerts from new detection rule,open,20.0
+ZD-50140,ACC-1020,2026-09-29,P3,Billing contact change,solved,7.2
+ZD-50141,ACC-1040,2026-10-23,P3,Too many alerts from new detection rule,solved,0.9
+ZD-50142,ACC-1004,2026-10-26,P3,Need help understanding a posture finding,solved,10.1
+ZD-50143,ACC-1004,2026-11-17,P1,Okta integration not syncing users,solved,6.0
+ZD-50144,ACC-1007,2026-11-05,P3,Connector to Salesforce shows auth error,open,17.3
+ZD-50145,ACC-1040,2026-10-18,P3,Billing contact change,solved,23.9
+ZD-50146,ACC-1003,2026-08-29,P2,API token expired for integration,solved,7.3
+ZD-50147,ACC-1026,2026-11-09,P2,API token expired for integration,open,2.0
+ZD-50148,ACC-1031,2026-09-11,P3,Dashboard loads slowly,solved,6.0
+ZD-50149,ACC-1003,2026-10-25,P3,Connector to Salesforce shows auth error,solved,25.4
+ZD-50150,ACC-1002,2026-09-10,P3,Question about a risky OAuth app alert,solved,27.8
+ZD-50151,ACC-1005,2026-08-26,P3,Need help understanding a posture finding,open,9.1
+ZD-50152,ACC-1030,2026-09-15,P2,Request for training session for new admins,open,11.7
+ZD-50153,ACC-1020,2026-11-10,P4,SSO login failing for admin users,solved,3.5
+ZD-50154,ACC-1037,2026-08-19,P2,Okta integration not syncing users,open,1.5
+ZD-50155,ACC-1017,2026-10-20,P2,Connector to Salesforce shows auth error,solved,7.2
+ZD-50156,ACC-1025,2026-10-12,P3,Billing contact change,open,4.1
+ZD-50157,ACC-1024,2026-10-01,P4,Question about a risky OAuth app alert,solved,6.5
+ZD-50158,ACC-1020,2026-10-03,P2,Request for training session for new admins,solved,13.1
+ZD-50159,ACC-1001,2026-09-12,P3,Request for training session for new admins,solved,16.2
+ZD-50160,ACC-1036,2026-09-16,P3,Need help understanding a posture finding,solved,12.6
+ZD-50161,ACC-1007,2026-11-08,P3,Billing contact change,pending,19.5
+ZD-50162,ACC-1007,2026-10-14,P4,Billing contact change,pending,1.4
+ZD-50163,ACC-1038,2026-08-21,P3,API token expired for integration,solved,0.4
+ZD-50164,ACC-1026,2026-10-23,P4,Billing contact change,solved,4.5
+ZD-50165,ACC-1020,2026-10-22,P4,Too many alerts from new detection rule,solved,14.3
+ZD-50166,ACC-1010,2026-10-24,P4,Connector to Salesforce shows auth error,solved,3.3
+ZD-50167,ACC-1022,2026-08-26,P3,Connector to Salesforce shows auth error,open,12.1
+ZD-50168,ACC-1013,2026-11-02,P4,Need help understanding a posture finding,solved,1.0
+ZD-50169,ACC-1008,2026-09-16,P3,Okta integration not syncing users,pending,26.0
+ZD-50170,ACC-1018,2026-08-26,P3,Too many alerts from new detection rule,solved,6.7
+ZD-50171,ACC-1004,2026-09-02,P3,Report export timing out,pending,8.6
+ZD-50172,ACC-1003,2026-09-15,P3,Need help understanding a posture finding,pending,18.1
+ZD-50173,ACC-1029,2026-10-18,P2,Billing contact change,solved,15.9
+ZD-50174,ACC-1025,2026-09-16,P2,Request for training session for new admins,solved,10.5
+ZD-50175,ACC-1034,2026-10-11,P3,Report export timing out,solved,10.1
+ZD-50176,ACC-1031,2026-09-13,P3,How do we add a new workspace?,solved,27.7
+ZD-50177,ACC-1014,2026-10-28,P3,Okta integration not syncing users,solved,12.2
+ZD-50178,ACC-1010,2026-09-05,P4,API token expired for integration,solved,12.7
+ZD-50179,ACC-1023,2026-11-17,P3,SSO login failing for admin users,solved,10.7
+ZD-50180,ACC-1026,2026-08-28,P3,API token expired for integration,pending,2.0
+ZD-50181,ACC-1012,2026-10-12,P2,Need help understanding a posture finding,solved,18.4
+ZD-50182,ACC-1024,2026-09-08,P4,Need help understanding a posture finding,solved,3.1
+ZD-50183,ACC-1020,2026-09-23,P4,Request for training session for new admins,solved,20.3
+ZD-50184,ACC-1013,2026-10-29,P4,Question about a risky OAuth app alert,open,24.5
+ZD-50185,ACC-1024,2026-10-27,P4,Need help understanding a posture finding,solved,5.9
+ZD-50186,ACC-1016,2026-10-02,P3,API token expired for integration,solved,14.4
+ZD-50187,ACC-1020,2026-10-31,P3,Too many alerts from new detection rule,pending,29.8
+ZD-50188,ACC-1027,2026-09-09,P3,Billing contact change,solved,6.9
+ZD-50189,ACC-1008,2026-09-03,P3,SSO login failing for admin users,solved,8.5
+ZD-50190,ACC-1021,2026-08-29,P4,Billing contact change,open,5.3
+ZD-50191,ACC-1018,2026-09-10,P3,Need help understanding a posture finding,solved,2.8
+ZD-50192,ACC-1002,2026-09-08,P3,How do we add a new workspace?,solved,15.6
+ZD-50193,ACC-1022,2026-09-14,P3,Billing contact change,solved,2.4
+ZD-50194,ACC-1035,2026-10-02,P3,Billing contact change,pending,24.3
+ZD-50195,ACC-1021,2026-09-26,P4,Request for training session for new admins,solved,16.4
+ZD-50196,ACC-1014,2026-10-22,P3,Question about a risky OAuth app alert,solved,30.0
+ZD-50197,ACC-1018,2026-09-25,P4,Too many alerts from new detection rule,solved,17.5
+ZD-50198,ACC-1034,2026-10-07,P3,How do we add a new workspace?,solved,21.4
+ZD-50199,ACC-1037,2026-10-23,P4,Okta integration not syncing users,solved,24.3
+ZD-50200,ACC-1014,2026-10-07,P3,Request for training session for new admins,solved,1.4
+ZD-50201,ACC-1040,2026-10-20,P3,Billing contact change,open,21.8
+ZD-50202,ACC-1013,2026-10-25,P2,Question about a risky OAuth app alert,solved,19.8
+ZD-50203,ACC-1022,2026-10-21,P4,Connector to Salesforce shows auth error,pending,15.0
+ZD-50204,ACC-1008,2026-09-26,P3,Okta integration not syncing users,solved,7.0
+ZD-50205,ACC-1018,2026-10-07,P4,Okta integration not syncing users,open,15.0
+ZD-50206,ACC-1025,2026-09-13,P3,Report export timing out,solved,26.3
+ZD-50207,ACC-1001,2026-10-04,P4,Need help understanding a posture finding,solved,6.3
+ZD-50208,ACC-1003,2026-09-12,P2,Request for training session for new admins,solved,22.6
+ZD-50209,ACC-1023,2026-09-20,P2,Need help understanding a posture finding,pending,24.8
+ZD-50210,ACC-1023,2026-11-04,P2,API token expired for integration,solved,18.3
+ZD-50211,ACC-1018,2026-10-07,P1,Connector to Salesforce shows auth error,solved,16.3
+ZD-50212,ACC-1027,2026-10-20,P3,Question about a risky OAuth app alert,pending,9.6
+ZD-50213,ACC-1008,2026-11-13,P4,SSO login failing for admin users,solved,24.5
+ZD-50214,ACC-1017,2026-11-14,P4,Request for training session for new admins,solved,1.7
+ZD-50215,ACC-1006,2026-09-24,P2,Dashboard loads slowly,pending,14.9
+ZD-50216,ACC-1038,2026-09-06,P3,Request for training session for new admins,solved,14.2
+ZD-50217,ACC-1021,2026-09-20,P3,Question about a risky OAuth app alert,solved,7.7
+ZD-50218,ACC-1003,2026-09-11,P2,Need help understanding a posture finding,open,15.2
+ZD-50219,ACC-1024,2026-09-30,P3,Okta integration not syncing users,open,23.4
+ZD-50220,ACC-1027,2026-10-16,P3,Dashboard loads slowly,solved,8.9
+ZD-50221,ACC-1016,2026-10-02,P2,How do we add a new workspace?,solved,13.6
+ZD-50222,ACC-1002,2026-08-30,P3,Connector to Salesforce shows auth error,solved,4.7
+ZD-50223,ACC-1019,2026-09-17,P3,Report export timing out,solved,28.2
+ZD-50224,ACC-1024,2026-09-27,P3,Billing contact change,solved,2.4
+ZD-50225,ACC-1030,2026-10-28,P3,Dashboard loads slowly,solved,8.3
+ZD-50226,ACC-1033,2026-10-22,P3,SSO login failing for admin users,solved,5.3
+ZD-50227,ACC-1030,2026-10-21,P3,How do we add a new workspace?,solved,11.7
+ZD-50228,ACC-1032,2026-10-13,P2,SSO login failing for admin users,solved,24.2
+ZD-50229,ACC-1039,2026-11-17,P3,Okta integration not syncing users,solved,6.8
+ZD-50230,ACC-1026,2026-10-26,P2,Question about a risky OAuth app alert,solved,29.4
+ZD-50231,ACC-1028,2026-09-24,P4,Report export timing out,solved,10.9
+ZD-50232,ACC-1017,2026-09-02,P3,Report export timing out,solved,20.5
+ZD-50233,ACC-1021,2026-10-19,P3,How do we add a new workspace?,solved,3.4
+ZD-50234,ACC-1014,2026-08-19,P3,SSO login failing for admin users,solved,14.3
+ZD-50235,ACC-1011,2026-11-06,P2,Connector to Salesforce shows auth error,solved,1.4
+ZD-50236,ACC-1013,2026-09-20,P4,API token expired for integration,open,29.8
+ZD-50237,ACC-1001,2026-09-27,P3,Request for training session for new admins,solved,13.4
+ZD-50238,ACC-1005,2026-08-25,P3,Billing contact change,solved,5.3
+ZD-50239,ACC-1039,2026-09-03,P4,How do we add a new workspace?,open,20.5
+ZD-50240,ACC-1036,2026-10-03,P1,SSO login failing for admin users,open,18.4
+ZD-50241,ACC-1033,2026-08-19,P3,Need help understanding a posture finding,solved,5.9
+ZD-50242,ACC-1015,2026-10-03,P3,Connector to Salesforce shows auth error,solved,22.5
+ZD-50243,ACC-1013,2026-08-24,P2,Question about a risky OAuth app alert,solved,6.5
+ZD-50244,ACC-1015,2026-09-03,P3,Dashboard loads slowly,solved,13.5
+ZD-50245,ACC-1030,2026-11-04,P3,SSO login failing for admin users,pending,22.7
+ZD-50246,ACC-1030,2026-10-10,P3,Billing contact change,open,25.3
+ZD-50247,ACC-1036,2026-11-02,P3,SSO login failing for admin users,solved,1.8
+ZD-50248,ACC-1023,2026-10-25,P1,Dashboard loads slowly,solved,27.7
+ZD-50249,ACC-1026,2026-09-20,P3,How do we add a new workspace?,solved,9.1
+ZD-50250,ACC-1017,2026-10-05,P3,Connector to Salesforce shows auth error,solved,7.9
+ZD-50251,ACC-1028,2026-11-16,P2,Too many alerts from new detection rule,pending,26.4
+ZD-50252,ACC-1007,2026-09-05,P4,Report export timing out,solved,16.5
+ZD-50253,ACC-1019,2026-10-16,P2,Connector to Salesforce shows auth error,solved,23.4
+ZD-50254,ACC-1017,2026-10-14,P3,Dashboard loads slowly,solved,16.6
+ZD-50255,ACC-1032,2026-11-08,P3,Report export timing out,solved,1.3
+ZD-50256,ACC-1017,2026-09-22,P2,Okta integration not syncing users,solved,2.5
+ZD-50257,ACC-1031,2026-09-01,P2,Need help understanding a posture finding,solved,10.1
+ZD-50258,ACC-1031,2026-10-12,P3,How do we add a new workspace?,solved,23.0
+ZD-50259,ACC-1011,2026-10-24,P3,Report export timing out,solved,15.1
+ZD-50260,ACC-1024,2026-11-15,P2,Billing contact change,solved,18.1
+ZD-50261,ACC-1036,2026-10-03,P3,How do we add a new workspace?,solved,7.1
+ZD-50262,ACC-1013,2026-09-29,P2,SSO login failing for admin users,solved,0.4
+ZD-50263,ACC-1006,2026-10-10,P3,Request for training session for new admins,solved,4.1
+ZD-50264,ACC-1015,2026-09-06,P2,Request for training session for new admins,solved,6.6
+ZD-50265,ACC-1037,2026-09-20,P2,Request for training session for new admins,solved,2.4
+ZD-50266,ACC-1040,2026-10-31,P3,How do we add a new workspace?,solved,28.9
+ZD-50267,ACC-1018,2026-11-15,P2,Too many alerts from new detection rule,pending,1.3
+ZD-50268,ACC-1023,2026-09-19,P3,SSO login failing for admin users,solved,14.4
+ZD-50269,ACC-1012,2026-10-28,P4,Request for training session for new admins,solved,8.7
+ZD-50270,ACC-1019,2026-09-20,P3,Dashboard loads slowly,solved,2.5
+ZD-50271,ACC-1005,2026-09-06,P4,Question about a risky OAuth app alert,open,24.5
+ZD-50272,ACC-1021,2026-09-27,P4,API token expired for integration,open,21.1
+ZD-50273,ACC-1021,2026-08-22,P3,Need help understanding a posture finding,open,24.2
+ZD-50274,ACC-1008,2026-08-26,P3,API token expired for integration,solved,16.9
+ZD-50275,ACC-1026,2026-08-26,P2,SSO login failing for admin users,solved,29.4
+ZD-50276,ACC-1031,2026-08-20,P1,API token expired for integration,open,0.3
+ZD-50277,ACC-1014,2026-08-23,P4,Question about a risky OAuth app alert,open,17.5
+ZD-50278,ACC-1009,2026-11-05,P3,Too many alerts from new detection rule,solved,4.8
+ZD-50279,ACC-1040,2026-10-21,P3,Okta integration not syncing users,solved,7.5
+ZD-50280,ACC-1015,2026-08-26,P3,Need help understanding a posture finding,pending,4.7
+ZD-50281,ACC-1027,2026-11-10,P4,Connector to Salesforce shows auth error,solved,15.7
+ZD-50282,ACC-1026,2026-11-08,P4,Report export timing out,solved,26.8
+ZD-50283,ACC-1023,2026-10-25,P3,SSO login failing for admin users,open,27.8
+ZD-50284,ACC-1018,2026-11-09,P4,SSO login failing for admin users,open,8.2
+ZD-50285,ACC-1026,2026-10-06,P3,SSO login failing for admin users,solved,23.5
+ZD-50286,ACC-1013,2026-08-31,P4,How do we add a new workspace?,solved,22.6
+ZD-50287,ACC-1026,2026-11-09,P4,How do we add a new workspace?,solved,16.1
+ZD-50288,ACC-1039,2026-11-04,P3,Billing contact change,solved,18.7
+ZD-50289,ACC-1040,2026-10-12,P4,Billing contact change,solved,21.6
+ZD-50290,ACC-1002,2026-11-17,P4,Dashboard loads slowly,pending,17.4
+ZD-50291,ACC-1011,2026-09-05,P3,Too many alerts from new detection rule,solved,26.1
+ZD-50292,ACC-1019,2026-08-20,P3,Question about a risky OAuth app alert,solved,18.0
+ZD-50293,ACC-1021,2026-08-19,P4,Request for training session for new admins,solved,4.0
+ZD-50294,ACC-1009,2026-09-16,P2,How do we add a new workspace?,solved,4.2
+ZD-50295,ACC-1019,2026-11-17,P4,Report export timing out,open,0.4
+ZD-50296,ACC-1011,2026-10-05,P3,Need help understanding a posture finding,solved,2.9
+ZD-50297,ACC-1031,2026-09-08,P3,API token expired for integration,solved,18.7
+ZD-50298,ACC-1013,2026-09-29,P2,Report export timing out,solved,3.4
+ZD-50299,ACC-1019,2026-08-22,P4,Need help understanding a posture finding,solved,20.6
+ZD-50300,ACC-1029,2026-08-24,P3,Billing contact change,solved,12.9
+ZD-50301,ACC-1015,2026-10-02,P2,Billing contact change,solved,18.7
+ZD-50302,ACC-1016,2026-09-21,P4,Report export timing out,solved,7.0
+ZD-50303,ACC-1008,2026-11-17,P1,Too many alerts from new detection rule,solved,7.4
+ZD-50304,ACC-1016,2026-10-04,P3,Need help understanding a posture finding,open,14.4
+ZD-50305,ACC-1039,2026-10-12,P2,Connector to Salesforce shows auth error,open,17.7
+ZD-50306,ACC-1037,2026-11-05,P2,How do we add a new workspace?,open,8.2
+ZD-50307,ACC-1031,2026-10-10,P4,How do we add a new workspace?,pending,27.2
+ZD-50308,ACC-1011,2026-10-20,P2,Need help understanding a posture finding,pending,23.4
+ZD-50309,ACC-1013,2026-11-01,P2,Need help understanding a posture finding,open,24.8
+ZD-50310,ACC-1003,2026-09-12,P3,Need help understanding a posture finding,pending,17.4
+ZD-50311,ACC-1001,2026-09-30,P2,Too many alerts from new detection rule,solved,0.7
+ZD-50312,ACC-1012,2026-11-10,P3,Okta integration not syncing users,solved,8.5
+ZD-50313,ACC-1015,2026-11-17,P3,Okta integration not syncing users,solved,5.0
+ZD-50314,ACC-1007,2026-11-17,P3,Billing contact change,solved,12.7
+ZD-50315,ACC-1005,2026-11-08,P3,SSO login failing for admin users,solved,15.3
+ZD-50316,ACC-1020,2026-08-20,P3,Connector to Salesforce shows auth error,solved,21.0
+ZD-50317,ACC-1008,2026-11-12,P4,How do we add a new workspace?,solved,18.9
+ZD-50318,ACC-1016,2026-11-14,P3,SSO login failing for admin users,pending,29.7
+ZD-50319,ACC-1013,2026-10-06,P3,How do we add a new workspace?,solved,24.2
+ZD-59999,ACC-9999,2026-11-17,P3,Dashboard loads slowly,open,2.0

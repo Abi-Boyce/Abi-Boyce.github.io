@@ -1,0 +1,3 @@
+account_id,account_name,segment,arr_usd,csm_owner,renewal_date,days_to_renewal,health_score,health_band,adoption_change_pts,open_p1_p2,next_action
+ACC-1028,Lumen Retail,Enterprise,371000.0,CSM B,2026-12-10,23,65.0,Watch,0.6,2,Clear open P1/P2 tickets with Support before renewal talks
+ACC-1032,Beacon Logistics,Mid-Market,100000.0,CSM B,2027-01-26,70,68.0,Watch,-4.7,0,Adoption check-in: find teams that stopped using it

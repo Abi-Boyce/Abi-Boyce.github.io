@@ -483,6 +483,47 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
         <p class="ctx"><b>Where this came from:</b> when I started appointment setting, I wasn’t happy with the scripts I was given, so I used AI to help me rewrite them. My bookings went from 3–5 a week to 10–15. This pipeline uses the same approach for outreach: AI handles the first draft, and my judgment decides what gets sent.</p>
       </div>
     </details>
+
+    <details class="sample" id="cs-reporting-pipeline">
+      <summary>
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="9" cy="6" rx="6" ry="2.5"/><path d="M3 6v12c0 1.4 2.7 2.5 6 2.5"/><path d="M15 6v5"/><path d="M14 22l4-5 3 3 5-7"/><circle cx="26" cy="13" r="2" fill="#e4572e" stroke="none"/></svg></span>
+        <div><h3>CS reporting &amp; automation pipeline (Python + SQL)</h3><p>A working pipeline that turns CRM, support and usage data into health scores, a renewal watchlist, a ticket triage queue and AI-ready business review inputs, with data-quality checks built in.</p></div>
+        <span class="tog"><span class="o">Open</span><span class="c">Close</span></span>
+      </summary>
+      <div class="sbody">
+        <p class="ctx"><b>The problem:</b> CS teams often build reports by hand, one request at a time, from data spread across the CRM, the support desk and the product. <b>What I built:</b> a small reporting layer that does it automatically: SQL models the data, Python runs the checks and rules, and an LLM drafts business review notes from a minimized summary. <b>The rule:</b> numbers come from SQL, words can come from AI, and a person approves anything a customer sees. All data is fictional. <a href="https://github.com/Abi-Boyce/abi-boyce.github.io/tree/main/projects/cs-reporting-pipeline">See the code on GitHub</a>.</p>
+        <div>
+          <h4>How it works</h4>
+          <div class="tbl"><table>
+            <thead><tr><th>Step</th><th>Built with</th><th>What it does</th><th>Why it matters</th></tr></thead>
+            <tbody>
+              <tr><td><b>1. Load</b></td><td>Python + DuckDB</td><td>Reads CRM accounts and renewals, support tickets and weekly product usage.</td><td>One place to query, instead of three exports.</td></tr>
+              <tr><td><b>2. Check</b></td><td>SQL checks</td><td>Flags missing renewal dates, duplicate accounts, tickets tied to unknown accounts and missing usage weeks.</td><td>Problems get fixed at the source before anyone trusts the numbers.</td></tr>
+              <tr><td><b>3. Model</b></td><td>SQL mart views</td><td>Builds clean account, adoption and support tables, then a health score with every component in its own column.</td><td>CSMs can see <i>why</i> a score moved, not just that it did.</td></tr>
+              <tr><td><b>4. Act</b></td><td>SQL + rules</td><td>Lists renewals due within 120 days that aren't healthy, each with a next action. Routes open tickets to queues by rule.</td><td>Turns a report into a to-do list.</td></tr>
+              <tr><td><b>5. Draft</b></td><td>LLM prompt + human review</td><td>Writes QBR brief drafts from a small JSON summary per at-risk account, plus triage suggestions for tickets the rules can't place.</td><td>AI saves the writing time; a person checks every number.</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div>
+          <h4>Results on the sample data</h4>
+          <div class="tbl"><table>
+            <thead><tr><th>Output</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td><b>Health scores</b></td><td>40 accounts: <span class="pill g">14 Healthy</span> <span class="pill y">15 Watch</span> <span class="pill r">11 At risk</span> ($1.86M ARR at risk)</td></tr>
+              <tr><td><b>Renewal watchlist</b></td><td>2 renewals in the next 120 days flagged, e.g. a $371K account renewing in 23 days with 2 open P1/P2 tickets: <i>clear the tickets with Support before renewal talks</i>.</td></tr>
+              <tr><td><b>Ticket triage</b></td><td>62 of 95 open tickets (65%) routed automatically by rules; 33 sent for LLM suggestion and human review.</td></tr>
+              <tr><td><b>Data quality</b></td><td>All 4 planted problems caught: a missing renewal date, a duplicate account, an orphan ticket and missing usage weeks.</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="two">
+          <div><h4>Keeping customer data safe</h4><ul><li>Only aggregates go to the LLM: no user names, emails or raw ticket text.</li><li>Proposed access model: CSMs see their own book, TAMs their assigned accounts, executives see totals only.</li><li>Proposed controls: a read-only account for automations, with every query logged.</li></ul></div>
+          <div><h4>What I'd build next</h4><ul><li>When a P1/P2 ticket opens on an at-risk or soon-to-renew account: post to the account's Slack channel with health context and log a task on the Salesforce renewal.</li><li>Tune the score weights with CSMs against real renewal outcomes.</li><li>Move the SQL to the team's data platform (the same patterns work in Databricks SQL).</li></ul></div>
+        </div>
+        <p class="ctx"><b>How I built it:</b> I used AI (Claude) to help write the code, then ran it, checked every output against the data, and documented the data model, the score and the access rules. It's the same habit as my outreach pipeline: AI speeds up the build, and my judgment decides what ships.</p>
+      </div>
+    </details>
   </div>
 </section>
 

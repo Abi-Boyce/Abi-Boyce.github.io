@@ -1,0 +1,14 @@
+{
+  "account_id": "ACC-1020",
+  "account_name": "Tidewater Logistics",
+  "segment": "Enterprise",
+  "health_score": 46.0,
+  "health_band": "At risk",
+  "days_to_renewal": 127,
+  "active_rate_recent_pct": 22.4,
+  "active_rate_prior_pct": 26.4,
+  "integrations_now": 6,
+  "target_integrations": 8,
+  "open_p1_p2_tickets": 0,
+  "tickets_last_30_days": 4
+}

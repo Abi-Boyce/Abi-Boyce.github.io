@@ -1,0 +1,14 @@
+{
+  "account_id": "ACC-1003",
+  "account_name": "Granite Bank",
+  "segment": "Commercial",
+  "health_score": 49.0,
+  "health_band": "At risk",
+  "days_to_renewal": 224,
+  "active_rate_recent_pct": 34.3,
+  "active_rate_prior_pct": 43.7,
+  "integrations_now": 10,
+  "target_integrations": 15,
+  "open_p1_p2_tickets": 2,
+  "tickets_last_30_days": 2
+}

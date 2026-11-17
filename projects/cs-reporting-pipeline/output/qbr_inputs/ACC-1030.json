@@ -1,0 +1,14 @@
+{
+  "account_id": "ACC-1030",
+  "account_name": "Redwood Media",
+  "segment": "Mid-Market",
+  "health_score": 35.0,
+  "health_band": "At risk",
+  "days_to_renewal": 147,
+  "active_rate_recent_pct": 25.1,
+  "active_rate_prior_pct": 38.1,
+  "integrations_now": 6,
+  "target_integrations": 15,
+  "open_p1_p2_tickets": 1,
+  "tickets_last_30_days": 3
+}

@@ -1,0 +1,14 @@
+{
+  "account_id": "ACC-1039",
+  "account_name": "Sterling Bank",
+  "segment": "Mid-Market",
+  "health_score": 44.0,
+  "health_band": "At risk",
+  "days_to_renewal": 138,
+  "active_rate_recent_pct": 50.5,
+  "active_rate_prior_pct": 52.9,
+  "integrations_now": 3,
+  "target_integrations": 12,
+  "open_p1_p2_tickets": 1,
+  "tickets_last_30_days": 2
+}
