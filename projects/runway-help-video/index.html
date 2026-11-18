@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Self-Service Help Video</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a support specialist's work sample; clear, warm, specific.
+   IDEA: a help-center article with its video at the top.
+   PICTURE: the video itself, large, in the first screen.
+   COLOUR and TYPE: the video's lavender-to-peach palette, deep plum ink; Inter.
+   LAYOUT: title, video, then article + macro side by side, then how it was made. */
+:root{color-scheme:light;--bg:#fbf8ff;--ink:#2a1f45;--mute:#5a4f73;--line:#e6def5;--card:#ffffff;--lav:#d9cff5;--peach:#ffd9c7;--accent:#7a63c9}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 Inter,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{line-height:1.12;text-wrap:balance;margin:0 0 .5em}
+h1{font-size:clamp(30px,4.4vw,46px);font-weight:700}h2{font-size:clamp(22px,2.8vw,28px)}h3{font-size:18px}
+p{max-width:68ch;margin:0 0 1em}a{color:var(--accent);text-underline-offset:3px}
+.band{padding:clamp(28px,4vw,56px) max(5vw,16px)}.wrap{max-width:1100px;margin:0 auto}
+.hero{background:linear-gradient(135deg,var(--lav),var(--peach))}
+.small{font-size:14px;color:var(--mute)}
+video{width:100%;border-radius:18px;box-shadow:0 18px 40px rgba(91,74,138,.25);background:#000;display:block;margin-top:16px}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+ol li,ul li{margin-bottom:.45em;max-width:70ch}
+table{border-collapse:collapse;width:100%;font-size:15px}th,td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}th{font-size:13px;color:var(--mute)}
+.scroll{overflow-x:auto}
+@media(max-width:760px){.grid2{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<header class="band hero"><div class="wrap">
+<p class="small">Support work sample by Abigayle Boyce</p>
+<h1>A 40-second help video: "Did that failed generation cost you credits?"</h1>
+<p>One of the most common questions an AI video tool's support team gets is whether a failed generation used up credits. This video answers it in 42 seconds, so a creator gets the answer before opening a ticket, and an AI support assistant has something to link.</p>
+<video controls playsinline preload="metadata" poster="poster.jpg" src="credits-help-video.mp4"></video>
+<p class="small" style="margin-top:10px">Sample, not an official Runway video. Facts checked against the Runway Help Center in November 2026.</p>
+</div></header>
+
+<section class="band"><div class="wrap grid2">
+<div class="card">
+<h2>The help article it sits in</h2>
+<h3>Did a failed generation use my credits?</h3>
+<p><b>Short answer:</b> if your generation ends in an error, your credits come back automatically within a few minutes. If it finished but isn't what you wanted, that isn't an error, so those credits stay spent.</p>
+<p><b>How to check</b></p>
+<ol><li>Open your credit usage history. Each charge and each return shows as its own line.</li>
+<li>If a generation errored and there's no return line after a few minutes, contact support.</li></ol>
+<p><b>Didn't like the result?</b> Adjust your prompt or reference image and try again. Prompting tips are in the Help Center and the community Discord.</p>
+<p><b>Contact support:</b> profile icon, then Plans and Billing, then the help icon.</p>
+</div>
+<div class="card">
+<h2>The reply macro</h2>
+<p>Hi {first name}, thanks for reaching out, and sorry that generation didn't work out. When a generation ends in an error, the credits come back to your account automatically within a few minutes, and you'll see the return in your credit usage history.</p>
+<p>If the video finished but didn't come out the way you pictured, that isn't counted as an error, so those credits stay spent. This 40-second video walks through both cases: {link}.</p>
+<p>If you had an error and the credits still haven't come back, reply here with the time of the generation and I'll look into it right away.</p>
+</div>
+</div></section>
+
+<section class="band" style="background:#f3eefc"><div class="wrap grid2">
+<div>
+<h2>How I made it in under 2 hours</h2>
+<ol>
+<li><b>Picked the question</b> from Runway's Help Center articles on generation errors and credit refunds, the kind of ticket that repeats.</li>
+<li><b>Wrote a four-beat script:</b> the worry, the error case, the "finished but not what I wanted" case, and how to check and get help.</li>
+<li><b>Built it with AI:</b> I directed Claude to design the four illustrated scenes and animate them in code. I then reviewed every frame for overlapping text and readability on a phone.</li>
+<li><b>Checked every claim</b> against the Help Center before publishing (sources below).</li>
+<li><b>Wrote the article and macro</b> so the video works in a ticket reply and in self-service.</li>
+</ol>
+</div>
+<div>
+<h2>What I found along the way</h2>
+<p>I planned to animate the scenes in Runway. On a new free account, the header showed 500 credits, but every image and video model, including Gen-4 Turbo, asked me to upgrade. Runway's Help Center explains that a model showing an upgrade prompt isn't part of the free plan right now, while several outside pricing guides still describe free Gen-4 Turbo video.</p>
+<p>That gap is a ticket waiting to happen: "I have credits, why can't I generate?" My next help article would answer it directly, and I'd flag the outdated third-party info to the content team.</p>
+<h3>What I'd measure</h3>
+<ul><li>Tickets tagged "credits after failed generation", before and after</li><li>How often the AI assistant links the video, and whether the user still escalates</li><li>Video completion rate</li></ul>
+</div>
+</div></section>
+
+<section class="band"><div class="wrap">
+<h2>Sources checked</h2>
+<ul class="small">
+<li><a href="https://help.runwayml.com/hc/en-us/articles/32880432736659">Runway Help Center: generation error messages</a> (credits returned after a generation error)</li>
+<li><a href="https://help.runwayml.com/hc/en-us/articles/34266159290003-Can-I-have-credits-refunded">Runway Help Center: Can I have credits refunded?</a> (credits power the generation, not the quality of the output)</li>
+<li><a href="https://help.runwayml.com/hc/en-us/articles/26116703542803-How-to-troubleshoot-a-credit-discrepancy">Runway Help Center: How to troubleshoot a credit discrepancy</a></li>
+<li><a href="https://help.runwayml.com/hc/en-us/articles/20821762056723-How-to-submit-a-support-request">Runway Help Center: How to submit a support request</a> (help icon on Plans and Billing)</li>
+<li><a href="https://help.runwayml.com/hc/en-us/articles/50404627334547-Free-plan-details">Runway Help Center: Free plan details</a> (upgrade prompts on the free plan)</li>
+</ul>
+<p class="small">Independent work sample, not affiliated with Runway. <a href="../../">Back to my portfolio</a> · Related: <a href="../queue-patterns/">Support queue pattern report</a></p>
+</div></section>
+</body>
+</html>

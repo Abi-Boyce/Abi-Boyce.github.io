@@ -224,7 +224,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
 <section class="band samples" id="work">
   <div class="in">
     <h2>Sample work</h2>
-    <p class="lede">How I would help customers adopt a new tool and grow with it, from the first demo to renewal, shown through seven working documents and four working builds.</p>
+    <p class="lede">How I would help customers adopt a new tool and grow with it, from the first demo to renewal, shown through seven working documents and five working builds.</p>
     <span class="flag">These are sample pieces I created for this portfolio. The customers are fictional.</span>
 
     <details class="sample" id="ticket-triage" open>
@@ -240,6 +240,18 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
           <div><h4>How it would run in production</h4><ul><li>A Salesforce flow applies the rules to new cases.</li><li>Unmatched cases call Claude through n8n or Zapier and write back a category, priority and confidence.</li><li>Low-confidence and safety cases go to a human queue, with a weekly re-score against a labeled set.</li></ul></div>
         </div>
         <p class="ctx"><b>Try it:</b> <a href="projects/ticket-triage/">open the live prototype</a>, copy the prompt into Claude, and paste the reply back in to see the scores update.</p>
+      </div>
+    </details>
+
+    <details class="sample" id="help-video">
+      <summary>
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="22" height="16" rx="3"/><path d="M12 11 L17 14 L12 17 Z" fill="#e4572e" stroke="#e4572e"/></svg></span>
+        <div><h3>Self-service help video: "Did that failed generation cost you credits?"</h3><p>A 42-second animated help video for an AI video tool, with the help article and reply macro it lives in, built quickly with AI and fact-checked against the product's Help Center.</p></div>
+        <span class="tog"><span class="o">Open</span><span class="c">Close</span></span>
+      </summary>
+      <div class="sbody">
+        <p class="ctx"><b>The problem:</b> "did I lose my credits?" is a ticket that repeats every day at AI video companies. <b>What I built:</b> a short captioned video that explains when credits come back and when they don't, plus a help article and a reply macro that link to it. <b>The rule:</b> move fast with AI, but every claim gets checked against the official Help Center before it ships.</p>
+        <p class="ctx"><b>Watch it:</b> <a href="projects/runway-help-video/">open the video and write-up</a>.</p>
       </div>
     </details>
 
