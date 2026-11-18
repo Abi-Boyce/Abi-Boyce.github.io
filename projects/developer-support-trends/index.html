@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Developer Support Trend Brief: TestFlight and App Store Connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a developer support ops brief to an engineering and AppleCare partner team; plain, specific, evidence first.
+   IDEA: 56 separate forum posts are really five problems, and one of them is a single account-level incident.
+   PICTURE: theme bars, with the TestFlight account-level cluster called out, then the evidence list.
+   COLOUR and TYPE: graphite ground, white ink, amber for the incident, slate for the rest; Inter Tight + Inter. */
+:root{color-scheme:dark;--bg:#14171c;--ink:#ffffff;--mute:#b9c1cc;--line:#2c323b;--card:#1c2027;--hot:#ffb547;--cool:#7d8fa6}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"Inter Tight",Inter,sans-serif;line-height:1.1;text-wrap:balance;margin:0 0 .45em}
+h1{font-weight:300;font-size:clamp(30px,4.6vw,48px)}h2{font-weight:600;font-size:clamp(22px,3vw,30px)}h3{font-weight:600;font-size:18px;margin-top:1.1em}
+p{max-width:70ch;margin:0 0 1em}a{color:var(--hot);text-underline-offset:3px}
+.band{padding:clamp(28px,4vw,56px) max(5vw,16px)}.wrap{max-width:1180px;margin:0 auto}.alt{background:var(--card)}
+.small{font-size:14px;color:var(--mute)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:20px 0 6px}
+.k b{display:block;font:300 clamp(28px,4.2vw,44px)/1 "Inter Tight",sans-serif}.k span{font-size:14px;color:var(--mute)}.k.hot b{color:var(--hot)}
+.bars{display:grid;gap:12px;margin:18px 0}
+.bar{display:grid;grid-template-columns:minmax(0,15em) minmax(0,1fr) 3em;gap:12px;align-items:center;font-size:15px}
+.bar .t{height:18px;border-radius:4px;background:var(--cool)}.bar.hot .t{background:var(--hot)}.bar .n{text-align:right;font-weight:600}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:left;vertical-align:top}
+th{font-family:"Inter Tight",sans-serif;font-weight:600;color:var(--mute);font-size:13px}td.n{text-align:right;white-space:nowrap}
+.scroll{overflow-x:auto}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+button{font:600 14px Inter,sans-serif;min-height:44px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+button[aria-pressed=true]{background:var(--ink);color:var(--bg)}button:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+.q{display:grid;grid-template-columns:minmax(0,1fr) 7.5em 5em;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.q .m{color:var(--mute)}.tag{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:999px;padding:1px 8px;margin-left:6px;color:var(--mute)}.tag.c{border-color:var(--hot);color:var(--hot)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px}
+pre{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;font:14px/1.5 Inter,sans-serif;margin:0 0 10px}
+ol li,ul li{margin-bottom:.45em;max-width:70ch}
+@media(max-width:760px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:minmax(0,1fr)}.bar{grid-template-columns:minmax(0,1fr) 3em}.bar .t{grid-column:1/-1;order:3}.q{grid-template-columns:minmax(0,1fr) 4.5em}.q .vw{display:none}}
+@media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8.5em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:8em;margin-inline-start:-8.5em;color:var(--mute)}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<header class="band"><div class="wrap">
+<p class="small">Developer support trend brief · public Apple Developer Forums posts read on November 18, 2026 · by Abigayle Boyce</p>
+<h1>Fourteen separate threads describe the same TestFlight failure, and each one is waiting on its own answer</h1>
+<p>I read the first two pages of the TestFlight tag and the first page of the App Store Connect tag on the Apple Developer Forums, the way I would read a support queue: tag each post, count, look for one cause behind many reports, and turn the biggest pattern into an engineering note, a help article and an automation.</p>
+<div class="kpis" id="kpis"></div>
+</div></header>
+
+<section class="band alt"><div class="wrap">
+<h2>Five themes behind 56 posts</h2>
+<p>Each post is tagged with one theme. The TestFlight cluster is highlighted because its symptoms match across accounts, which points to one cause rather than many user errors.</p>
+<div class="bars" id="bars"></div>
+<div class="scroll"><table class="stack"><thead><tr><th>Theme</th><th>Posts</th><th>Mention an open case</th><th>Most-viewed thread</th><th>What I'd do</th></tr></thead><tbody id="tt"></tbody></table></div>
+</div></section>
+
+<section class="band"><div class="wrap grid2">
+<div>
+<h2>The pattern in the TestFlight cluster</h2>
+<p>Across the 14 posts, developers describe the same three symptoms, usually together, on every app in their account:</p>
+<ol>
+<li>Testers stay at "Invited" and never get the invitation email.</li>
+<li>Installs fail with "The requested app is not available or doesn't exist," even for the Account Holder.</li>
+<li>Submitting a build for external testing fails with HTTP 422 ENTITY_UNPROCESSABLE, sometimes BETA_CONTRACT_MISSING.</li>
+</ol>
+<p>Five of the 14 posts bring up agreements on their own, and two tie the failure to accepting a new agreement in late October. Reported start dates run from October 20 to November 8. Production uploads keep working, so developers can ship to the App Store but can't beta test.</p>
+<p class="small">This is a pattern in public reports, not a confirmed cause. Only Apple's logs can confirm it.</p>
+</div>
+<div>
+<h2>The note I'd send engineering</h2>
+<pre id="brief"></pre>
+</div>
+</div></section>
+
+<section class="band alt"><div class="wrap grid2">
+<div>
+<h2>What support ops could ship this week</h2>
+<h3>1. One incident, not 14 cases</h3>
+<p>Group every case and thread with these symptoms under a single incident owner, link them, and reply to all of them at once when there is news. Developers in these posts say they waited days or weeks for a first reply.</p>
+<h3>2. A known-issue note</h3>
+<pre>Known issue: TestFlight invitations and installs failing for some accounts
+Some developers can't send TestFlight invitations, install builds or submit builds for external testing (HTTP 422). App Store uploads are not affected. We're investigating. You don't need to recreate groups, re-add testers or reinstall TestFlight. If you've opened a case, we've linked it to this issue and will update you here.</pre>
+<h3>3. Better intake</h3>
+<p>Add a "TestFlight not working" path to the support form that asks for Team ID, the date the problem started, whether an agreement was accepted around then, and the request UUID from the error. Every post here had to volunteer this.</p>
+</div>
+<div>
+<h2>Automation, with a person in the loop</h2>
+<ol>
+<li><b>Cluster by signature.</b> Use an AI model to tag new forum posts and cases by error string and symptom (422, BETA_CONTRACT_MISSING, "requested app is not available").</li>
+<li><b>Alert on a spike.</b> If one signature appears on several accounts within a week, open a draft incident and notify engineering with links.</li>
+<li><b>Check against releases.</b> Put the spike next to the dates of recent agreement, policy and App Store Connect changes.</li>
+<li><b>Draft, don't send.</b> The model drafts the known-issue note and case replies, and a person reviews before anything reaches developers.</li>
+</ol>
+<h2>Help articles to write</h2>
+<ul>
+<li><b>StoreKit prices in TestFlight:</b> 8 posts report USD prices or missing products in TestFlight while local builds show the right currency. This needs an engineering answer first, then a tech note.</li>
+<li><b>Moving TestFlight testers after launch,</b> and <b>giving testers free access to a subscription</b>, both asked with no answer.</li>
+<li><b>Review status expectations:</b> what "Waiting for Review" means after an expedite or a resubmission, and when to contact support.</li>
+</ul>
+</div>
+</div></section>
+
+<section class="band"><div class="wrap">
+<h2>The evidence</h2>
+<p class="small">Every post I tagged, with a link. "Case" marks posts that mention an open support case or no reply from support. Views and replies as shown on November 18, 2026.</p>
+<div class="ctl" id="filters" role="group" aria-label="Filter by theme"></div>
+<div id="list"></div>
+<p class="small" style="margin-top:20px">Method: one reader (me), one theme per post, Apple's own pinned guide posts left out. The forums are a public sample, not Apple's internal support volume, so counts show what developers are saying, not how many are affected. Independent project; I'm not affiliated with Apple. <a href="../../">Back to my portfolio</a>. Related: <a href="../queue-patterns/">Support queue pattern report</a>.</p>
+</div></section>
+
+<script>{
+const TH={tf:{n:"TestFlight broken at the account level",act:"One incident owner, known-issue note, engineering note with linked threads"},
+rv:{n:"Review queue delays and unclear rejections",act:"Status expectations article; clearer rejection detail; reply-time targets"},
+ad:{n:"Account, tax and verification blockers",act:"Route to Finance or Business with a visible case status and expected time"},
+sk:{n:"StoreKit prices or products wrong in TestFlight",act:"Get an engineering answer, then a tech note for developers"},
+dc:{n:"Unanswered how-to and documentation gaps",act:"Turn each into a help article or docs fix"}};
+const F="https://developer.apple.com/forums/thread/";
+const P=[
+["tf",858342,"TestFlight external Beta App Review fails with HTTP 422 across multiple apps",0,"25","5h",0],
+["tf",857972,"TestFlight invitations not sent to any internal testers",0,"69","2d",1],
+["tf",814565,"TestFlight Beta Contract Missing: ENTITY_UNPROCESSABLE.BETA_CONTRACT_MISSING",60,"7.1k","2d",1],
+["tf",857572,"TestFlight broken account-wide since accepting the Oct 29 PLA",1,"141","2d",0],
+["tf",813703,"TestFlight builds expired across multiple apps; new builds cannot be installed",153,"11k","2d",0],
+["tf",857850,"External testing: Submit for Review always fails with 422",0,"45","2d",0],
+["tf",857012,"\"Requested app is not available\", Beta App Review error, tester stuck on Invited",3,"185","5d",1],
+["tf",856330,"TestFlight internal tester invitation emails are not being delivered",3,"297","5d",0],
+["tf",854106,"TestFlight broken for whole team after accepting Free Apps Agreement",0,"104","5d",0],
+["tf",856592,"\"Requested app is not available\" for all internal testers + 422 on beta review",0,"66","5d",1],
+["tf",854803,"Could not install: the requested app is not available (incl. account holder)",2,"121","5d",1],
+["tf",856896,"TestFlight broken on all my apps: invites never arrive",2,"142","5d",0],
+["tf",854911,"\"Requested app is not available\" + 422 on beta review (new individual account)",1,"173","1w",0],
+["tf",826674,"Build shows Ready to Submit but can't install from TestFlight",4,"558","2w",0],
+["sk",856443,"StoreKit returns USD prices instead of EUR in TestFlight",3,"82","6h",1],
+["sk",855664,"StoreKit 2 returns USA/USD in TestFlight but DEU/EUR in local Release build",4,"131","2d",1],
+["sk",857251,"StoreKit 2 metadata shows USD 0.99 and no trial in TestFlight",3,"100","2d",0],
+["sk",856814,"StoreKit 2 returns no products for a non-renewing subscription in TestFlight",0,"37","1w",0],
+["sk",845478,"StoreKit 2 returns USD metadata in TestFlight while storefront is FRA/EUR",10,"1.6k","1w",0],
+["sk",855306,"JPN storefront but StoreKit returns USD 1.99 in TestFlight",0,"93","2w",0],
+["sk",844530,"TestFlight + Sandbox: duplicate purchase fails, price sometimes USD",1,"474","2w",0],
+["sk",844545,"StoreKit Sandbox returns 0 products after TN3186 checks",1,"507","1h",0],
+["rv",857316,"App Store and TestFlight review stuck Waiting for Review, no reply in 2 weeks",0,"128","6d",1],
+["rv",854041,"App stuck in Waiting for Review, no updates",1,"240","2w",0],
+["rv",854525,"TestFlight review delay: seeking guidance on timeline",0,"126","2w",0],
+["rv",858438,"First app stuck in Waiting for Review since Nov 11 despite approved expedite",0,"33","now",0],
+["rv",858452,"New app stuck in Waiting for Review since November 5",0,"21","1h",0],
+["rv",851931,"No reviewer reply in Resolution Center after 4th rejection",2,"170","2h",1],
+["rv",858321,"2 months for first review, rejection over one word, no Support replies",0,"31","6h",1],
+["rv",850635,"App stuck in Waiting for Review for over a week",1,"202","8h",0],
+["rv",817793,"Significantly delayed App Review",27,"5.1k","8h",0],
+["rv",858211,"iOS 1.0 in Waiting for Review since Nov 11 after resubmission",0,"134","18h",0],
+["rv",854579,"Waiting for Review nearly 5 days after metadata-only resubmission",2,"259","18h",0],
+["rv",851089,"Two new apps stuck in Waiting for Review, expedite pending",1,"107","1d",0],
+["rv",854642,"Beta review rejection with no device details or crash logs",1,"194","2w",0],
+["rv",858203,"New app rejected under Guideline 4.3(a), seeking clarification",1,"129","18h",0],
+["ad",837587,"Stuck in a loop trying to accept a Developer Program invite",4,"826","6h",0],
+["ad",856543,"\"Your Apple Account isn't enabled for App Store Connect\" after renewal",2,"147","1w",0],
+["ad",854919,"Agreement and access loop between App Store Connect and the developer portal",0,"221","2w",0],
+["ad",852688,"W-9 correction submitted, 7 weeks without an update",6,"373","5h",1],
+["ad",852753,"DSA trader verification stuck: SMS code never arrives",2,"215","6h",1],
+["ad",842990,"Problem with Digital Services Act verification",1,"177","7h",0],
+["ad",840518,"DSA trader compliance stuck In Review for nearly a month",1,"245","7h",0],
+["ad",858234,"Tax form, bank account and App Review all stuck, zero response",0,"80","12h",1],
+["ad",858202,"Locked W-9 name field blocks launch, no Finance reply in 4 weeks",0,"79","18h",1],
+["ad",858104,"Program fee charged, account inactive, support callback fails",1,"64","1d",1],
+["ad",858048,"Individual to Organization conversion pending over a month",1,"63","1d",1],
+["dc",858433,"App Replacement: how to test in TestFlight",0,"23","3h",0],
+["dc",857563,"How do you give TestFlight testers free access to a subscription app?",0,"115","4d",0],
+["dc",857504,"Moving TestFlight testers to the released app: official procedure?",0,"30","5d",0],
+["dc",855149,"Replace an approved, unreleased 1.0 build with a new build",0,"141","2w",0],
+["dc",848247,"Is TestFlight supported on an Apple Watch with Family Setup?",1,"352","2w",0],
+["dc",854057,"Testing a watch-only app on an Apple Watch For Your Kids device",1,"180","2w",0],
+["dc",840427,"Clarification on Declared Age Range prompt in Texas and Brazil",1,"798","1w",0],
+["dc",857789,"CloudKit sync fails in macOS TestFlight build",1,"52","2d",0],
+["dc",730398,"ITMS-90885: executable missing a provisioning profile",18,"5.3k","2w",0]];
+const v=s=>s.endsWith("k")?parseFloat(s)*1000:+s;
+const order=["tf","rv","ad","sk","dc"];
+const by=k=>P.filter(p=>p[0]===k);
+const tf=by("tf"),cases=P.filter(p=>p[6]).length,tfViews=tf.reduce((a,p)=>a+v(p[4]),0);
+document.getElementById("kpis").innerHTML=[["",P.length,"forum posts tagged"],["hot",tf.length,"describe the same account-level TestFlight failure"],["hot",cases,"mention an open case or no reply from support"],["",Math.round(tfViews/1000)+"k+","views on the TestFlight cluster"]].map(([c,b,s])=>`<div class="k ${c}"><b>${b}</b><span>${s}</span></div>`).join("");
+const mx=Math.max(...order.map(k=>by(k).length));
+document.getElementById("bars").innerHTML=order.map(k=>`<div class="bar ${k==="tf"?"hot":""}"><span>${TH[k].n}</span><div class="t" style="width:${100*by(k).length/mx}%"></div><span class="n">${by(k).length}</span></div>`).join("");
+document.getElementById("tt").innerHTML=order.map(k=>{const a=by(k),top=a.slice().sort((x,y)=>v(y[4])-v(x[4]))[0];return`<tr><td>${TH[k].n}</td><td class="n">${a.length}</td><td class="n">${a.filter(p=>p[6]).length}</td><td><a href="${F+top[1]}">${top[2]}</a> (${top[4]} views)</td><td>${TH[k].act}</td></tr>`}).join("");
+let f="all";const fl=document.getElementById("filters");
+function filters(){fl.innerHTML=[["all","All ("+P.length+")"],...order.map(k=>[k,TH[k].n.split(" ").slice(0,2).join(" ")+" ("+by(k).length+")"])].map(([k,l])=>`<button data-k="${k}" aria-pressed="${f===k}">${l}</button>`).join("")}
+function list(){document.getElementById("list").innerHTML=P.filter(p=>f==="all"||p[0]===f).map(p=>`<div class="q"><span><a href="${F+p[1]}">${p[2]}</a>${p[6]?'<span class="tag c">Case</span>':""}</span><span class="m vw">${p[4]} views · ${p[3]} replies</span><span class="m">${p[5]}</span></div>`).join("")}
+fl.onclick=e=>{const b=e.target.closest("button");if(!b)return;f=b.dataset.k;filters();list()};filters();list();
+const top=tf.slice().sort((x,y)=>v(y[4])-v(x[4])).slice(0,4).map(p=>F+p[1]).join("\n  ");
+document.getElementById("brief").textContent=`Subject: TestFlight failing account-wide for some developers since late October
+
+What: Testers stuck at "Invited", installs failing with "requested app is not available", and external beta submissions failing with HTTP 422 (sometimes BETA_CONTRACT_MISSING). Affects every app on the account; App Store uploads still work.
+How many: ${tf.length} separate forum threads from different accounts in the last 2 weeks of activity, ${tf.filter(p=>p[6]).length} citing open support cases, ${Math.round(tfViews/1000)}k+ views.
+When: Reported start dates Oct 20 to Nov 8.
+Possible link: 5 posts bring up agreements; 2 say it started right after accepting a new agreement (Free Apps Agreement Oct 27, Program License Agreement Oct 29). Worth checking beta contract state for affected teams.
+Top threads:
+  ${top}
+Ask: Can engineering confirm whether this is one backend issue, and give support a status we can share?
+Meanwhile: Support links all cases to one incident and posts a known-issue note.`;
+}</script>
+</body>
+</html>
