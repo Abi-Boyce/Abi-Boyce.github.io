@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rules vs. AI Ticket Triage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@500;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a practical ops write-up from a teacher-turned-CX person; plain, specific, warm.
+   IDEA: the support desk's sorting board, where every educator ticket lands in a lane.
+   PICTURE: the live scoreboard (Rules / Claude / Hybrid) over the lane board of 30 tickets.
+   COLOUR and TYPE: white paper, slate ink, classroom coral lead, sunflower accent; Lexend + Atkinson Hyperlegible.
+   LAYOUT: title, scoreboard, board; then how to run it, results table, production plan. */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#14181f);--ink:light-dark(#1f2a37,#eef1f5);--mute:light-dark(#5b6675,#a8b1bd);--line:light-dark(#e3e6ea,#2b323d);--card:light-dark(#f6f7f9,#1c222b);--lead:#e4572e;--leadInk:#ffffff;--sun:#f2b134;--ok:light-dark(#1d7a46,#5fd08f);--bad:light-dark(#b42318,#ff8a80)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Atkinson Hyperlegible",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:Lexend,system-ui,sans-serif;line-height:1.1;text-wrap:balance;margin:0 0 .4em}
+h1{font-size:clamp(30px,4.6vw,48px)}h2{font-size:clamp(22px,3vw,30px)}h3{font-size:18px}
+p{max-width:68ch;margin:0 0 1em}
+a{color:inherit;text-underline-offset:3px}
+.band{padding:clamp(28px,4vw,56px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.top{background:var(--lead);color:var(--leadInk)}
+.top p{color:#fff;opacity:.95}
+.small{font-size:14px;color:var(--mute)}.top .small{color:#fff;opacity:.85}
+.score{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
+.sc{background:rgba(255,255,255,.14);border-radius:14px;padding:14px 16px}
+.sc b{display:block;font:700 clamp(30px,5vw,48px)/1 Lexend,sans-serif}
+.sc span{font-size:14px}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.lane{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;min-height:120px}
+.lane h3{font-size:15px;margin-bottom:8px}
+.tk{display:flex;gap:6px;align-items:flex-start;font-size:13.5px;line-height:1.35;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 8px;margin-bottom:6px;cursor:pointer;width:100%;text-align:left;color:inherit;font-family:inherit}
+.tk:focus-visible,button:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.mk{flex:none;font-weight:700;width:1.1em}.y{color:var(--ok)}.n{color:var(--bad)}
+.ctl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 14px}
+button.b,select{font:700 15px Lexend,sans-serif;min-height:44px;padding:0 16px;border-radius:10px;border:2px solid var(--ink);background:var(--bg);color:var(--ink);cursor:pointer}
+button.p{background:var(--ink);color:var(--bg)}
+textarea{width:100%;min-height:150px;font:14px/1.4 ui-monospace,Menlo,monospace;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--card);color:var(--ink)}
+pre{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:13px;white-space:pre-wrap}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}
+th{font-family:Lexend,sans-serif;font-size:13px}
+.msg{min-height:1.5em;font-weight:700}
+.alt{background:var(--card)}
+ol li,ul li{margin-bottom:.4em;max-width:70ch}
+.tag{display:inline-block;background:var(--sun);color:#1f2a37;border-radius:6px;padding:0 6px;font-size:12px;font-weight:700}
+@media(max-width:700px){.grid2{grid-template-columns:minmax(0,1fr)}.score{gap:8px}.sc{padding:10px}}
+@media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:7em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:6.5em;margin-inline-start:-7em;font-weight:700}.stack td:empty{display:none}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<header class="band top"><div class="wrap">
+<h1>Rules first, AI where it earns its place: triaging educator support tickets</h1>
+<p>A working prototype of an AI-assisted triage workflow for an AI platform used by teachers. Keyword rules sort the easy tickets for free; Claude handles the ambiguous ones; the hybrid is scored against my hand labels so we can see when AI is the right tool.</p>
+<div class="score" aria-live="polite">
+<div class="sc"><b id="sR">–</b><span>Rules only, category accuracy</span></div>
+<div class="sc"><b id="sA">–</b><span>Claude, category accuracy</span></div>
+<div class="sc"><b id="sH">–</b><span>Hybrid, category accuracy</span></div>
+</div>
+<p class="small" style="margin-top:10px">Rules run live on load. Claude and Hybrid fill in after you paste Claude's output below. By Abigayle Boyce.</p>
+</div></header>
+
+<section class="band"><div class="wrap">
+<div class="ctl"><label for="view" class="small">Show lanes by</label>
+<select id="view"><option value="rules">Rules result</option><option value="ai">Claude result</option><option value="hybrid">Hybrid result</option><option value="truth">My labels</option></select>
+<span class="small"><span class="y">✓</span> matches my label, <span class="n">✗</span> misrouted. Tap a ticket for details.</span></div>
+<div class="board" id="board"></div>
+<p class="msg" id="detail" role="status"></p>
+<p class="small">The 30 tickets are synthetic: I wrote them to mirror common educator support requests. They are not MagicSchool data.</p>
+</div></section>
+
+<section class="band alt"><div class="wrap grid2">
+<div>
+<h2>Run the Claude step</h2>
+<ol>
+<li>Copy the prompt (it includes all 30 tickets).</li>
+<li>Paste it into Claude and send it.</li>
+<li>Copy Claude's JSON reply into the box and press Score.</li>
+</ol>
+<div class="ctl"><button class="b p" id="copy">Copy prompt</button><span class="msg" id="copyMsg"></span></div>
+<details><summary>Read the prompt</summary><pre id="prompt"></pre></details>
+</div>
+<div>
+<label for="paste"><h3>Paste Claude's JSON</h3></label>
+<textarea id="paste" placeholder='[{"id":1,"category":"login","priority":"P2","confidence":0.92}, ...]'></textarea>
+<div class="ctl" style="margin-top:10px"><button class="b p" id="score">Score</button><button class="b" id="clear">Clear</button><span class="msg" id="pMsg"></span></div>
+</div>
+</div></section>
+
+<section class="band"><div class="wrap">
+<h2>Results by ticket</h2>
+<div class="ctl"><span id="kpi" class="small"></span></div>
+<div class="scroll"><table class="stack"><thead><tr><th>#</th><th>Ticket</th><th>My label</th><th>Rules</th><th>Claude</th><th>Hybrid</th></tr></thead><tbody id="rows"></tbody></table></div>
+</div></section>
+
+<section class="band alt"><div class="wrap grid2">
+<div>
+<h2>How the hybrid decides</h2>
+<ul>
+<li><b>Rules go first.</b> If exactly one category's keywords match, the rule wins. It is instant, free, and easy to audit.</li>
+<li><b>Claude takes the rest.</b> Tickets with no match or a tie go to Claude with the category definitions and must return JSON with a confidence score.</li>
+<li><b>People keep the risky ones.</b> Anything Claude labels Privacy &amp; student safety, or scores below 0.7 confidence, goes to a human queue, no matter what.</li>
+</ul>
+<h2>When AI is the wrong tool</h2>
+<p>Billing, password resets and roster syncs have clear words and clear owners, so a rule or a Salesforce flow handles them better than a model. AI earns its cost on tickets where the meaning sits in tone or context, like a parent seeing another family's report or a story that isn't safe for 7-year-olds.</p>
+</div>
+<div>
+<h2>Taking it to production</h2>
+<ol>
+<li>A record-triggered Salesforce flow on new Cases applies the keyword rules and sets Category, Priority and a "Routed by" field.</li>
+<li>Unmatched Cases call Claude through an n8n or Zapier step (or Agentforce), which writes back Category, Priority, Confidence and a one-line reason.</li>
+<li>Low-confidence and safety Cases go to a human review queue in Salesforce.</li>
+<li>A 50-ticket labeled set is re-scored every week. If accuracy drops, the prompt or rules get updated before anyone notices the misroutes.</li>
+</ol>
+<h3>What I'd watch</h3>
+<ul><li>P1 recall: safety and outage tickets must never sit in a normal queue.</li><li>Misroute rate and re-assignments per week.</li><li>Time to first touch, before and after.</li><li>Share of tickets the rules handle, which is the cost lever.</li></ul>
+<p class="small">Limits: 30 synthetic tickets is a small sample, and I wrote both the tickets and the keywords, so the rules score is likely higher than it would be on real tickets. Testing on real ticket history would be the next step.</p>
+</div>
+</div></section>
+
+<footer class="band"><div class="wrap small"><a href="../../#ticket-triage">Back to my portfolio</a>. Built by Abigayle Boyce, former teacher and support team lead. Independent project, not affiliated with MagicSchool.</div></footer>
+
+<script>{
+const CATS={login:"Account & login",billing:"Billing & licenses",integration:"Integrations & LMS",output:"AI output quality",privacy:"Privacy & student safety",feature:"Feature request"};
+const T=[
+[1,"I can't log in. It keeps saying my password is wrong even after I reset it twice.","login","P2"],
+[2,"Our district PO was approved last week. Who do I send it to so we get our 40 teacher licenses?","billing","P3"],
+[3,"Google Classroom sync stopped pulling my 3rd period roster this morning.","integration","P2"],
+[4,"The quiz generator gave an answer key where two of the 'correct' answers are wrong.","output","P2"],
+[5,"A student typed their home address and phone number into the chat. Is that stored? Please advise ASAP.","privacy","P1"],
+[6,"Would love a Spanish/English side-by-side option for parent letters!","feature","P3"],
+[7,"Nobody at Lincoln Elementary can sign in today. The whole building gets an error page.","login","P1"],
+[8,"I was charged twice for my annual plan this month.","billing","P2"],
+[9,"The rubric tool keeps marking everything 'exceeds expectations' no matter what I paste.","output","P3"],
+[10,"Can it send things straight to Canvas instead of me copying and pasting?","feature","P3"],
+[11,"Our IT director needs your data privacy agreement signed before Friday or we have to pause the rollout.","privacy","P2"],
+[12,"Honestly the reading passages for my 2nd graders are way too hard, like 6th grade level.","output","P2"],
+[13,"Kids keep getting kicked out of the student workspace every 5 minutes during class.","login","P2"],
+[14,"How do I cancel? Our school budget got cut.","billing","P3"],
+[15,"A student got the chatbot to write something inappropriate about another student.","privacy","P1"],
+[16,"The Clever login button just spins.","login","P2"],
+[17,"Is there a way to share a template with my whole grade-level team?","feature","P3"],
+[18,"The lesson plan said the Battle of Gettysburg was in 1865.","output","P2"],
+[19,"Our renewal quote is higher than last year and nobody explained why.","billing","P3"],
+[20,"Grades I pushed from the tool aren't showing in our LMS gradebook.","integration","P2"],
+[21,"Love this tool!! Only thing: it'd be amazing if it remembered my class's reading levels.","feature","P3"],
+[22,"I think a parent got access to another family's student report through the shared link.","privacy","P1"],
+[23,"Can't get in. The code from the email never arrives.","login","P2"],
+[24,"Our whole district switched SSO providers over the weekend and now nothing connects.","integration","P1"],
+[25,"Purchase order question: does the license cover substitute teachers?","billing","P3"],
+[26,"The translations it gives for my newcomer students are word-for-word and confusing.","output","P3"],
+[27,"Please add dark mode, my eyes after grading at night lol","feature","P3"],
+[28,"Why does it say I'm out of free generations? I'm on the school plan.","billing","P2"],
+[29,"Seriously?? It wrote a story for my class that included a gun. These are 7-year-olds.","privacy","P1"],
+[30,"Our Schoology integration shows the wrong school year.","integration","P3"]
+].map(([id,text,cat,pri])=>({id,text,cat,pri}));
+const KW={login:["log in","login","sign in","password","can't get in","code from","kicked out","locked out"],
+billing:["charged","invoice","purchase order"," po ","license","renewal","quote","cancel","refund","budget"],
+integration:["google classroom","canvas","schoology","lms","roster","sync","sso","clever","gradebook"],
+output:["answer key","too hard","rubric","translation","inaccurate","incorrect","lesson plan"],
+privacy:["privacy","address","phone number","inappropriate","another family","student data"],
+feature:["would love","add ","wish","feature","option","way to","would be amazing","it'd be amazing"]};
+const P1=["asap","whole","nobody","district","another family","inappropriate","everyone"],P2=["can't","cannot","stopped","charged twice","wrong","aren't showing","kicked","never arrives","spins","today","too hard"];
+const rules=t=>{const s=" "+t.text.toLowerCase()+" ";const hits=Object.keys(KW).map(c=>[c,KW[c].filter(k=>s.includes(k)).length]).sort((a,b)=>b[1]-a[1]);
+const top=hits[0],n=hits.filter(h=>h[1]>0).length;const cat=top[1]?top[0]:null;
+const pri=P1.some(k=>s.includes(k))?"P1":P2.some(k=>s.includes(k))?"P2":"P3";return{cat,pri,conf:n===1}};
+T.forEach(t=>t.r=rules(t));
+let AI={};
+const hyb=t=>{if(t.r.conf)return{cat:t.r.cat,pri:t.r.pri,by:"rules"};const a=AI[t.id];return a?{cat:a.category,pri:a.priority,by:"Claude",human:a.category==="privacy"||(a.confidence??1)<0.7}:null};
+const pct=(ok,n)=>n?Math.round(100*ok/n)+"%":"–";
+const lab=x=>x?(CATS[x.cat]||x.cat||"No match")+" · "+(x.pri||""):"–";
+const mark=(x,t)=>x&&x.cat?(x.cat===t.cat?'<span class="mk y">✓</span>':'<span class="mk n">✗</span>'):'<span class="mk">·</span>';
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pick=(t,v)=>v==="rules"?t.r:v==="truth"?{cat:t.cat,pri:t.pri}:v==="ai"?(AI[t.id]?{cat:AI[t.id].category,pri:AI[t.id].priority}:null):hyb(t);
+function render(){
+const v=document.getElementById("view").value,hasAI=Object.keys(AI).length>0;
+const lanes=[...Object.keys(CATS),"none"];
+document.getElementById("board").innerHTML=lanes.map(c=>{const items=T.filter(t=>{const x=pick(t,v);return c==="none"?!(x&&x.cat&&CATS[x.cat]):x&&x.cat===c});
+if(c==="none"&&!items.length)return"";
+return`<div class="lane"><h3>${c==="none"?"Unsorted":CATS[c]} (${items.length})</h3>${items.map(t=>`<button class="tk" data-id="${t.id}">${v==="truth"?"":mark(pick(t,v),t)}<span>#${t.id} ${esc(t.text.slice(0,70))}${t.text.length>70?"…":""}</span></button>`).join("")}</div>`}).join("");
+const rOk=T.filter(t=>t.r.cat===t.cat).length;document.getElementById("sR").textContent=pct(rOk,T.length);
+const aOk=T.filter(t=>AI[t.id]&&AI[t.id].category===t.cat).length,hOk=T.filter(t=>{const h=hyb(t);return h&&h.cat===t.cat}).length;
+document.getElementById("sA").textContent=hasAI?pct(aOk,T.length):"–";document.getElementById("sH").textContent=hasAI?pct(hOk,T.length):"–";
+const p1=T.filter(t=>t.pri==="P1"),rec=(f)=>p1.filter(t=>{const x=f(t);return x&&x.pri==="P1"}).length;
+const ruleShare=T.filter(t=>t.r.conf).length;
+document.getElementById("kpi").innerHTML=`Rules alone confidently sort ${ruleShare} of 30 tickets. P1 tickets caught: rules ${rec(t=>t.r)} of ${p1.length}${hasAI?`, Claude ${rec(t=>AI[t.id]?{pri:AI[t.id].priority}:null)} of ${p1.length}, hybrid ${rec(hyb)} of ${p1.length}`:""}. Priority accuracy: rules ${pct(T.filter(t=>t.r.pri===t.pri).length,30)}${hasAI?`, Claude ${pct(T.filter(t=>AI[t.id]&&AI[t.id].priority===t.pri).length,30)}`:""}.`;
+document.getElementById("rows").innerHTML=T.map(t=>{const h=hyb(t),a=AI[t.id];return`<tr><td>${t.id}</td><td>${esc(t.text)}</td><td>${lab({cat:t.cat,pri:t.pri})}</td><td>${mark(t.r,t)} ${lab(t.r)}</td><td>${a?mark({cat:a.category},t)+" "+lab({cat:a.category,pri:a.priority}):"–"}</td><td>${h?mark(h,t)+" "+lab(h)+` <span class="small">(${h.by}${h.human?", human review":""})</span>`:"–"}</td></tr>`}).join("");}
+const PROMPT=`You are triaging support tickets for an AI platform used by K-12 teachers.
+Classify each ticket into exactly one category:
+- login: Account & login (sign-in, passwords, SSO buttons that fail, sessions ending)
+- billing: Billing & licenses (charges, POs, renewals, plan limits, cancellations)
+- integration: Integrations & LMS (roster sync, LMS/gradebook data, SSO provider setup)
+- output: AI output quality (wrong facts, wrong reading level, weak rubrics or translations)
+- privacy: Privacy & student safety (student personal data, data exposure, unsafe or inappropriate content, privacy agreements)
+- feature: Feature request (ideas or asks for new capability)
+Assign a priority:
+- P1: student safety or data exposure, or many users blocked (a school or district)
+- P2: one teacher blocked or harmed today, or a billing error
+- P3: questions, requests, minor issues
+Return ONLY a JSON array, no other text, one object per ticket:
+[{"id":1,"category":"login","priority":"P2","confidence":0.0-1.0,"reason":"under 12 words"}]
+
+Tickets:
+${T.map(t=>`${t.id}. ${t.text}`).join("\n")}`;
+document.getElementById("prompt").textContent=PROMPT;
+document.getElementById("copy").onclick=async()=>{const m=document.getElementById("copyMsg");try{await navigator.clipboard.writeText(PROMPT);m.textContent="Copied."}catch(e){m.textContent="Copy blocked here. Open 'Read the prompt' and select the text."}};
+function load(txt){const m=document.getElementById("pMsg");try{const s=txt.replace(/```(json)?/g,"").trim();const arr=JSON.parse(s.slice(s.indexOf("["),s.lastIndexOf("]")+1));AI={};
+for(const o of arr){if(o&&o.id!=null)AI[+o.id]={category:String(o.category||"").toLowerCase(),priority:String(o.priority||"").toUpperCase(),confidence:typeof o.confidence==="number"?o.confidence:parseFloat(o.confidence)}}
+m.textContent=`Scored ${Object.keys(AI).length} tickets.`;try{localStorage.setItem("triageAI",txt)}catch(e){}render();return true}catch(e){m.textContent="That didn't read as a JSON array. Paste only Claude's reply.";return false}}
+document.getElementById("score").onclick=()=>load(document.getElementById("paste").value);
+document.getElementById("clear").onclick=()=>{AI={};document.getElementById("paste").value="";document.getElementById("pMsg").textContent="";try{localStorage.removeItem("triageAI")}catch(e){}render()};
+document.getElementById("view").onchange=render;
+document.getElementById("board").onclick=e=>{const b=e.target.closest(".tk");if(!b)return;const t=T.find(x=>x.id==b.dataset.id),a=AI[t.id];
+document.getElementById("detail").textContent=`#${t.id}: "${t.text}" My label: ${lab({cat:t.cat,pri:t.pri})}. Rules: ${lab(t.r)}${t.r.conf?"":" (not confident)"}.${a?` Claude: ${lab({cat:a.category,pri:a.priority})}, confidence ${a.confidence}.`:""}`};
+render();try{const s=localStorage.getItem("triageAI");if(s){document.getElementById("paste").value=s;load(s)}}catch(e){}
+}</script>
+</body>
+</html>

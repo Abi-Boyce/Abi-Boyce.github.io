@@ -224,10 +224,26 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
 <section class="band samples" id="work">
   <div class="in">
     <h2>Sample work</h2>
-    <p class="lede">How I would help customers adopt a new tool and grow with it, from the first demo to renewal, shown through seven working documents and one live automation.</p>
+    <p class="lede">How I would help customers adopt a new tool and grow with it, from the first demo to renewal, shown through seven working documents and three working builds.</p>
     <span class="flag">These are sample pieces I created for this portfolio. The customers are fictional.</span>
 
-    <details class="sample" open>
+    <details class="sample" id="ticket-triage" open>
+      <summary>
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="6" height="18" rx="1.5"/><rect x="11" y="5" width="6" height="12" rx="1.5"/><rect x="19" y="5" width="6" height="8" rx="1.5"/><circle cx="22" cy="20" r="2.2" fill="#e4572e" stroke="none"/></svg></span>
+        <div><h3>Rules vs. AI ticket triage for an education platform</h3><p>A live prototype that sorts educator support tickets with simple rules first, sends only the unclear ones to Claude, and keeps people in charge of student-safety cases.</p></div>
+        <span class="tog"><span class="o">Open</span><span class="c">Close</span></span>
+      </summary>
+      <div class="sbody">
+        <p class="ctx"><b>The problem:</b> support teams at fast-growing AI companies get a flood of tickets, and not every one needs an AI model to sort it. <b>What I built:</b> a working triage board for 30 teacher support tickets. Keyword rules handle the clear-cut ones, Claude handles the ambiguous ones, and the page scores rules, Claude and the combined approach against my own labels. <b>The rule:</b> use AI where it earns its place, and send anything about student privacy or safety to a person. The tickets are fictional.</p>
+        <div class="two">
+          <div><h4>What it shows</h4><ul><li>When a deterministic rule beats a model: billing, password and roster tickets.</li><li>Where AI helps: tickets whose meaning sits in tone or context.</li><li>How to measure it: category accuracy, priority accuracy and catching every urgent ticket.</li></ul></div>
+          <div><h4>How it would run in production</h4><ul><li>A Salesforce flow applies the rules to new cases.</li><li>Unmatched cases call Claude through n8n or Zapier and write back a category, priority and confidence.</li><li>Low-confidence and safety cases go to a human queue, with a weekly re-score against a labeled set.</li></ul></div>
+        </div>
+        <p class="ctx"><b>Try it:</b> <a href="projects/ticket-triage/">open the live prototype</a>, copy the prompt into Claude, and paste the reply back in to see the scores update.</p>
+      </div>
+    </details>
+
+    <details class="sample">
       <summary>
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round"><path d="M4 22 L11 15 L16 19 L24 7"/><circle cx="24" cy="7" r="2" fill="#e4572e" stroke="none"/></svg></span>
         <div><h3>90-day AI adoption plan</h3><p>Taking a new customer from kickoff to everyday use, with a clear measure of success at each stage.</p></div>
