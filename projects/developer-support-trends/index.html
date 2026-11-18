@@ -189,7 +189,7 @@ const top=tf.slice().sort((x,y)=>v(y[4])-v(x[4])).slice(0,4).map(p=>F+p[1]).join
 document.getElementById("brief").textContent=`Subject: TestFlight failing account-wide for some developers since late October
 
 What: Testers stuck at "Invited", installs failing with "requested app is not available", and external beta submissions failing with HTTP 422 (sometimes BETA_CONTRACT_MISSING). Affects every app on the account; App Store uploads still work.
-How many: ${tf.length} separate forum threads from different accounts in the last 2 weeks of activity, ${tf.filter(p=>p[6]).length} citing open support cases, ${Math.round(tfViews/1000)}k+ views.
+How many: ${tf.length} separate forum threads with activity in the last 2 weeks, ${tf.filter(p=>p[6]).length} citing open support cases, ${Math.round(tfViews/1000)}k+ views.
 When: Reported start dates Oct 20 to Nov 8.
 Possible link: 5 posts bring up agreements; 2 say it started right after accepting a new agreement (Free Apps Agreement Oct 27, Program License Agreement Oct 29). Worth checking beta contract state for affected teams.
 Top threads:
