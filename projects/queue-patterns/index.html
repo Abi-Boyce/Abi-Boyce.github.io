@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reading the Support Queue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a support analyst's weekly brief to a product team; clear, specific, a little warm.
+   IDEA: the queue as a signal: one line jumps out of two weeks of tickets.
+   PICTURE: the daily ticket chart, with the credit-refund line pulling away after the update.
+   COLOUR and TYPE: night-desk plum ground, white ink, rose for the problem line, dusk for the rest; Inter Tight + Inter.
+   LAYOUT: finding and key figures over the chart, then patterns table, queue explorer, brief, fixes. */
+:root{color-scheme:dark;--bg:#1a0f1f;--ink:#ffffff;--mute:#c9bcd4;--line:#3a2a42;--card:#241729;--rose:#ff8fa3;--dusk:#8f7aa8}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"Inter Tight",Inter,sans-serif;line-height:1.08;text-wrap:balance;margin:0 0 .45em}
+h1{font-weight:300;font-size:clamp(30px,4.8vw,50px)}h2{font-weight:600;font-size:clamp(22px,3vw,30px)}h3{font-weight:600;font-size:18px}
+p{max-width:68ch;margin:0 0 1em}a{color:var(--rose);text-underline-offset:3px}
+.band{padding:clamp(28px,4vw,56px) max(5vw,16px)}.wrap{max-width:1240px;margin:0 auto}
+.small{font-size:14px;color:var(--mute)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0 8px}
+.k b{display:block;font:300 clamp(28px,4.4vw,46px)/1 "Inter Tight",sans-serif}.k span{font-size:14px;color:var(--mute)}
+.k.hot b{color:var(--rose)}
+.fig{position:relative;min-height:320px;margin-top:10px}.fig>svg{position:absolute;inset:0;width:100%;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:14px;color:var(--mute);margin-top:8px}
+.sw{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:6px}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}
+th{font-family:"Inter Tight",sans-serif;font-weight:600;color:var(--mute);font-size:13px}td.n{text-align:right;white-space:nowrap}
+.up{color:var(--rose);font-weight:600}
+.alt{background:var(--card)}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+button{font:600 14px Inter,sans-serif;min-height:44px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+button:focus-visible{outline:3px solid var(--rose);outline-offset:2px}
+.q{display:grid;grid-template-columns:5.5em 6.5em minmax(0,1fr) 9em;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.q .m{color:var(--mute)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px}
+pre{white-space:pre-wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;font:14px/1.5 Inter,sans-serif;margin:0 0 10px}
+ol li,ul li{margin-bottom:.45em;max-width:70ch}
+.scroll{overflow-x:auto}
+@media(max-width:700px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:minmax(0,1fr)}.q{grid-template-columns:4.5em minmax(0,1fr)}.q .pl,.q .pa{display:none}}
+@media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;color:var(--mute)}.stack td:empty{display:none}}
+@media(prefers-reduced-motion:no-preference){.fig path.hot{stroke-dasharray:2000;stroke-dashoffset:2000;animation:d 1.6s ease-out forwards}@keyframes d{to{stroke-dashoffset:0}}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<header class="band"><div class="wrap">
+<p class="small">Support pattern report · two weeks of a creator support queue · by Abigayle Boyce</p>
+<h1>Credit-refund tickets jumped from 3 to 14 in the week after the November 9 update</h1>
+<p>I read two weeks of tickets from a generative AI video tool the way I would on a Tier 2 queue: tag, count, compare weeks, and turn the biggest pattern into a bug report, a macro and a help doc. The tickets are synthetic and written by me.</p>
+<div class="kpis" id="kpis"></div>
+<div class="fig"><svg id="chart" role="img" aria-label="Daily tickets: credit-refund tickets compared with all other tickets, November 2 to 15"></svg></div>
+<div class="legend"><span><span class="sw" style="background:var(--rose)"></span>Credits not returned after a failed generation</span><span><span class="sw" style="background:var(--dusk)"></span>All other tickets</span><span>Dashed line: November 9 update</span></div>
+</div></header>
+
+<section class="band alt"><div class="wrap">
+<h2>Six patterns, one that needs engineering this week</h2>
+<p>Patterns are counted from tags on each ticket. "Who handles it" is where the ticket should go: the AI support layer when a help doc answers it, a person when it needs judgment or a refund.</p>
+<div class="scroll"><table class="stack"><thead><tr><th>Pattern</th><th>Week 1</th><th>Week 2</th><th>Change</th><th>Plans</th><th>Who handles it</th><th>What I'd do</th></tr></thead><tbody id="pt"></tbody></table></div>
+</div></section>
+
+<section class="band"><div class="wrap">
+<h2>The queue</h2>
+<div class="ctl" id="filters" role="group" aria-label="Filter by pattern"></div>
+<div id="list"></div>
+</div></section>
+
+<section class="band alt"><div class="wrap grid2">
+<div>
+<h2>The note I'd send the product team</h2>
+<pre id="brief"></pre>
+<p class="small">The ticket numbers fill in from the data, so the report stays tied to the evidence.</p>
+</div>
+<div>
+<h2>Fixes support can ship today</h2>
+<h3>Macro: credits after a failed generation</h3>
+<pre>Hi {first name}, thanks for flagging this, and sorry about the lost credits. A failed generation shouldn't use them, and I've returned {n} credits to your account. We've also seen this on other accounts since the latest update, and our team is fixing it. If it happens again, reply here with the time of the failed job and I'll sort it out right away.</pre>
+<h3>Help doc draft: export stuck in Safari</h3>
+<pre>Export stuck at 99% or download not starting?
+1. Refresh the page; your finished video is saved in your assets.
+2. Try the download in Chrome or Firefox.
+3. Still stuck? Clear your browser cache, then try again.
+4. Contact support with your browser version and the video's name.</pre>
+<p class="small">The help doc lets the AI support layer resolve these tickets without a person.</p>
+</div>
+</div></section>
+
+<section class="band"><div class="wrap grid2">
+<div><h2>How I'd run this every week</h2>
+<ol><li>Tag every ticket with a pattern as I work the queue, and keep a saved view per pattern in the help desk.</li>
+<li>Every Monday, compare this week with last week and flag anything that doubled.</li>
+<li>Send product a short note with counts, affected plans and ticket links, not just a feeling that "a lot of people" saw it.</li>
+<li>Feed fixes back into the AI support layer: new help docs for what it can answer, routing rules for what it shouldn't.</li>
+<li>Watch Discord and community forums for the same pattern before it reaches the queue.</li></ol></div>
+<div><h2>Where the AI layer should hand off</h2>
+<ul><li><b>Let the AI answer:</b> how-to and plan questions that a help doc answers, like exports, plans and cancellations.</li>
+<li><b>Send to a person:</b> anything about money (refunds, charges), anything that repeats after a fix, and upset or confused users.</li>
+<li><b>Send to Trust &amp; Safety:</b> content-filter disputes, since a wrong block and a right block look alike from the outside.</li>
+<li><b>Send to Enterprise support:</b> team and seat problems on business accounts.</li></ul>
+<p class="small">Synthetic data written by me; not Runway data. Independent project, not affiliated with Runway. <a href="../../">Back to my portfolio</a>. Related: <a href="../ticket-triage/">Rules vs. AI ticket triage</a>.</p></div>
+</div></section>
+
+<script>{
+const D={"patterns": {"credits": {"name": "Credits not returned after a failed generation", "path": "Tier 2"}, "export": {"name": "Export stuck or download fails in Safari", "path": "AI layer"}, "filter": {"name": "Safety filter blocks harmless prompts", "path": "Trust & Safety review"}, "plan": {"name": "Confusion about what each plan includes", "path": "AI layer"}, "seats": {"name": "Team invite emails not arriving", "path": "Enterprise"}, "other": {"name": "Other (login, billing, requests)", "path": "AI layer"}}, "tickets": [{"d": "2026-11-02", "k": "export", "plan": "Pro", "text": "Download button does nothing in Safari.", "id": 1001}, {"d": "2026-11-03", "k": "other", "plan": "Standard", "text": "Can I change the email on my account?", "id": 1002}, {"d": "2026-11-04", "k": "credits", "plan": "Standard", "text": "Failed job still took my credits, can you refund?", "id": 1003}, {"d": "2026-11-04", "k": "export", "plan": "Free", "text": "Export gets stuck at 99% on my Mac.", "id": 1004}, {"d": "2026-11-04", "k": "filter", "plan": "Unlimited", "text": "My medical illustration prompt keeps getting rejected.", "id": 1005}, {"d": "2026-11-04", "k": "plan", "plan": "Unlimited", "text": "What's the difference between Pro and Unlimited?", "id": 1006}, {"d": "2026-11-04", "k": "other", "plan": "Pro", "text": "Can I change the email on my account?", "id": 1007}, {"d": "2026-11-05", "k": "export", "plan": "Pro", "text": "Export froze again, using Safari on macOS.", "id": 1008}, {"d": "2026-11-05", "k": "plan", "plan": "Unlimited", "text": "Does Standard include 4K export?", "id": 1009}, {"d": "2026-11-05", "k": "seats", "plan": "Enterprise", "text": "Invited 6 teammates, none got the email.", "id": 1010}, {"d": "2026-11-05", "k": "other", "plan": "Standard", "text": "How do I cancel my subscription?", "id": 1011}, {"d": "2026-11-06", "k": "export", "plan": "Free", "text": "Download button does nothing in Safari.", "id": 1012}, {"d": "2026-11-06", "k": "filter", "plan": "Pro", "text": "Filter blocked a cooking video prompt with a knife in it.", "id": 1013}, {"d": "2026-11-06", "k": "filter", "plan": "Free", "text": "Prompt about a photo shoot got flagged as unsafe.", "id": 1014}, {"d": "2026-11-06", "k": "plan", "plan": "Standard", "text": "Can I use my videos commercially on the Free plan?", "id": 1015}, {"d": "2026-11-06", "k": "other", "plan": "Standard", "text": "Reset password email not coming.", "id": 1016}, {"d": "2026-11-07", "k": "credits", "plan": "Standard", "text": "My video failed halfway and the credits are gone.", "id": 1017}, {"d": "2026-11-08", "k": "credits", "plan": "Unlimited", "text": "My video failed halfway and the credits are gone.", "id": 1018}, {"d": "2026-11-08", "k": "plan", "plan": "Standard", "text": "Does Standard include 4K export?", "id": 1019}, {"d": "2026-11-08", "k": "plan", "plan": "Free", "text": "What's the difference between Pro and Unlimited?", "id": 1020}, {"d": "2026-11-08", "k": "other", "plan": "Standard", "text": "Was charged on renewal, I meant to cancel.", "id": 1021}, {"d": "2026-11-09", "k": "credits", "plan": "Pro", "text": "Failed job still took my credits, can you refund?", "id": 1022}, {"d": "2026-11-09", "k": "credits", "plan": "Standard", "text": "My video failed halfway and the credits are gone.", "id": 1023}, {"d": "2026-11-09", "k": "credits", "plan": "Unlimited", "text": "Lost 50 credits on renders that never finished.", "id": 1024}, {"d": "2026-11-09", "k": "plan", "plan": "Unlimited", "text": "What's the difference between Pro and Unlimited?", "id": 1025}, {"d": "2026-11-09", "k": "seats", "plan": "Enterprise", "text": "Team invites going missing for our whole agency.", "id": 1026}, {"d": "2026-11-10", "k": "credits", "plan": "Unlimited", "text": "Credits dropped but the output says 'failed'.", "id": 1027}, {"d": "2026-11-10", "k": "credits", "plan": "Standard", "text": "Every failed render since the update eats my credits.", "id": 1028}, {"d": "2026-11-10", "k": "seats", "plan": "Enterprise", "text": "Team invites going missing for our whole agency.", "id": 1029}, {"d": "2026-11-10", "k": "other", "plan": "Free", "text": "How do I cancel my subscription?", "id": 1030}, {"d": "2026-11-10", "k": "other", "plan": "Free", "text": "Reset password email not coming.", "id": 1031}, {"d": "2026-11-11", "k": "credits", "plan": "Unlimited", "text": "My video failed halfway and the credits are gone.", "id": 1032}, {"d": "2026-11-11", "k": "export", "plan": "Free", "text": "Download button does nothing in Safari.", "id": 1033}, {"d": "2026-11-11", "k": "plan", "plan": "Unlimited", "text": "Do unused credits roll over?", "id": 1034}, {"d": "2026-11-11", "k": "other", "plan": "Pro", "text": "Can I change the email on my account?", "id": 1035}, {"d": "2026-11-12", "k": "credits", "plan": "Standard", "text": "Every failed render since the update eats my credits.", "id": 1036}, {"d": "2026-11-12", "k": "filter", "plan": "Unlimited", "text": "Prompt about a photo shoot got flagged as unsafe.", "id": 1037}, {"d": "2026-11-12", "k": "other", "plan": "Pro", "text": "Reset password email not coming.", "id": 1038}, {"d": "2026-11-13", "k": "credits", "plan": "Standard", "text": "My video failed halfway and the credits are gone.", "id": 1039}, {"d": "2026-11-13", "k": "credits", "plan": "Pro", "text": "My video failed halfway and the credits are gone.", "id": 1040}, {"d": "2026-11-13", "k": "credits", "plan": "Standard", "text": "Every failed render since the update eats my credits.", "id": 1041}, {"d": "2026-11-13", "k": "credits", "plan": "Pro", "text": "My video failed halfway and the credits are gone.", "id": 1042}, {"d": "2026-11-13", "k": "credits", "plan": "Unlimited", "text": "Generation errored out twice and I was charged both times.", "id": 1043}, {"d": "2026-11-13", "k": "export", "plan": "Standard", "text": "My finished video won't download, it just spins.", "id": 1044}, {"d": "2026-11-13", "k": "filter", "plan": "Unlimited", "text": "Why is 'kids birthday party' blocked?", "id": 1045}, {"d": "2026-11-13", "k": "seats", "plan": "Enterprise", "text": "Team invites going missing for our whole agency.", "id": 1046}, {"d": "2026-11-14", "k": "export", "plan": "Free", "text": "Export gets stuck at 99% on my Mac.", "id": 1047}, {"d": "2026-11-14", "k": "filter", "plan": "Free", "text": "My medical illustration prompt keeps getting rejected.", "id": 1048}, {"d": "2026-11-14", "k": "plan", "plan": "Unlimited", "text": "Do unused credits roll over?", "id": 1049}, {"d": "2026-11-14", "k": "plan", "plan": "Standard", "text": "Does Standard include 4K export?", "id": 1050}, {"d": "2026-11-14", "k": "other", "plan": "Free", "text": "How do I cancel my subscription?", "id": 1051}, {"d": "2026-11-15", "k": "credits", "plan": "Unlimited", "text": "My video failed halfway and the credits are gone.", "id": 1052}, {"d": "2026-11-15", "k": "credits", "plan": "Standard", "text": "Lost 50 credits on renders that never finished.", "id": 1053}, {"d": "2026-11-15", "k": "export", "plan": "Standard", "text": "Export froze again, using Safari on macOS.", "id": 1054}, {"d": "2026-11-15", "k": "filter", "plan": "Pro", "text": "Why is 'kids birthday party' blocked?", "id": 1055}]};
+const P=D.patterns,T=D.tickets,UPD="2026-11-09";
+const ACT={credits:"Bug report to engineering with ticket IDs; refund macro; route to a person until fixed",export:"Publish a help doc so the AI layer can answer; flag to engineering",filter:"Send examples to Trust & Safety; explain the filter in a help doc",plan:"Suggest clearer plan comparison copy; add to AI layer answers",seats:"Escalate to Enterprise support; check email delivery logs",other:"Covered by existing help docs and macros"};
+const wk=t=>t.d>=UPD?1:0;
+const keys=Object.keys(P);
+const cnt=keys.map(k=>{const a=T.filter(t=>t.k===k);return{k,w1:a.filter(t=>!wk(t)).length,w2:a.filter(t=>wk(t)).length,plans:[...new Set(a.map(t=>t.plan))].join(", ")}}).sort((a,b)=>(b.w2-b.w1)-(a.w2-a.w1));
+const cr=cnt.find(c=>c.k==="credits"),tot=T.length,ai=T.filter(t=>P[t.k].path==="AI layer").length;
+document.getElementById("kpis").innerHTML=[["hot",tot,"tickets over 14 days"],["hot",cr.w1+" → "+cr.w2,"credit-refund tickets, week 1 to week 2"],["",Math.round(100*(cr.w1+cr.w2)/tot)+"%","of all tickets are this one pattern"],["",Math.round(100*ai/tot)+"%","could be answered by the AI layer with a help doc"]].map(([c,b,s])=>`<div class="k ${c}"><b>${b}</b><span>${s}</span></div>`).join("");
+document.getElementById("pt").innerHTML=cnt.map(c=>{const ch=c.w2-c.w1;return`<tr><td>${P[c.k].name}</td><td class="n">${c.w1}</td><td class="n">${c.w2}</td><td class="n ${ch>=5?"up":""}">${ch>0?"+":""}${ch}</td><td>${c.plans}</td><td>${P[c.k].path}</td><td>${ACT[c.k]}</td></tr>`}).join("");
+let f="all";
+const fl=document.getElementById("filters");
+function filters(){fl.innerHTML=[["all","All ("+tot+")"],...cnt.map(c=>[c.k,P[c.k].name.split(" ").slice(0,3).join(" ")+" ("+(c.w1+c.w2)+")"])].map(([k,l])=>`<button data-k="${k}" aria-pressed="${f===k}">${l}</button>`).join("")}
+function list(){const a=T.filter(t=>f==="all"||t.k===f).slice().reverse();document.getElementById("list").innerHTML=a.map(t=>`<div class="q"><span class="m">#${t.id}</span><span class="m pl">${t.d.slice(5)} · ${t.plan}</span><span>${t.text}</span><span class="m pa">${P[t.k].path}</span></div>`).join("")}
+fl.onclick=e=>{const b=e.target.closest("button");if(!b)return;f=b.dataset.k;filters();list()};
+filters();list();
+const ids=T.filter(t=>t.k==="credits"&&wk(t)).map(t=>"#"+t.id);
+document.getElementById("brief").textContent=`Subject: Failed generations are using credits since the Nov 9 update
+
+What: Users are losing credits when a generation fails.
+How many: ${cr.w2} tickets in the week after the update, up from ${cr.w1} the week before (${Math.round(100*(cr.w1+cr.w2)/tot)}% of all tickets in two weeks).
+Who: ${cr.plans} plans.
+Examples: ${ids.slice(0,6).join(", ")}
+Impact: Paying users are being charged for work they didn't get, and each ticket needs a manual refund.
+Ask: Can engineering confirm whether the update changed how failed jobs are billed?
+Meanwhile: Support is refunding with a macro and routing these to a person, not the AI layer.`;
+const s=document.getElementById("chart");
+const days=[...Array(14)].map((_,i)=>{const d=new Date(Date.UTC(2026,10,2+i));return d.toISOString().slice(0,10)});
+const a=days.map(d=>T.filter(t=>t.d===d&&t.k==="credits").length),b=days.map(d=>T.filter(t=>t.d===d&&t.k!=="credits").length);
+const draw=()=>{const W=s.clientWidth,H=s.clientHeight,small=W<520,L=small?24:34,R=12,Tp=14,B=30,mx=Math.max(...a,...b,4);
+const x=i=>L+(W-L-R)*i/13,y=v=>Tp+(H-Tp-B)*(1-v/mx);
+const line=(v)=>v.map((n,i)=>(i?"L":"M")+x(i).toFixed(1)+","+y(n).toFixed(1)).join("");
+let g="";for(let v=0;v<=mx;v+=2)g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#3a2a42"/>`+`<text x="${L-6}" y="${y(v)+4}" fill="#c9bcd4" font-size="12" text-anchor="end">${v}</text>`;
+const ux=x(7)-((W-L-R)/26);
+g+=`<line x1="${ux}" x2="${ux}" y1="${Tp}" y2="${H-B}" stroke="#c9bcd4" stroke-dasharray="4 4"/>`+(small?"":`<text x="${ux+6}" y="${Tp+12}" fill="#c9bcd4" font-size="12">Nov 9 update</text>`);
+days.forEach((d,i)=>{if(!small||i%2===0)g+=`<text x="${x(i)}" y="${H-10}" fill="#c9bcd4" font-size="12" text-anchor="middle">${small?+d.slice(8):"Nov "+(+d.slice(8))}</text>`});
+s.innerHTML=g+`<path d="${line(b)}" fill="none" stroke="#8f7aa8" stroke-width="2.5"/><path class="hot" d="${line(a)}" fill="none" stroke="#ff8fa3" stroke-width="3.5"/>`};
+new ResizeObserver(draw).observe(s);
+}</script>
+</body>
+</html>
