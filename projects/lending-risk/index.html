@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Approval vs. Loss: A Lending Analysis in SQL and Python</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;600&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+/* VOICE: an early-career risk analyst's write-up for a lending team; plain, careful, numbers first.
+   IDEA: every approval decision trades growth against losses; better signals move the curve.
+   PICTURE: the approval-vs-bad-rate curve, model line under the grade line.
+   COLOUR and TYPE: warm paper ground, ink text, deep green for the model, clay for the baseline; Inter Tight + Inter, mono for code. */
+:root{--bg:#f7f4ee;--ink:#1d1d1b;--mute:#5d5a53;--line:#dcd6ca;--card:#ffffff;--green:#1f6f54;--clay:#c2643a;--soft:#efe9de}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"Inter Tight",Inter,sans-serif;line-height:1.1;text-wrap:balance;margin:0 0 .45em}
+h1{font-weight:300;font-size:clamp(30px,4.6vw,48px)}h2{font-weight:600;font-size:clamp(22px,3vw,30px)}h3{font-weight:600;font-size:18px;margin-top:1.2em}
+p{max-width:70ch;margin:0 0 1em}a{color:var(--green);text-underline-offset:3px}
+.band{padding:clamp(28px,4vw,56px) max(5vw,16px)}.wrap{max-width:1140px;margin:0 auto}.alt{background:var(--soft)}
+.small{font-size:14px;color:var(--mute)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:22px 0 4px}
+.k{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.k b{display:block;font:300 clamp(26px,3.8vw,40px)/1 "Inter Tight",sans-serif;color:var(--green)}.k span{font-size:14px;color:var(--mute)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px;align-items:start}
+.fig{position:relative;height:300px;margin:8px 0}.fig svg{position:absolute;inset:0;width:100%;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:14px;color:var(--mute)}.sw{display:inline-block;width:14px;height:4px;border-radius:2px;vertical-align:middle;margin-right:6px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;background:var(--card)}th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left}
+th{font-family:"Inter Tight",sans-serif;font-weight:600;color:var(--mute);font-size:13px}td.n,th.n{text-align:right;white-space:nowrap}
+.scroll{overflow-x:auto}
+.heat{font-weight:600}
+pre,code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px}
+pre{white-space:pre-wrap;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:0 0 10px;overflow-x:auto}
+.bars{display:grid;gap:9px}.bar{display:grid;grid-template-columns:minmax(0,13em) minmax(0,1fr) 3.5em;gap:10px;align-items:center;font-size:14.5px}
+.bar .t{height:14px;border-radius:3px;background:var(--green)}.bar .n{text-align:right;font-weight:600}
+ul li,ol li{max-width:70ch;margin-bottom:.4em}
+.note{border-left:4px solid var(--clay);background:var(--card);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+@media(max-width:780px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:minmax(0,1fr)}.bar{grid-template-columns:minmax(0,1fr) 3.5em}.bar .t{grid-column:1/-1;order:3}}
+</style>
+</head>
+<body>
+<header class="band"><div class="wrap">
+<p class="small">Lending analysis · LendingClub public loan data, 2007–2011 · SQL (DuckDB) and Python (scikit-learn) · by Abigayle Boyce</p>
+<h1>A simple model on application data cut bad loans at the same approval rate, and over half its declines came down to loan term</h1>
+<p>I wanted to practice the core question in consumer lending: who do you approve, and what does it cost in losses? I loaded 39,747 finished LendingClub loans into DuckDB, explored them with SQL, then trained a default model in Python on 2007–2010 loans and tested it on 2011 loans, the way it would be used on new applicants.</p>
+<div class="kpis" id="kpis"></div>
+</div></header>
+
+<section class="band alt"><div class="wrap grid2">
+<div>
+<h2>1. Risk climbs with grade, and faster on longer loans</h2>
+<p>Share of loans charged off, by LendingClub grade and term. At every grade, 60-month loans went bad more often than 36-month loans, even though their interest rates were about the same.</p>
+<div class="scroll"><table id="gt"></table></div>
+<p class="small">Query: <a href="https://github.com/Abi-Boyce/Abi-Boyce.github.io/blob/main/projects/lending-risk/code/02_analysis.sql">02_analysis.sql</a>, Q2.</p>
+</div>
+<div>
+<h2>2. There's signal the grade misses</h2>
+<p>Within the same grade, applicants with three or more credit inquiries in the last six months charged off far more often. If the grade had captured everything, these lines would be flat.</p>
+<div class="fig"><svg id="inq" role="img" aria-label="Bad rate by number of recent credit inquiries, within grades A to D"></svg></div>
+<div class="legend" id="inqLegend"></div>
+</div>
+</div></section>
+
+<section class="band"><div class="wrap grid2">
+<div>
+<h2>3. The tradeoff: approval rate vs. bad rate</h2>
+<p>For 2011 applicants, approve the safest X%. Ranked by my model, the approved group has fewer bad loans than ranked by grade alone, at every approval rate.</p>
+<div class="fig"><svg id="curve" role="img" aria-label="Bad rate among approved loans at approval rates from 50 to 100 percent, model versus grade"></svg></div>
+<div class="legend"><span><span class="sw" style="background:var(--green)"></span>Ranked by my model</span><span><span class="sw" style="background:var(--clay)"></span>Ranked by grade only</span></div>
+<p id="curveNote"></p>
+</div>
+<div>
+<h2>4. Is the model calibrated? Mostly, but 2011 was worse</h2>
+<p>Predicted vs. actual bad rate for each tenth of 2011 applicants, safest to riskiest. The model ranks well, but it under-predicts the middle: 2011 loans went bad more often than the 2009–2010 loans that make up most of its training data.</p>
+<div class="fig"><svg id="cal" role="img" aria-label="Predicted versus actual bad rate by risk decile"></svg></div>
+<div class="legend"><span><span class="sw" style="background:var(--green)"></span>Actual</span><span><span class="sw" style="background:var(--mute)"></span>Predicted</span></div>
+<p class="small">Bad rate by issue year: <span id="vint"></span>. A lending team would watch this drift monthly and recalibrate.</p>
+</div>
+</div></section>
+
+<section class="band alt"><div class="wrap grid2">
+<div>
+<h2>5. Fair lending and adverse action</h2>
+<p>When a lender declines someone, the Equal Credit Opportunity Act and Regulation B require giving them the specific main reasons (or telling them how to ask). I built that into the analysis instead of treating it as an afterthought:</p>
+<ul>
+<li><b>Left out location.</b> State and zip code can stand in for race or ethnicity, so the model doesn't use them.</li>
+<li><b>Reasons people can act on.</b> For each applicant the model would decline at an 80% approval rate, I found the factor that raised their risk the most. Grade is excluded from reasons because it's a summary score, not a reason.</li>
+</ul>
+<h3>Top decline reason, <span id="decN"></span> declined 2011 applicants</h3>
+<div class="bars" id="reasons"></div>
+</div>
+<div>
+<h2>6. A counter-offer instead of a decline?</h2>
+<p id="counterTxt"></p>
+<div class="note"><b>Why this needs a test, not a launch:</b> the term effect here is a correlation. People who choose 60 months may differ in ways the data doesn't show, and a 36-month term on the same amount means a higher monthly payment. The right next step is an experiment that offers shorter terms to a small group and measures both take-up and losses.</div>
+<p>This matters for products where the borrower picks a payment plan at checkout: the plan you show can change risk as much as the yes-or-no decision.</p>
+</div>
+</div></section>
+
+<section class="band"><div class="wrap grid2">
+<div>
+<h2>How I built it, and how I checked it</h2>
+<ol>
+<li><b>Load and clean in SQL.</b> Typed every column, kept only finished loans, and left out 2,749 loans issued under an older credit policy.</li>
+<li><b>Explore in SQL</b> by grade, term, purpose, inquiries and issue year.</li>
+<li><b>Model in Python.</b> Logistic regression on 15 application-time features, trained on 2007–2010 and tested on 2011.</li>
+<li><b>Guard against leakage.</b> Payment and recovery columns describe what happened after the loan, so they're excluded.</li>
+<li><b>Use AI, then verify.</b> I wrote this with an AI assistant (Claude) and re-ran every result. I spot-checked numbers with separate queries, for example the 2011 bad rate (15.2% of all 2011 loans; 15.0% after dropping rows with missing fields) and the 9,650 grade A, 36-month loans.</li>
+</ol>
+</div>
+<div>
+<h2>Code</h2>
+<p><a href="https://github.com/Abi-Boyce/Abi-Boyce.github.io/blob/main/projects/lending-risk/code/01_load.sql">01_load.sql</a> · <a href="https://github.com/Abi-Boyce/Abi-Boyce.github.io/blob/main/projects/lending-risk/code/02_analysis.sql">02_analysis.sql</a> · <a href="https://github.com/Abi-Boyce/Abi-Boyce.github.io/blob/main/projects/lending-risk/code/03_model.py">03_model.py</a> · <a href="https://github.com/Abi-Boyce/Abi-Boyce.github.io/blob/main/projects/lending-risk/code/04_export.py">04_export.py</a> · <a href="https://github.com/Abi-Boyce/Abi-Boyce.github.io/blob/main/projects/lending-risk/code/README.md">README</a></p>
+<pre id="snip">-- Bad rate by recent credit inquiries, within the same grade
+SELECT grade,
+       CASE WHEN inq_last_6mths >= 3 THEN '3+'
+            ELSE CAST(CAST(inq_last_6mths AS INT) AS VARCHAR) END AS inquiries,
+       count(*) AS loans,
+       round(100*avg(bad),1) AS bad_rate_pct
+FROM loans
+WHERE grade IN ('A','B','C','D')
+GROUP BY 1,2 ORDER BY 1,2;</pre>
+<h2>Limits</h2>
+<ul>
+<li>One lender, one era (2007–2011), before today's buy-now-pay-later products. Patterns can differ now.</li>
+<li>Only approved loans are in the data, so it can't show how declined applicants would have performed.</li>
+<li>Logistic regression is a baseline. Gradient-boosted models usually rank better but need more care to explain.</li>
+</ul>
+<p class="small">Data: LendingClub public loan data, LoanStats3a (2007–2011). Independent learning project, not affiliated with LendingClub or any lender. <a href="../../">Back to my portfolio</a>.</p>
+</div>
+</div></section>
+
+<script>
+const D={"overview": [{"loans": 39747, "funded_musd": 435.4, "bad_rate_pct": 14.2, "net_principal_loss_pct": 9.2}], "grade_term": [{"grade": "A", "term_months": 36, "loans": 9650, "bad_rate_pct": 5.9, "avg_rate_pct": 7.3, "net_return_pct": 7.1}, {"grade": "A", "term_months": 60, "loans": 435, "bad_rate_pct": 8.5, "avg_rate_pct": 7.5, "net_return_pct": 11.5}, {"grade": "B", "term_months": 36, "loans": 9331, "bad_rate_pct": 10.6, "avg_rate_pct": 11.0, "net_return_pct": 9.3}, {"grade": "B", "term_months": 60, "loans": 2698, "bad_rate_pct": 16.6, "avg_rate_pct": 11.1, "net_return_pct": 13.7}, {"grade": "C", "term_months": 36, "loans": 5749, "bad_rate_pct": 14.7, "avg_rate_pct": 13.5, "net_return_pct": 10.1}, {"grade": "C", "term_months": 60, "loans": 2354, "bad_rate_pct": 21.7, "avg_rate_pct": 13.7, "net_return_pct": 15.1}, {"grade": "D", "term_months": 36, "loans": 3231, "bad_rate_pct": 18.0, "avg_rate_pct": 15.4, "net_return_pct": 11.3}, {"grade": "D", "term_months": 60, "loans": 2084, "bad_rate_pct": 26.3, "avg_rate_pct": 16.3, "net_return_pct": 15.5}, {"grade": "E", "term_months": 36, "loans": 868, "bad_rate_pct": 20.3, "avg_rate_pct": 17.0, "net_return_pct": 11.8}, {"grade": "E", "term_months": 60, "loans": 1980, "bad_rate_pct": 27.6, "avg_rate_pct": 18.0, "net_return_pct": 17.7}, {"grade": "F", "term_months": 36, "loans": 211, "bad_rate_pct": 26.5, "avg_rate_pct": 18.6, "net_return_pct": 6.2}, {"grade": "F", "term_months": 60, "loans": 839, "bad_rate_pct": 31.7, "avg_rate_pct": 20.0, "net_return_pct": 18.4}, {"grade": "G", "term_months": 36, "loans": 56, "bad_rate_pct": 37.5, "avg_rate_pct": 20.3, "net_return_pct": 3.9}, {"grade": "G", "term_months": 60, "loans": 261, "bad_rate_pct": 30.7, "avg_rate_pct": 21.6, "net_return_pct": 19.5}], "purpose": [{"purpose": "small_business", "loans": 1827, "bad_rate_pct": 26.1}, {"purpose": "other", "loans": 3998, "bad_rate_pct": 15.9}, {"purpose": "moving", "loans": 583, "bad_rate_pct": 15.8}, {"purpose": "medical", "loans": 695, "bad_rate_pct": 15.3}, {"purpose": "debt_consolidation", "loans": 18651, "bad_rate_pct": 14.9}, {"purpose": "home_improvement", "loans": 2984, "bad_rate_pct": 11.8}, {"purpose": "credit_card", "loans": 5132, "bad_rate_pct": 10.7}, {"purpose": "car", "loans": 1551, "bad_rate_pct": 10.3}, {"purpose": "major_purchase", "loans": 2187, "bad_rate_pct": 10.2}, {"purpose": "wedding", "loans": 948, "bad_rate_pct": 10.1}], "inquiries": [{"grade": "A", "inquiries": "0", "loans": 5951, "bad_rate_pct": 5.3}, {"grade": "A", "inquiries": "1", "loans": 2366, "bad_rate_pct": 6.0}, {"grade": "A", "inquiries": "2", "loans": 1068, "bad_rate_pct": 7.3}, {"grade": "A", "inquiries": "3+", "loans": 700, "bad_rate_pct": 9.7}, {"grade": "B", "inquiries": "0", "loans": 6443, "bad_rate_pct": 10.9}, {"grade": "B", "inquiries": "1", "loans": 3038, "bad_rate_pct": 12.0}, {"grade": "B", "inquiries": "2", "loans": 1544, "bad_rate_pct": 12.7}, {"grade": "B", "inquiries": "3+", "loans": 1004, "bad_rate_pct": 16.8}, {"grade": "C", "inquiries": "0", "loans": 2948, "bad_rate_pct": 14.2}, {"grade": "C", "inquiries": "1", "loans": 2749, "bad_rate_pct": 17.6}, {"grade": "C", "inquiries": "2", "loans": 1480, "bad_rate_pct": 17.0}, {"grade": "C", "inquiries": "3+", "loans": 926, "bad_rate_pct": 21.5}, {"grade": "D", "inquiries": "0", "loans": 2239, "bad_rate_pct": 18.5}, {"grade": "D", "inquiries": "1", "loans": 1565, "bad_rate_pct": 21.2}, {"grade": "D", "inquiries": "2", "loans": 965, "bad_rate_pct": 23.0}, {"grade": "D", "inquiries": "3+", "loans": 546, "bad_rate_pct": 29.5}], "vintage": [{"issue_year": 2007, "loans": 251, "bad_rate_pct": 17.9}, {"issue_year": 2008, "loans": 1562, "bad_rate_pct": 15.8}, {"issue_year": 2009, "loans": 4716, "bad_rate_pct": 12.6}, {"issue_year": 2010, "loans": 11536, "bad_rate_pct": 12.9}, {"issue_year": 2011, "loans": 21682, "bad_rate_pct": 15.2}], "model": {"train_n": 17706, "test_n": 20918, "test_bad_rate": 15.0, "auc_model": 0.704, "auc_grade": 0.673, "curve": [{"approve_pct": 50, "bad_rate_model": 7.6, "bad_rate_grade": 8.6, "approved": 10459}, {"approve_pct": 60, "bad_rate_model": 8.7, "bad_rate_grade": 9.6, "approved": 12551}, {"approve_pct": 70, "bad_rate_model": 9.7, "bad_rate_grade": 10.7, "approved": 14642}, {"approve_pct": 80, "bad_rate_model": 11.1, "bad_rate_grade": 11.9, "approved": 16734}, {"approve_pct": 90, "bad_rate_model": 13.0, "bad_rate_grade": 13.4, "approved": 18826}, {"approve_pct": 100, "bad_rate_model": 15.0, "bad_rate_grade": 15.0, "approved": 20918}], "calibration": [{"decile": 1, "pred": 4.5, "actual": 3.3, "n": 2092}, {"decile": 2, "pred": 6.0, "actual": 5.4, "n": 2092}, {"decile": 3, "pred": 7.4, "actual": 8.2, "n": 2092}, {"decile": 4, "pred": 8.8, "actual": 9.6, "n": 2091}, {"decile": 5, "pred": 10.4, "actual": 11.4, "n": 2092}, {"decile": 6, "pred": 12.3, "actual": 14.4, "n": 2092}, {"decile": 7, "pred": 14.9, "actual": 15.7, "n": 2091}, {"decile": 8, "pred": 18.4, "actual": 21.0, "n": 2092}, {"decile": 9, "pred": 23.9, "actual": 27.7, "n": 2092}, {"decile": 10, "pred": 35.9, "actual": 32.9, "n": 2092}], "coefs": [{"feature": "Lower credit sub-grade", "coef": 0.331}, {"feature": "Recent credit inquiries", "coef": 0.22}, {"feature": "Higher income", "coef": -0.215}, {"feature": "60-month term", "coef": 0.169}, {"feature": "Small business loan", "coef": 0.16}, {"feature": "Credit card utilization", "coef": 0.128}, {"feature": "Loan size vs. income", "coef": 0.111}, {"feature": "Public records", "coef": 0.097}, {"feature": "Years employed", "coef": 0.049}, {"feature": "Open accounts", "coef": 0.031}, {"feature": "Income verified", "coef": -0.026}, {"feature": "Total accounts", "coef": 0.023}, {"feature": "Delinquencies (2 yrs)", "coef": -0.019}, {"feature": "Debt-to-income", "coef": -0.016}, {"feature": "Rents home", "coef": 0.007}], "declined_n": 4184, "reasons": [{"reason": "60-month term", "pct": 56.2}, {"reason": "Recent credit inquiries", "pct": 16.6}, {"reason": "Small business loan", "pct": 12.7}, {"reason": "Public records", "pct": 8.2}, {"reason": "Income too low", "pct": 3.1}, {"reason": "Loan size vs. income", "pct": 2.3}, {"reason": "Credit card utilization", "pct": 0.8}, {"reason": "Open accounts", "pct": 0.1}], "counter_offer": {"declined_60m": 3689, "pass_at_36m": 1927, "actual_bad_rate_declined_60m": 30.7}}};
+const M=D.model,css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const c80=M.curve.find(c=>c.approve_pct===80),fewer=Math.round(c80.approved*(c80.bad_rate_grade-c80.bad_rate_model)/100),co=M.counter_offer;
+document.getElementById('kpis').innerHTML=[[D.overview[0].loans.toLocaleString(),'finished loans analyzed'],[M.auc_model.toFixed(2)+' vs '+M.auc_grade.toFixed(2),'ranking quality (AUC), model vs. grade alone, on 2011 loans'],[c80.bad_rate_model+'% vs '+c80.bad_rate_grade+'%','bad rate at an 80% approval rate'],[Math.round(100*co.pass_at_36m/co.declined_60m)+'%','of declined 60-month applicants would pass at 36 months']].map(([b,s])=>`<div class="k"><b>${b}</b><span>${s}</span></div>`).join('');
+// grade x term table
+const G=[...new Set(D.grade_term.map(r=>r.grade))];
+const cell=(g,t)=>D.grade_term.find(r=>r.grade===g&&r.term_months===t);
+document.getElementById('gt').innerHTML='<tr><th>Grade</th><th class="n">36 months</th><th class="n">60 months</th><th class="n">Loans</th></tr>'+G.map(g=>{const a=cell(g,36),b=cell(g,60);return`<tr><td>${g}</td><td class="n">${a.bad_rate_pct}%</td><td class="n heat">${b.bad_rate_pct}%</td><td class="n">${(a.loans+b.loans).toLocaleString()}</td></tr>`}).join('');
+document.getElementById('vint').textContent=D.vintage.map(v=>v.issue_year+': '+v.bad_rate_pct+'%').join(' · ');
+document.getElementById('curveNote').textContent=`At an 80% approval rate, the model's approved group had a ${c80.bad_rate_model}% bad rate vs. ${c80.bad_rate_grade}% ranked by grade: about ${fewer} fewer charged-off loans out of ${c80.approved.toLocaleString()} approvals.`;
+document.getElementById('decN').textContent=M.declined_n.toLocaleString();
+const rmax=Math.max(...M.reasons.map(r=>r.pct));
+document.getElementById('reasons').innerHTML=M.reasons.filter(r=>r.pct>=1).map(r=>`<div class="bar"><span>${r.reason}</span><div class="t" style="width:${100*r.pct/rmax}%"></div><span class="n">${r.pct}%</span></div>`).join('');
+document.getElementById('counterTxt').textContent=`Loan term was the top reason for ${M.reasons[0].pct}% of declines. Of the ${co.declined_60m.toLocaleString()} declined applicants who asked for 60 months, ${co.pass_at_36m.toLocaleString()} (${Math.round(100*co.pass_at_36m/co.declined_60m)}%) would fall under the approval cutoff if offered the same amount over 36 months. These declined 60-month applicants actually charged off ${co.actual_bad_rate_declined_60m}% of the time, so declining them as a group was sound, but a shorter-term offer might keep many of them as customers at lower risk.`;
+// charts
+function chart(id,xs,series,{ymin=0,ymax,xl,yfmt=v=>v+'%',xfmt=v=>v}){const s=document.getElementById(id);const draw=()=>{const W=s.clientWidth,H=s.clientHeight,L=40,R=14,T=12,B=34;const X=i=>L+(W-L-R)*i/(xs.length-1),Y=v=>T+(H-T-B)*(1-(v-ymin)/(ymax-ymin));let g='';const step=(ymax-ymin)>20?10:5;for(let v=ymin;v<=ymax+.01;v+=step)g+=`<line x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}" stroke="${css('--line')}"/><text x="${L-6}" y="${Y(v)+4}" font-size="12" fill="${css('--mute')}" text-anchor="end">${yfmt(v)}</text>`;xs.forEach((x,i)=>g+=`<text x="${X(i)}" y="${H-12}" font-size="12" fill="${css('--mute')}" text-anchor="middle">${xfmt(x)}</text>`);if(xl)g+=`<text x="${W-R}" y="${H-1}" font-size="11" fill="${css('--mute')}" text-anchor="end">${xl}</text>`;series.forEach(se=>{g+=`<path d="${se.v.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+','+Y(v).toFixed(1)).join('')}" fill="none" stroke="${se.c}" stroke-width="${se.w||3}" ${se.dash?'stroke-dasharray="5 5"':''}/>`;se.v.forEach((v,i)=>g+=`<circle cx="${X(i)}" cy="${Y(v)}" r="3.5" fill="${se.c}"><title>${se.n}: ${v}%</title></circle>`)});s.innerHTML=g};new ResizeObserver(draw).observe(s)}
+chart('curve',M.curve.map(c=>c.approve_pct),[{v:M.curve.map(c=>c.bad_rate_grade),c:css('--clay'),n:'Grade'},{v:M.curve.map(c=>c.bad_rate_model),c:css('--green'),n:'Model'}],{ymin:5,ymax:16,xfmt:v=>v+'%',xl:'share approved'});
+chart('cal',M.calibration.map(c=>c.decile),[{v:M.calibration.map(c=>c.pred),c:css('--mute'),n:'Predicted',dash:1,w:2},{v:M.calibration.map(c=>c.actual),c:css('--green'),n:'Actual'}],{ymin:0,ymax:40,xl:'risk decile (1 = safest)'});
+const shades=['#1f6f54','#4f9a7c','#c2643a','#8a3f20'],gr=['A','B','C','D'],ix=['0','1','2','3+'];
+chart('inq',ix,gr.map((g,k)=>({v:ix.map(i=>D.inquiries.find(r=>r.grade===g&&r.inquiries===i).bad_rate_pct),c:shades[k],n:'Grade '+g})),{ymin:0,ymax:30,xl:'inquiries, last 6 months'});
+document.getElementById('inqLegend').innerHTML=gr.map((g,k)=>`<span><span class="sw" style="background:${shades[k]}"></span>Grade ${g}</span>`).join('');
+</script>
+</body>
+</html>

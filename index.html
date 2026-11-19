@@ -224,7 +224,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
 <section class="band samples" id="work">
   <div class="in">
     <h2>Sample work</h2>
-    <p class="lede">How I would help customers adopt a new tool and grow with it, from the first demo to renewal, shown through seven working documents and six working builds.</p>
+    <p class="lede">How I would help customers adopt a new tool and grow with it, from the first demo to renewal, shown through seven working documents and seven working builds.</p>
     <span class="flag">These are sample pieces I created for this portfolio. The customers are fictional.</span>
 
     <details class="sample" id="ticket-triage" open>
@@ -252,6 +252,18 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
       <div class="sbody">
         <p class="ctx"><b>The problem:</b> "did I lose my credits?" is a ticket that repeats every day at AI video companies. <b>What I built:</b> a short captioned video that explains when credits come back and when they don't, plus a help article and a reply macro that link to it. <b>The rule:</b> move fast with AI, but every claim gets checked against the official Help Center before it ships.</p>
         <p class="ctx"><b>Watch it:</b> <a href="projects/runway-help-video/">open the video and write-up</a>.</p>
+      </div>
+    </details>
+
+    <details class="sample" id="lending-risk">
+      <summary>
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round"><path d="M4 8 C10 9 16 13 24 22"/><path d="M4 8 C10 8 16 11 24 17" stroke="#e4572e"/></svg></span>
+        <div><h3>Approval vs. loss: a lending analysis in SQL and Python</h3><p>39,747 real LendingClub loans, explored in SQL and modeled in Python to see who to approve and what it costs in losses.</p></div>
+        <span class="tog"><span class="o">Open</span><span class="c">Close</span></span>
+      </summary>
+      <div class="sbody">
+        <p class="ctx"><b>The question:</b> who should a lender approve, and how much does a better risk signal reduce losses? <b>What I built:</b> DuckDB SQL to clean and explore public LendingClub data, and a Python default model trained on 2007&ndash;2010 loans and tested on 2011. At an 80% approval rate it cut the bad rate from 11.9% to 11.1% compared with grade alone. I also generated adverse action reasons, left out location to avoid proxies for protected traits, and found that over half of declines came down to loan term, which points to offering a shorter term instead of a decline. <b>How I worked:</b> built with an AI assistant, with every result re-run and spot-checked.</p>
+        <p class="ctx"><b>See it:</b> <a href="projects/lending-risk/">open the analysis</a> and the SQL and Python code.</p>
       </div>
     </details>
 
