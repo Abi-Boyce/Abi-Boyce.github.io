@@ -60,8 +60,8 @@ h3{font-size:22px;margin-bottom:.4rem}
 /* proof */
 .proof{background:var(--soft)}
 .nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
-.num{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
-.num b{display:block;font-size:clamp(36px,4vw,48px);font-weight:800;color:var(--deep2);line-height:1;margin-bottom:8px;white-space:nowrap}
+.num{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;container-type:inline-size}
+.num b{display:block;font-size:clamp(28px,17cqi,48px);font-weight:800;color:var(--deep2);line-height:1;margin-bottom:8px;white-space:nowrap}
 .num span{color:var(--muted)}
 
 /* stories */
@@ -261,21 +261,6 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
     <p class="fnote" data-for="support" hidden><b>For support roles:</b> triaging tickets, spotting patterns across a queue, escalating to engineering, and writing help content customers can use on their own.</p>
     <p class="fnote" data-for="data" hidden><b>For data and operations roles:</b> SQL and Python analysis, automated pipelines and workflows, and trend reports that turn raw tickets into counts and decisions.</p>
     <p class="fnote" data-for="ai" hidden><b>For AI quality roles:</b> scoring an AI model against labeled answers, fact-checking AI-made content, and keeping risky cases with people.</p>
-
-    <details class="sample" id="ai-evals" data-cat="ai">
-      <summary>
-        <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 14 L11 20 L23 7"/><circle cx="23" cy="20" r="2.4" fill="#e4572e" stroke="none"/></svg></span>
-        <div><h3>AI model evaluation projects</h3><p>Testing AI responses the way an evaluation team would: scoring quality against a rubric, probing safety and refusals, and tracking how behavior holds up over long conversations.</p></div>
-        <span class="tog"><span class="o">Open</span><span class="c">Close</span></span>
-      </summary>
-      <div class="sbody">
-        <p class="ctx"><b>The goal:</b> find where AI models fail, and write it up clearly enough that a team can act on it.</p>
-        <div class="two">
-          <div><h4>What I tested</h4><ul><li><b>Quality and grounding:</b> scored responses for accuracy, grounding, coherence and helpfulness, and documented confident but unsupported claims.</li><li><b>Safety and refusals:</b> wrote prompts across safety categories to see how consistently a model refuses and where it draws lines.</li><li><b>Adversarial prompts:</b> used emotional pressure, hypotheticals and hidden intent to look for weak spots.</li><li><b>Long conversations:</b> reviewed 10 to 15 turn conversations for contradictions, forgotten instructions and weakening safety behavior.</li></ul></div>
-          <div><h4>How I scored it</h4><ul><li>A 0 to 5 rubric covering quality, safety, grounding and coherence.</li><li>Calibration notes so different reviewers give the same response the same score.</li><li>Each finding written up with the prompt, the response, the score and a recommendation.</li></ul></div>
-        </div>
-      </div>
-    </details>
 
     <details class="sample" id="ticket-triage" data-cat="support data ai">
       <summary>
@@ -666,7 +651,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
       <div class="way"><h3>Keep people in the loop</h3><p>I teach teams to check AI output, so trust is earned.</p></div>
     </div>
     <div class="skills" aria-label="Skills and tools">
-      <span>Coaching and training</span><span>Change management</span><span>Relationship building</span><span>Onboarding</span><span>Presenting</span><span>AI output evaluation</span><span>Safety and refusal testing</span><span>Rubric design</span><span>SQL</span><span>Zapier</span><span>Claude</span><span>ChatGPT</span><span>Microsoft Copilot</span><span>Salesforce</span><span>Close CRM</span><span>Google Workspace</span><span>Notion</span><span>Python basics</span>
+      <span>Coaching and training</span><span>Change management</span><span>Relationship building</span><span>Onboarding</span><span>Presenting</span><span>AI output evaluation</span><span>SQL</span><span>Zapier</span><span>Claude</span><span>ChatGPT</span><span>Microsoft Copilot</span><span>Salesforce</span><span>Close CRM</span><span>Google Workspace</span><span>Notion</span><span>Python basics</span>
     </div>
   </div>
 </section>
