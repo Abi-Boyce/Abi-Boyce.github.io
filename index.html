@@ -113,6 +113,25 @@ h3{font-size:22px;margin-bottom:.4rem}
 .pill{display:inline-block;padding:.15rem .65rem;border-radius:999px;font-size:13px;font-weight:700;white-space:nowrap}
 .pill.g{background:#dff3e8;color:#1d6b43}.pill.y{background:#fff1d6;color:#8a5a00}.pill.r{background:#fde2da;color:#a3361a}
 
+/* role filters */
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 0;margin-bottom:.75rem;background:var(--soft)}
+@media (min-width:900px){.filters{position:sticky;top:0;z-index:5}}
+.flabel{flex:none;width:100%;font-weight:700;color:var(--muted);font-size:14px}
+.filters button{flex:none;font:inherit;font-weight:700;font-size:15px;cursor:pointer;min-height:42px;padding:0 1rem;border-radius:999px;border:2px solid var(--deep2);background:var(--card);color:var(--deep2);white-space:nowrap}
+.filters button[aria-pressed="true"]{background:var(--deep2);color:#fff}
+.filters button i{font-style:normal;opacity:.75;font-weight:500}
+.filters button:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.fnote{margin:0 0 1.25rem;color:var(--muted)}
+.fnote b{color:var(--ink)}
+.sample[hidden]{display:none}
+
+/* certifications */
+.certs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.cert{border:1px solid var(--line);border-radius:18px;padding:20px;background:var(--card);display:flex;flex-direction:column;gap:.4rem}
+.cert .by{font-size:13.5px;font-weight:700;color:var(--coral)}
+.cert h3{font-size:19px}
+.cert .pill{align-self:flex-start;margin-top:auto}
+
 /* approach */
 .ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
 .way{border-left:4px solid var(--coral);padding:4px 0 4px 16px}
@@ -143,7 +162,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
   <div class="in">
     <div class="top">
       <a class="mark" href="#top">Abigayle Boyce</a>
-      <nav aria-label="Primary"><a href="#stories">Experience</a><a href="#work">Sample work</a><a href="#approach">Approach</a><a href="#contact">Contact</a></nav>
+      <nav aria-label="Primary"><a href="#stories">Experience</a><a href="#work">Sample work</a><a href="#certifications">Certifications</a><a href="#approach">Approach</a><a href="#contact">Contact</a></nav>
     </div>
     <div class="hgrid" id="top">
       <div>
@@ -229,7 +248,21 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
     <p class="lede">How I would help customers adopt a new tool and grow with it, from the first demo to renewal, shown through seven working documents and seven working builds.</p>
     <span class="flag">These are sample pieces I created for this portfolio. The customers are fictional.</span>
 
-    <details class="sample" id="ticket-triage" open>
+    <div class="filters" role="group" aria-label="Show work for a role">
+      <span class="flabel">Hiring for:</span>
+      <button type="button" data-f="all" aria-pressed="true">All work <i></i></button>
+      <button type="button" data-f="cs" aria-pressed="false">Customer Success &amp; AI Adoption <i></i></button>
+      <button type="button" data-f="support" aria-pressed="false">Technical Support &amp; Support Ops <i></i></button>
+      <button type="button" data-f="data" aria-pressed="false">Data Analysis &amp; Automation <i></i></button>
+      <button type="button" data-f="ai" aria-pressed="false">AI Quality &amp; Evaluation <i></i></button>
+    </div>
+    <p class="fnote" data-for="all">Pick a role above to see only the work that fits it.</p>
+    <p class="fnote" data-for="cs" hidden><b>For customer success roles:</b> plans for onboarding, adoption, training, renewals and account growth, plus a reporting pipeline that flags at-risk accounts.</p>
+    <p class="fnote" data-for="support" hidden><b>For support roles:</b> triaging tickets, spotting patterns across a queue, escalating to engineering, and writing help content customers can use on their own.</p>
+    <p class="fnote" data-for="data" hidden><b>For data and operations roles:</b> SQL and Python analysis, automated pipelines and workflows, and trend reports that turn raw tickets into counts and decisions.</p>
+    <p class="fnote" data-for="ai" hidden><b>For AI quality roles:</b> scoring an AI model against labeled answers, fact-checking AI-made content, and keeping risky cases with people.</p>
+
+    <details class="sample" id="ticket-triage" data-cat="support data ai">
       <summary>
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="6" height="18" rx="1.5"/><rect x="11" y="5" width="6" height="12" rx="1.5"/><rect x="19" y="5" width="6" height="8" rx="1.5"/><circle cx="22" cy="20" r="2.2" fill="#e4572e" stroke="none"/></svg></span>
         <div><h3>Rules vs. AI ticket triage for an education platform</h3><p>A live prototype that sorts educator support tickets with simple rules first, sends only the unclear ones to Claude, and keeps people in charge of student-safety cases.</p></div>
@@ -245,7 +278,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
       </div>
     </details>
 
-    <details class="sample" id="help-video">
+    <details class="sample" id="help-video" data-cat="support ai">
       <summary>
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="22" height="16" rx="3"/><path d="M12 11 L17 14 L12 17 Z" fill="#e4572e" stroke="#e4572e"/></svg></span>
         <div><h3>Self-service help video: "Did that failed generation cost you credits?"</h3><p>A 42-second animated help video for an AI video tool, with the help article and reply macro it lives in, built quickly with AI and fact-checked against the product's Help Center.</p></div>
@@ -257,7 +290,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
       </div>
     </details>
 
-    <details class="sample" id="lending-risk">
+    <details class="sample" id="lending-risk" data-cat="data ai">
       <summary>
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round"><path d="M4 8 C10 9 16 13 24 22"/><path d="M4 8 C10 8 16 11 24 17" stroke="#e4572e"/></svg></span>
         <div><h3>Approval vs. loss: a lending analysis in SQL and Python</h3><p>39,747 real LendingClub loans, explored in SQL and modeled in Python to see who to approve and what it costs in losses.</p></div>
@@ -269,7 +302,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
       </div>
     </details>
 
-    <details class="sample" id="developer-support-trends">
+    <details class="sample" id="developer-support-trends" data-cat="support data">
       <summary>
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round"><path d="M4 22h4M4 16h10M4 10h16" /><circle cx="22" cy="10" r="2.4" fill="#e4572e" stroke="none"/></svg></span>
         <div><h3>Developer support trend brief</h3><p>56 real, public Apple Developer Forums posts about TestFlight and App Store Connect, tagged and counted to find the one problem behind many reports.</p></div>
@@ -281,7 +314,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
       </div>
     </details>
 
-    <details class="sample" id="queue-patterns">
+    <details class="sample" id="queue-patterns" data-cat="support data">
       <summary>
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21 L9 18 L14 19 L19 15"/><path d="M19 15 L25 5" stroke="#e4572e"/><circle cx="25" cy="5" r="2" fill="#e4572e" stroke="none"/></svg></span>
         <div><h3>Support queue pattern report</h3><p>Two weeks of support tickets for a generative AI video tool, read like a Tier 2 analyst would: find the pattern, prove it with counts, and turn it into a bug report, a macro and a help doc.</p></div>
@@ -294,7 +327,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
     </details>
 
 
-    <details class="sample">
+    <details class="sample" id="adoption-plan" data-cat="cs">
       <summary>
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round"><path d="M4 22 L11 15 L16 19 L24 7"/><circle cx="24" cy="7" r="2" fill="#e4572e" stroke="none"/></svg></span>
         <div><h3>90-day AI adoption plan</h3><p>Taking a new customer from kickoff to everyday use, with a clear measure of success at each stage.</p></div>
@@ -314,7 +347,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
       </div>
     </details>
 
-    <details class="sample">
+    <details class="sample" id="workshop" data-cat="cs">
       <summary>
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round"><rect x="4" y="6" width="20" height="13" rx="2"/><path d="M10 23h8M14 19v4"/><circle cx="14" cy="12.5" r="2" fill="#e4572e" stroke="none"/></svg></span>
         <div><h3>Training workshop: “AI at Work, Your First 60 Minutes”</h3><p>A hands-on session for non-technical teams who are new to AI.</p></div>
@@ -337,7 +370,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
       </div>
     </details>
 
-    <details class="sample" id="champion-program">
+    <details class="sample" id="champion-program" data-cat="cs">
       <summary>
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round"><circle cx="14" cy="9" r="4"/><circle cx="6" cy="19" r="3"/><circle cx="22" cy="19" r="3"/><path d="M11 12 8 16.5M17 12l3 4.5"/><circle cx="14" cy="9" r="1.6" fill="#e4572e" stroke="none"/></svg></span>
         <div><h3>Champion program plan</h3><p>Finding and supporting the power users who spread adoption from the inside.</p></div>
@@ -358,7 +391,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
       </div>
     </details>
 
-    <details class="sample" id="demo-brief">
+    <details class="sample" id="demo-brief" data-cat="cs">
       <summary>
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4 5 8v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V8z"/><path d="m10 14 3 3 5-6"/><circle cx="21" cy="7" r="2" fill="#e4572e" stroke="none"/></svg></span>
         <div><h3>Benefits platform demo brief</h3><p>How I would run discovery and a 30-minute demo of a benefits decision-support tool for an employer and its broker.</p></div>
@@ -392,7 +425,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
       </div>
     </details>
 
-    <details class="sample" id="broker-plan">
+    <details class="sample" id="broker-plan" data-cat="cs">
       <summary>
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 23V12M10 23V8M16 23V14M22 23V5"/><circle cx="22" cy="5" r="2" fill="#e4572e" stroke="none"/></svg></span>
         <div><h3>Broker-partner account plan</h3><p>How I would manage a book of employer clients through a strategic benefits broker, from health checks to renewal and growth.</p></div>
@@ -433,7 +466,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
       </div>
     </details>
 
-    <details class="sample" id="ai-success-plan">
+    <details class="sample" id="ai-success-plan" data-cat="cs">
       <summary>
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="20" height="18" rx="3"/><path d="M9 11h10M9 15h6M9 19h8"/><circle cx="21" cy="8" r="2" fill="#e4572e" stroke="none"/></svg></span>
         <div><h3>Enterprise AI workflow success plan</h3><p>How I would help an enterprise customer adopt AI inside a work management platform and show real business results.</p></div>
@@ -468,7 +501,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
       </div>
     </details>
 
-    <details class="sample" id="dx-lifecycle">
+    <details class="sample" id="dx-lifecycle" data-cat="cs">
       <summary>
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4a10 10 0 1 1-9.4 6.6"/><path d="M4 5v5.6h5.6"/><circle cx="14" cy="14" r="2.2" fill="#e4572e" stroke="none"/></svg></span>
         <div><h3>Engineering insights customer lifecycle plan</h3><p>How I would take a customer of a developer-experience platform from implementation to real change and a confident renewal.</p></div>
@@ -510,7 +543,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
       </div>
     </details>
 
-    <details class="sample" id="outreach-pipeline">
+    <details class="sample" id="outreach-pipeline" data-cat="data">
       <summary>
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="8" height="6" rx="1.5"/><rect x="17" y="18" width="8" height="6" rx="1.5"/><path d="M7 10v5a3 3 0 0 0 3 3h7"/><circle cx="21" cy="8" r="2.2" fill="#e4572e" stroke="none"/></svg></span>
         <div><h3>AI-powered outreach pipeline (built in Zapier)</h3><p>A live automation that turns a saved contact into a personal LinkedIn note that points to the right portfolio project, with a person reviewing every message before it’s sent.</p></div>
@@ -551,7 +584,7 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
       </div>
     </details>
 
-    <details class="sample" id="cs-reporting-pipeline">
+    <details class="sample" id="cs-reporting-pipeline" data-cat="cs data">
       <summary>
         <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="9" cy="6" rx="6" ry="2.5"/><path d="M3 6v12c0 1.4 2.7 2.5 6 2.5"/><path d="M15 6v5"/><path d="M14 22l4-5 3 3 5-7"/><circle cx="26" cy="13" r="2" fill="#e4572e" stroke="none"/></svg></span>
         <div><h3>CS reporting &amp; automation pipeline (Python + SQL)</h3><p>A working pipeline that turns CRM, support and usage data into health scores, a renewal watchlist, a ticket triage queue and AI-ready business review inputs, with data-quality checks built in.</p></div>
@@ -591,6 +624,19 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
         <p class="ctx"><b>How I built it:</b> I used AI (Claude) to help write the code, then ran it, checked every output against the data, and documented the data model, the score and the access rules. It's the same habit as my outreach pipeline: AI speeds up the build, and my judgment decides what ships.</p>
       </div>
     </details>
+  </div>
+</section>
+
+<section class="band" id="certifications">
+  <div class="in">
+    <h2>Certifications</h2>
+    <p class="lede">What I’m studying now to build on my hands-on AI work.</p>
+    <div class="certs">
+      <div class="cert"><span class="by">Anthropic Academy</span><h3>AI Fluency</h3><span class="pill y">In progress</span></div>
+      <div class="cert"><span class="by">Anthropic Academy</span><h3>Claude 101</h3><span class="pill y">In progress</span></div>
+      <div class="cert"><span class="by">Anthropic Academy</span><h3>Building with the Claude API</h3><span class="pill y">In progress</span></div>
+      <div class="cert"><span class="by">Google · Coursera</span><h3>Google AI Professional Certificate</h3><span class="pill y">In progress</span></div>
+    </div>
   </div>
 </section>
 
@@ -646,6 +692,32 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
   new ResizeObserver(draw).observe(s);
 }
 </script>
-<script>(function(){function o(){var e=location.hash&&document.querySelector(location.hash);if(e&&e.tagName==="DETAILS"){e.open=true;e.scrollIntoView();}}addEventListener("hashchange",o);o();})();</script>
+<script>
+(function(){
+  var items=[].slice.call(document.querySelectorAll('.sample[data-cat]'));
+  var btns=[].slice.call(document.querySelectorAll('.filters button'));
+  var notes=[].slice.call(document.querySelectorAll('.fnote'));
+  btns.forEach(function(b){var f=b.dataset.f;b.querySelector('i').textContent='('+items.filter(function(d){return f==='all'||d.dataset.cat.split(' ').indexOf(f)>-1}).length+')';});
+  function show(f){
+    if(!btns.some(function(b){return b.dataset.f===f}))f='all';
+    btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.f===f)});
+    notes.forEach(function(n){n.hidden=n.dataset.for!==f});
+    items.forEach(function(d){d.hidden=!(f==='all'||d.dataset.cat.split(' ').indexOf(f)>-1)});
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    show(b.dataset.f);
+    var h=b.dataset.f==='all'?'#work':'#for-'+b.dataset.f;
+    history.replaceState(null,'',location.pathname+location.search+h);
+    if(window.goatcounter&&goatcounter.count)goatcounter.count({path:'filter-'+b.dataset.f,title:'Filter: '+b.textContent,event:true});
+  })});
+  function route(){
+    var h=location.hash;
+    if(h.indexOf('#for-')===0){show(h.slice(5));document.getElementById('work').scrollIntoView();return;}
+    var e=h&&document.querySelector(h);
+    if(e&&e.tagName==='DETAILS'){show('all');e.open=true;e.scrollIntoView();}
+  }
+  addEventListener('hashchange',route);route();
+})();
+</script>
 </body>
 </html>
