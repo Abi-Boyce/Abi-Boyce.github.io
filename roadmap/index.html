@@ -29,7 +29,7 @@ h1{font-size:clamp(34px,5vw,52px);line-height:1.05;margin:0 0 16px;text-wrap:bal
 .lede{font-size:17px;max-width:56ch;margin:0 0 18px}
 .goal{border-left:6px solid var(--red);padding:4px 0 4px 14px;font-size:15px;color:var(--grey)}
 .goal b{color:var(--ink)}
-.board{display:grid;grid-template-columns:repeat(13,minmax(0,1fr));gap:5px}
+.board{display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:5px}
 .cell{aspect-ratio:1;border:2px solid var(--ink);display:grid;place-items:center;font-size:13px;font-weight:800;font-stretch:112%;position:relative;cursor:pointer;background:var(--bg);color:var(--ink)}
 .cell .f{position:absolute;left:0;bottom:0;width:100%;background:var(--red);opacity:.9}
 .cell span{position:relative}
@@ -129,7 +129,7 @@ footer{border-top:6px solid var(--ink);padding:18px 0 40px;font-size:14px;color:
 #packdlg{text-align:center}
 @media(max-width:700px){.games{grid-template-columns:minmax(0,1fr)}.lite{grid-template-columns:minmax(0,1fr);justify-items:start}}
 @media(max-width:820px){.hero{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.ph{grid-template-columns:3em minmax(0,1fr)}.ph .badge{grid-column:2;justify-self:start}}
-@media(max-width:600px){.board{grid-template-columns:repeat(7,minmax(0,1fr))}.wbody{margin-left:0}details.week>summary{grid-template-columns:3.6em minmax(0,1fr)}.wstate{grid-column:2;justify-self:start}.r{grid-template-columns:minmax(0,1fr)}.row2{grid-template-columns:minmax(0,1fr)}.log article{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.board{grid-template-columns:repeat(6,minmax(0,1fr))}.wbody{margin-left:0}details.week>summary{grid-template-columns:3.6em minmax(0,1fr)}.wstate{grid-column:2;justify-self:start}.r{grid-template-columns:minmax(0,1fr)}.row2{grid-template-columns:minmax(0,1fr)}.log article{grid-template-columns:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -153,8 +153,8 @@ footer{border-top:6px solid var(--ink);padding:18px 0 40px;font-size:14px;color:
 <div class="hero">
  <div>
   <h1 class="wide">Teaching myself AI safety research, in public.</h1>
-  <p class="lede">A 26-week, 40-hours-a-week plan using only free courses: Python, how neural networks work, interpretability, and model evaluations. Each checked day below is work I've completed. Each proof link is something I built.</p>
-  <p class="goal"><b>Goal:</b> qualify for the Anthropic Fellows Program (AI Safety) and research-engineering roles in model evaluation and safety.</p>
+  <p class="lede">A 30-week, 40-hours-a-week plan using only free courses: Python, how neural networks work, interpretability, model evaluations, and building LLM apps with APIs and RAG. Each checked day below is work I've completed. Each proof link is something I built.</p>
+  <p class="goal"><b>Goal:</b> qualify for the Anthropic Fellows Program (AI Safety), junior AI engineer roles, and research-engineering roles in model evaluation and safety.</p>
  </div>
  <div>
   <div class="boardhead"><div class="pct wide" id="pct">0%<small>of study days complete</small></div><div class="legend" id="started"></div></div>
@@ -214,7 +214,7 @@ footer{border-top:6px solid var(--ink);padding:18px 0 40px;font-size:14px;color:
 </section>
 
 <footer>
- All resources in this plan are free (Harvard CS50P, MIT Missing Semester, ARENA, Andrej Karpathy, UK AISI's Inspect, Anthropic's public courses). Progress updated <span id="updated">—</span>. Contact via <a href="https://www.linkedin.com/in/abigayle-boyce-a59b7640a/">LinkedIn</a>.
+ All resources in this plan are free (Harvard CS50P, MIT Missing Semester, ARENA, Andrej Karpathy, UK AISI's Inspect, Anthropic's public courses, FastAPI, LangChain, DeepLearning.AI). Progress updated <span id="updated">—</span>. Contact via <a href="https://www.linkedin.com/in/abigayle-boyce-a59b7640a/">LinkedIn</a>.
 </footer>
 </div>
 
@@ -235,7 +235,7 @@ footer{border-top:6px solid var(--ink);padding:18px 0 40px;font-size:14px;color:
 <canvas id="fx"></canvas>
 
 <script>
-// Abigayle Boyce — 26-week AI Safety Research Prep Plan (all free resources)
+// Abigayle Boyce — 30-week AI Safety + Junior AI Engineer plan (all free resources)
 const C=n=>`https://cs50.harvard.edu/python/weeks/${n}/`, P=n=>`https://cs50.harvard.edu/python/psets/${n}/`;
 const MS=s=>`https://missing.csail.mit.edu/2026/${s}/`;
 const EX='https://exercism.org/tracks/python/exercises', LGB='https://learngitbranching.js.org/';
@@ -254,6 +254,9 @@ const AC=s=>`https://github.com/anthropics/courses/blob/master/${s}/README.md`;
 const HAMEL='https://hamel.dev/blog/posts/evals/';
 const FEL='https://job-boards.greenhouse.io/anthropic/jobs/5183044008';
 const GH='https://github.com/Abi-Boyce';
+const FA=s=>`https://fastapi.tiangolo.com/tutorial/${s}/`;
+const DL=s=>`https://www.deeplearning.ai/courses/${s}`, NS=s=>`https://gauntletai.com/night-school/${s}`;
+const LCS='https://docs.langchain.com/oss/python/langchain/knowledge-base', LCR='https://docs.langchain.com/oss/python/langchain/rag';
 const Q='Q';
 
 const PHASES=[
@@ -262,7 +265,8 @@ const PHASES=[
  {id:3,name:'How neural networks work',weeks:[10,14],badge:'Model Builder'},
  {id:4,name:'Transformers & interpretability',weeks:[15,18],badge:'Transformer Tamer'},
  {id:5,name:'Evals & AI safety',weeks:[19,21],badge:'Eval Engineer'},
- {id:6,name:'Research practice & apply',weeks:[22,26],badge:'Safety Researcher'}];
+ {id:6,name:'Research practice & apply',weeks:[22,26],badge:'Safety Researcher'},
+ {id:7,name:'Junior AI Engineer skills',weeks:[27,30],badge:'Junior AI Engineer'}];
 
 // days: [watch/read title, url, activity, assess title, assess url]
 const WEEKS=[
@@ -448,6 +452,34 @@ quiz:[['Why that experiment?','Have a 30-second answer.'],['Weaknesses of your c
 ['Apply',FEL,'Apply through the Constellation form linked on the posting (not the Greenhouse form).','Application submitted',FEL],
 ['Celebrate & keep going',`https://abi-boyce.github.io`,'Update your portfolio. Keep doing one research sprint a week while you wait.','Weekly self-check + Q2',Q]],
 quiz:[['What have you proven?','You learned Python, ML, interpretability and evals in 6 months and shipped research.'],['If not selected?','Use feedback, keep sprinting, apply to a later cohort.'],['What\'s your next goal?','Write it down.']]},
+{n:27,t:'Prompt engineering & LLM APIs in depth',g:'Write reliable prompts and use the Claude API like a product engineer.',days:[
+['Anthropic: Prompt engineering interactive tutorial',AC('prompt_engineering_interactive_tutorial'),'Chapters 1–4 (clear instructions, roles, separating data, output format).','Chapter exercises',AC('prompt_engineering_interactive_tutorial')],
+['Prompt engineering tutorial',AC('prompt_engineering_interactive_tutorial'),'Chapters 5–9 (examples, step-by-step thinking, avoiding hallucinations).','Chapter exercises',AC('prompt_engineering_interactive_tutorial')],
+['Anthropic: Real world prompting',AC('real_world_prompting'),'Work through the lessons; note each technique you use.','Lesson exercises',AC('real_world_prompting')],
+['Anthropic: Tool use',AC('tool_use'),'Learn function calling: give Claude a tool and handle its calls.','Lesson exercises',AC('tool_use')],
+['Build + evaluate',AC('prompt_evaluations'),'Build a call-script coach prompt; write a 20-case eval for it and improve the prompt until scores rise.','Weekly self-check',Q]],
+quiz:[['What three things make a prompt reliable?','Clear task, separated context/data, and a defined output format (plus examples for tricky cases).'],['What is function calling / tool use?','The model asks your code to run a function, and you send back the result.'],['How do you know a prompt change helped?','Run the same eval set before and after and compare scores.']]},
+{n:28,t:'Building REST APIs with FastAPI',g:'Turn an LLM feature into a web service other apps can call.',days:[
+['FastAPI: First Steps',FA('first-steps'),'Run your first API; explore the automatic /docs page.','Path and query parameters working',FA('path-params')],
+['FastAPI: Request Body',FA('body'),'Accept JSON input with a Pydantic model; return a response model.','POST endpoint works in /docs',FA('response-model')],
+['Build day',FA('body'),'Add a POST /coach endpoint that sends the input to Claude and returns structured JSON.','Endpoint returns valid JSON',Q],
+['FastAPI: Testing',FA('testing'),'Write tests for your endpoints (mock the Claude call).','pytest passes',FA('testing')],
+['Ship it',GH,'Push to GitHub with a README showing example requests and responses.','Weekly self-check',Q]],
+quiz:[['What does REST mean in practice?','Resources at URLs, changed with HTTP methods like GET and POST, usually exchanging JSON.'],['Why validate input with Pydantic?','Bad input is rejected with a clear error before it reaches your code or the model.'],['Why mock the LLM call in tests?','Tests stay fast, free and repeatable.']]},
+{n:29,t:'RAG, vector databases & LangChain basics',g:'Answer questions from your own documents.',days:[
+['DeepLearning.AI: Retrieval Augmented Generation',DL('retrieval-augmented-generation'),'Watch the opening modules at 1.75x: chunking, embeddings, retrieval.','Module quiz',DL('retrieval-augmented-generation')],
+['LangChain: Semantic search',LCS,'Load documents, split them, embed them, and store them in a vector store.','Search returns relevant chunks',LCS],
+['LangChain: Build a RAG agent',LCR,'Follow the tutorial end to end.','Your RAG app answers questions',LCR],
+['Build day',LCR,'Build RAG over a document set you know (e.g. life insurance product guides) and serve it from your FastAPI app.','Answers include sources',Q],
+['Evaluate it',HAMEL,'Write 25 questions with known answers; measure retrieval hits and answer accuracy.','Weekly self-check',Q]],
+quiz:[['What is a vector database for?','Storing embeddings so you can quickly find the chunks most similar in meaning to a question.'],['What is chunking and why does size matter?','Splitting documents into pieces; too big dilutes relevance, too small loses context.'],['How do you evaluate RAG?','Check retrieval (were the right chunks found?) separately from the answer (was it correct and grounded?).']]},
+{n:30,t:'RAG vs. fine-tuning + junior-ready portfolio',g:'Know when to use which — and show it.',days:[
+['Night School: Fine-Tuning LLMs — when to use it',NS('fine-tuning-llms-explained-what-it-is-when-to-use-it-and-when-to-skip-it'),'Watch with notes.','Self-check Q1',Q],
+['DeepLearning.AI: Advanced Retrieval with Chroma',DL('advanced-retrieval-for-ai/lesson'),'Learn query expansion and re-ranking; apply one to your RAG app.','Eval score before vs after',DL('advanced-retrieval-for-ai/lesson')],
+['Comparison write-up',GH,'Write "RAG or fine-tuning?" for your use case: cost, freshness of data, accuracy, effort.','Self-check Q2',Q],
+['Portfolio day',`https://abi-boyce.github.io`,'Add the API, RAG app and eval results to your portfolio with a short demo video.','Published',`https://abi-boyce.github.io`],
+['Apply',`https://www.linkedin.com/in/abigayle-boyce-a59b7640a/`,'Update your resume and LinkedIn with these skills; start applying to junior AI engineer roles that accept portfolios.','Weekly self-check',Q]],
+quiz:[['When does RAG beat fine-tuning?','When the model needs facts that change or are specific to your documents, and when you need sources.'],['When might fine-tuning win?','For a consistent style or format, or a narrow task prompting can\'t fix, when you have good training examples.'],['How do you explain your RAG project in an interview?','The problem, how retrieval works, how you measured quality, and what you improved.']]},
 ];
 
 {
@@ -563,7 +595,7 @@ function burst(count){if(matchMedia('(prefers-reduced-motion: reduce)').matches)
 /* ================= STICKERS, PACKS, GAMES, TIRED-DAY ================= */
 const SETS={
  1:{name:'Python',col:'#2f7d5b'},2:{name:'Speed coder',col:'#1f4fbf'},3:{name:'Neural nets',col:'#7a3fb8'},
- 4:{name:'Transformers',col:'#c2572f'},5:{name:'Evals',col:'#0f8a8a'},6:{name:'Researcher',col:'#e4002b'},
+ 4:{name:'Transformers',col:'#c2572f'},5:{name:'Evals',col:'#0f8a8a'},6:{name:'Researcher',col:'#e4002b'},7:{name:'AI Engineer',col:'#3a5a40'},
  g:{name:'Everyday',col:'#d49a00'},m:{name:'Milestones',col:'#111111'}};
 // [id, set, glyph, name, rarity, shape]
 const STICKERS=[
@@ -573,6 +605,7 @@ const STICKERS=[
  ['p4a',4,'attn','Attention Span','common','circle'],['p4b',4,'QKᵀ','Query Keeper','common','square'],['p4c',4,'head','Head Hunter','rare','hex'],['p4d',4,'GPT','Tiny GPT','shiny','star'],
  ['p5a',5,'eval','Eval Builder','common','circle'],['p5b',5,'✓ ✗','Fair Judge','common','square'],['p5c',5,'n=100','Dataset Maker','rare','hex'],['p5d',5,'AISI','Inspector','shiny','star'],
  ['p6a',6,'?→!','Question Asker','common','circle'],['p6b',6,'draft','Write-up Writer','common','square'],['p6c',6,'48h','Sprint Finisher','rare','hex'],['p6d',6,'Fellow','Future Fellow','shiny','star'],
+ ['p7a',7,'API','API Builder','common','circle'],['p7b',7,'RAG','Retriever','common','square'],['p7c',7,'POST','Endpoint Expert','rare','hex'],['p7d',7,'Jr. AI','Junior AI Engineer','shiny','star'],
  ['g1',  'g','+1','Showed Up','common','circle'],['g2','g','brew','Coffee Coder','common','square'],['g3','g','★','Gold Star','rare','star'],['g4','g','zzz','Night Owl','common','circle'],['g5','g','25:00','Focus Timer','common','hex'],['g6','g','hi!','Hello World','rare','square'],
  ['m1','m','Day 1','First Day','ms','circle'],['m2','m','Wk 1','First Week','ms','hex'],['m3','m','proof','First Proof','ms','square'],['m4','m','7×','7-Day Streak','ms','star'],
  ['m5','m','3/3','Flash Master','ms','circle'],['m6','m','bug!','Bug Squasher','ms','hex'],['m7','m','kept','Kept Going','ms','square'],['m8','m','×10','Pack Rat','ms','star']];
@@ -667,6 +700,8 @@ const BUGS=[
  {c:['class Student:','    def __init__(self, name):','        self.name = name','    def greet():','        return "Hi " + self.name'],b:3,w:'Methods need self as their first parameter: def greet(self):'},
  {c:['total = 0','for price in [9.5, 3.25]:','    total = price','print(total)'],b:2,w:'This replaces total each time instead of adding. Use total += price.'},
  {c:['for step in range(100):','    loss = model_loss(batch)','    loss.backward()','    optimizer.step()'],b:2,w:'Gradients add up between steps in PyTorch. Call optimizer.zero_grad() before loss.backward().'},
+ {c:['from fastapi import FastAPI','app = FastAPI()','@app.get("/coach")','def coach(script):','    return ask_claude(script)'],b:2,w:'Sending a long script as a GET query parameter is fragile. Use @app.post with a Pydantic request body.'},
+ {c:['chunks = split(docs, size=50000)','store.add(embed(chunks))','hits = store.search(question, k=3)'],b:0,w:'Chunks of 50,000 characters are far too big: each one mixes many topics, so retrieval gets vague. Try a few hundred to ~1,000 characters with some overlap.'},
  {c:['import random','pick = random.randint(1, 10)','if pick > 10:','    print("Rare!")'],b:2,w:'randint(1, 10) never returns more than 10, so this branch can never run. Did you mean >= 10?'},
 ];
 let bug={i:Math.floor(Math.random()*BUGS.length),done:false,pick:null};
