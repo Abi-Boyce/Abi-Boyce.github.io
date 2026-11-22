@@ -260,7 +260,19 @@ footer{background:var(--deep);color:rgba(255,255,255,.65);font-size:14px;padding
     <p class="fnote" data-for="cs" hidden><b>For customer success roles:</b> plans for onboarding, adoption, training, renewals and account growth, plus a reporting pipeline that flags at-risk accounts.</p>
     <p class="fnote" data-for="support" hidden><b>For support roles:</b> triaging tickets, spotting patterns across a queue, escalating to engineering, and writing help content customers can use on their own.</p>
     <p class="fnote" data-for="data" hidden><b>For data and operations roles:</b> SQL and Python analysis, automated pipelines and workflows, and trend reports that turn raw tickets into counts and decisions.</p>
-    <p class="fnote" data-for="ai" hidden><b>For AI quality roles:</b> scoring an AI model against labeled answers, fact-checking AI-made content, and keeping risky cases with people.</p>
+    <p class="fnote" data-for="ai" hidden><b>For AI quality roles:</b> red-teaming a model and writing up the finding, scoring an AI model against labeled answers, fact-checking AI-made content, and keeping risky cases with people.</p>
+
+    <details class="sample" id="red-team-finding" data-cat="ai">
+      <summary>
+        <span class="ic" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none" stroke="#bfe3ea" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3 L24 7 V14 C24 19 19.5 23 14 25 C8.5 23 4 19 4 14 V7 Z"/><path d="M14 9 L14 15" stroke="#e4572e"/><circle cx="14" cy="19" r="1.4" fill="#e4572e" stroke="none"/></svg></span>
+        <div><h3>Red-team finding: fictional framing bypasses a chemical-harm guardrail</h3><p>An adversarial test on Gray Swan AI Arena where a researched screenplay scenario broke a model’s safety guardrail on the first attempt, written up as a finding report.</p></div>
+        <span class="tog"><span class="o">Open</span><span class="c">Close</span></span>
+      </summary>
+      <div class="sbody">
+        <p class="ctx"><b>The test:</b> get a model to give step-by-step instructions for producing a lethal poison. <b>What I did:</b> researched the setting first, then wrapped the request in a movie scene about a captured spy. It worked on the first turn. <b>The write-up:</b> harm category, severity, what a safe response would look like, and follow-up tests. <b>The rule:</b> report the method and the failure, never the harmful output.</p>
+        <p class="ctx"><b>Read it:</b> <a href="projects/red-team-finding/">open the finding report</a>.</p>
+      </div>
+    </details>
 
     <details class="sample" id="ticket-triage" data-cat="support data ai">
       <summary>
