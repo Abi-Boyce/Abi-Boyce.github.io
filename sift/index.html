@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abigayle Boyce for Sift</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE: calm, exact, a working CSM's account file — evidence over adjectives.
+   IDEA: a ruled account review sheet, the kind a CSM brings to a QBR.
+   PICTURE: a sample customer health panel with a chargeback trend line and adoption bars.
+   COLOUR and TYPE: stone ground, black ink, brick accent, white panels; Schibsted Grotesk.
+   LAYOUT: title band, then the review sheet as the picture, then plan, proof and AI practice. */
+:root{color-scheme:light dark;--bg:light-dark(#e7e4df,#171513);--ink:light-dark(#141210,#eeeae4);--mute:light-dark(#5c5750,#a9a298);--panel:light-dark(#ffffff,#211e1b);--rule:light-dark(#cfc9c1,#3a352f);--brick:light-dark(#c8371e,#ff6a4d);--soft:light-dark(#f3f1ed,#2a2622)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Schibsted Grotesk",system-ui,sans-serif;overflow-x:clip}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+h1{font-size:clamp(32px,5vw,52px);line-height:1.05;margin:0 0 14px;font-weight:800;text-wrap:balance}
+h2{font-size:clamp(24px,3vw,32px);line-height:1.1;margin:0 0 16px;font-weight:800;text-wrap:balance}
+h3{font-size:18px;margin:0 0 6px}
+p{margin:0 0 12px;max-width:68ch}
+.lead{font-size:18px;color:var(--mute);max-width:62ch}
+a{color:var(--brick)}
+.nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:18px}
+.nav a{color:var(--ink);font-weight:500;text-decoration:none;border-bottom:2px solid var(--brick);padding:10px 0}
+.nav a:focus-visible,.btn:focus-visible{outline:3px solid var(--brick);outline-offset:3px}
+.sheet{background:var(--panel);border:1px solid var(--rule);padding:clamp(18px,3vw,32px)}
+.sheet-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:18px}
+.note{font-size:13px;color:var(--mute)}
+.grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-bottom:18px}
+.kpi{padding:14px 12px 14px 0}
+.kpi+.kpi{border-left:1px solid var(--rule);padding-left:14px}
+.kpi b{display:block;font-size:clamp(26px,3vw,34px);line-height:1.1;white-space:nowrap}
+.kpi span{font-size:13px;color:var(--mute)}
+.up{color:light-dark(#1f7a3e,#6fd394)}
+.fig{position:relative;min-height:240px}.fig>svg{position:absolute;inset:0;width:100%;height:100%}
+.bars .row{display:grid;grid-template-columns:minmax(0,9em) minmax(0,1fr) 3.2em;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--rule)}
+.track{height:12px;background:var(--soft)}
+.fill{height:100%;background:var(--ink)}
+.fill.hot{background:var(--brick)}
+.bars .val{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;padding:10px 10px 10px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-weight:700;border-bottom:2px solid var(--ink)}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:var(--panel);border:1px solid var(--rule);padding:20px}
+.card .when{font-weight:800;color:var(--brick);font-size:15px;margin-bottom:6px}
+.card ul{margin:0;padding-left:18px}.card li{margin-bottom:6px}
+.proof td:first-child{font-weight:700;width:30%}
+.dark{background:var(--ink);color:var(--bg)}
+.dark a{color:light-dark(#ff8a6e,#c8371e)}
+.dark .note{color:light-dark(#bdb6ad,#5c5750)}
+.foot{display:flex;flex-wrap:wrap;gap:8px 28px}
+@media(max-width:900px){.grid,.cols{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;white-space:normal;font-weight:700}.stack td:empty{display:none}.kpis{grid-template-columns:minmax(0,1fr)}.kpi+.kpi{border-left:0;border-top:1px solid var(--rule);padding-left:0}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+
+<header class="band">
+  <div class="wrap">
+    <p class="note">Prepared for the Customer Success Manager role at Sift</p>
+    <h1>Abigayle Boyce: finding the real need behind the request</h1>
+    <p class="lead">I've spent five years with customers on the phone, leading the agents who serve them, and using AI to get better results. Below is a sample of how I'd run an account review, my plan for the first 90 days, and the proof behind it.</p>
+    <nav class="nav" aria-label="Sections">
+      <a href="#review">Sample account review</a>
+      <a href="#plan">First 90 days</a>
+      <a href="#proof">Proof from my work</a>
+      <a href="#ai">How I use AI</a>
+    </nav>
+  </div>
+</header>
+
+<section class="band" id="review" style="padding-top:0">
+  <div class="wrap sheet">
+    <div class="sheet-head">
+      <div><h2 style="margin:0">Quarterly review: Northpeak Outfitters</h2><span class="note">Fictional mid-market retailer. Every number on this sheet is sample data I made up to show the format.</span></div>
+      <div class="note">Q3 vs Q2 · prepared by Abigayle Boyce</div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><b>0.42%</b><span>Chargeback rate, <span class="up">down from 0.71%</span></span></div>
+      <div class="kpi"><b>11%</b><span>Orders sent to manual review, down from 19%</span></div>
+      <div class="kpi"><b>$184k</b><span>Fraud loss prevented this quarter</span></div>
+    </div>
+    <div class="grid">
+      <div>
+        <h3>Chargeback rate by month</h3>
+        <p class="note">Stated request in July: "turn the score threshold up." Underlying need: the review team was buried, so good orders were waiting days.</p>
+        <div class="fig" id="trend" role="img" aria-label="Line chart of chargeback rate falling from 0.74 percent in January to 0.39 percent in September, with the new workflow live in July"></div>
+      </div>
+      <div>
+        <h3>Feature adoption</h3>
+        <p class="note">Share of the customer's checkout flow using each capability.</p>
+        <div class="bars" id="bars"></div>
+      </div>
+    </div>
+    <h3 style="margin-top:24px">Next quarter</h3>
+    <table class="stack">
+      <thead><tr><th>Goal</th><th>Why it matters to them</th><th>Owner</th><th>Check-in</th></tr></thead>
+      <tbody id="next"></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="band" id="plan">
+  <div class="wrap">
+    <h2>My first 90 days</h2>
+    <p class="lead">Learn the product and the fraud world first, earn trust with each account, then show results customers can measure.</p>
+    <div class="cols" id="plancards"></div>
+  </div>
+</section>
+
+<section class="band" id="proof" style="padding-top:0">
+  <div class="wrap">
+    <h2>Proof from my work</h2>
+    <table class="proof stack">
+      <thead><tr><th>What Sift asks for</th><th>Where I've done it</th></tr></thead>
+      <tbody id="prooftbl"></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="band dark" id="ai">
+  <div class="wrap">
+    <h2>How I use AI: fast drafts, checked before they ship</h2>
+    <div class="cols" id="aicards"></div>
+  </div>
+</section>
+
+<footer class="band">
+  <div class="wrap foot">
+    <span><b>Abigayle Boyce</b> · Lubbock, TX (remote)</span>
+    <span>boyceabigayle18@gmail.com</span>
+    <span>(806) 474-2461</span>
+    <a href="https://www.linkedin.com/in/abigayle-boyce-a59b7640a/">LinkedIn</a>
+    <a href="https://abi-boyce.github.io">Full portfolio</a>
+  </div>
+</footer>
+
+<script>
+{
+const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep'];
+const rate=[0.74,0.72,0.75,0.70,0.73,0.71,0.58,0.46,0.39];
+const s=document.getElementById('trend');
+const draw=()=>{
+  const W=s.clientWidth,H=s.clientHeight,small=W<420;
+  const L=small?34:44,R=12,T=18,B=28,min=0.3,max=0.8;
+  const x=i=>L+i*(W-L-R)/(months.length-1),y=v=>T+(max-v)*(H-T-B)/(max-min);
+  const ticks=[0.4,0.6,0.8];
+  let g=ticks.map(t=>`<line x1="${L}" x2="${W-R}" y1="${y(t)}" y2="${y(t)}" stroke="var(--rule)"/><text x="${L-6}" y="${y(t)+4}" text-anchor="end" font-size="12" fill="var(--mute)">${t.toFixed(1)}%</text>`).join('');
+  g+=months.map((m,i)=>(small&&i%2)?'':`<text x="${x(i)}" y="${H-8}" text-anchor="middle" font-size="12" fill="var(--mute)">${m}</text>`).join('');
+  const gx=x(6);
+  g+=`<line x1="${gx}" x2="${gx}" y1="${T}" y2="${H-B}" stroke="var(--brick)" stroke-dasharray="4 4"/><text x="${gx-6}" y="${T+10}" text-anchor="end" font-size="12" fill="var(--brick)">New workflow live</text>`;
+  g+=`<polyline fill="none" stroke="var(--ink)" stroke-width="2.5" points="${rate.map((v,i)=>x(i)+','+y(v)).join(' ')}"/>`;
+  g+=rate.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="${i>5?4.5:3}" fill="${i>5?'var(--brick)':'var(--ink)'}"/>`).join('');
+  s.innerHTML=`<svg viewBox="0 0 ${W} ${H}">${g}</svg>`;
+};
+const ro=new ResizeObserver(draw);ro.observe(s);
+
+const bars=[['Payment protection',92,false],['Account takeover',64,false],['Workflows (auto-review)',48,true],['Content integrity',15,true]];
+document.getElementById('bars').innerHTML=bars.map(([n,v,h])=>`<div class="row"><span>${n}</span><div class="track"><div class="fill${h?' hot':''}" style="width:${v}%"></div></div><span class="val">${v}%</span></div>`).join('')+'<p class="note" style="margin-top:8px">Brick bars are the adoption gaps I would focus on next quarter.</p>';
+
+const next=[['Move 60% of reviews to automated workflows','Their two-person review team can focus on high-value orders','CSM + customer fraud lead','Week 4'],['Pilot account takeover rules on loyalty logins','Loyalty points theft is their top support complaint','CSM + solutions engineer','Week 6'],['Hold chargebacks under 0.5% through the holidays','Keeps them well clear of card network monitoring programs','Customer, CSM tracks weekly','Weekly']];
+document.getElementById('next').innerHTML=next.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
+
+const plan=[['Days 1–30','Learn',['Complete Sift product training and shadow senior CSMs on calls and QBRs','Study chargebacks, account takeover and fraud patterns by industry','Read every account note and support ticket for my book of business']],['Days 31–60','Build trust',['Meet each customer contact and learn the goal behind their setup','Map each account: features used, gaps, risks and renewal dates','Bring repeated customer feedback to product with examples']],['Days 61–90','Show results',['Run my first business reviews with clear before-and-after numbers','Launch one adoption push for an underused feature in at-risk accounts','Write up what worked so the team can reuse it']]];
+document.getElementById('plancards').innerHTML=plan.map(([w,t,l])=>`<div class="card"><div class="when">${w}</div><h3>${t}</h3><ul>${l.map(i=>`<li>${i}</li>`).join('')}</ul></div>`).join('');
+
+const proof=[['Diagnose the real need','AppleCare+ Tier 1 support at Transcom: troubleshot iPhone, iPad and Mac issues by finding the actual cause behind each customer complaint before setting up repairs.'],['Build trust and advocate','Foundever team lead: one of 4 leads over 400+ agents on the Expedia travel insurance line. At the start of COVID I escalated a team safety concern that moved my department, then the whole site, to work from home.'],['Coach toward results','Coached an agent whose scripted delivery sounded flat. We practiced until she could deliver it in her own voice, and her CSAT rose 3% in a week.'],['Trusted to come back','A former Foundever manager rehired me to help lead a new Cigna healthcare campaign because they needed experienced, trained leads.'],['Hands-on AI experience','As an appointment setter, I rebuilt my call scripts with AI and raised bookings from 3–5 to 10–15 a week. Another team had their VAs adopt my scripts.'],['Clear communication','Explained coverage, billing, refunds and claims to stressed customers, and translated issues into clean case notes for escalation teams.']];
+document.getElementById('prooftbl').innerHTML=proof.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('');
+
+const ai=[['Call scripts','I used Claude and ChatGPT to rewrite scripts that weren\'t working, tested them on real calls, and kept only the lines that booked appointments.'],['Recruiter outreach workflow','Built a Zapier workflow: contacts saved in Apollo get an AI-drafted LinkedIn note, which goes to a review queue. I read and send each one myself.'],['Account prep','For a review like the sample above, I\'d use AI to summarize ticket history and draft the agenda, then check every number against the source data before the customer sees it.']];
+document.getElementById('aicards').innerHTML=ai.map(([t,d])=>`<div class="card" style="background:transparent;border-color:currentColor"><h3>${t}</h3><p style="margin:0">${d}</p></div>`).join('');
+}
+</script>
+</body>
+</html>
